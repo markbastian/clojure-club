@@ -10,3 +10,9 @@
           (println path)
           (count path))
         (recur (reduce #(into %1 (append-ops %2)) [] tree))))))
+
+;(time (number-maze 1 4137))
+;(time (number-maze 7 43))
+;(time (number-maze 9 2))
+;(time (number-maze 2 9))
+;(time (number-maze 2 4))
