@@ -17,3 +17,9 @@
                   (apply hash-set))
              (into past current)
              (inc dist)))))
+
+(time (maze-runner 1 4137))
+(time (maze-runner 7 43))
+(time (maze-runner 9 2))
+(time (maze-runner 2 9))
+(time (maze-runner 2 4))

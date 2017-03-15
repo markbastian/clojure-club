@@ -24,14 +24,14 @@
 
 ;Return them all
 (defn number-paths[s g]
-  (letfn[(nbrs[x] (cond-> [(* 2 x) (+ x 2)] (even? x) (conj (/ x 2))))
-         (expand [paths] (for [path paths n (nbrs (peek path))
-                               :when (not-any? #{n} path)] (conj path n)))]
+  (letfn[(nbrs[x] (cond-> [['* (* 2 x)] ['+ (+ x 2)]] (even? x) (conj ['/ (/ x 2)])))
+         (expand [paths] (for [path paths p (nbrs (peek path))
+                               :when (not-any? #{(second p)} path)] (into path p)))]
     (->> (iterate expand [[s]])
          (some #(when (some (comp #{g} peek) %) %))
          (filter (comp #{g} peek)))))
 
-;(time (number-paths 1 4137))
+(time (number-paths 1 4137))
 (time (number-paths 7 43))
 (time (number-paths 9 2))
 (time (number-paths 2 9))
@@ -39,17 +39,17 @@
 
 ;Return them all
 (defn number-paths1[s g]
-  (letfn[(nbrs[x] (cond-> [(* 2 x) (+ x 2)] (even? x) (conj (/ x 2))))
-         (expand [paths] (for [{:keys [path visited]} paths n (nbrs (peek path))
+  (letfn[(nbrs[x] (cond-> [['* (* 2 x)] ['+ (+ x 2)]] (even? x) (conj ['/ (/ x 2)])))
+         (expand [paths] (for [{:keys [path visited]} paths [_ n :as p] (nbrs (peek path))
                                :when ((complement visited) n)]
-                           {:path (conj path n) :visited (conj visited n)}))]
+                           {:path (into path p) :visited (conj visited n)}))]
     (let [pred (comp #{g} peek :path)]
       (->> (iterate expand [{:path [s] :visited #{s}}])
            (some #(when (some pred %) %))
            (filter pred)
            (mapv :path)))))
 
-;(time (number-paths1 1 4137))
+(time (number-paths1 1 4137))
 (time (number-paths1 7 43))
 (time (number-paths1 9 2))
 (time (number-paths1 2 9))

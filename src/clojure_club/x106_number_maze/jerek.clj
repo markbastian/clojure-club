@@ -13,3 +13,9 @@
                             (map (partial conj %) (if (even? n) [n1 n2 n3] [n1 n2]))))
                     (apply concat)))))))
 
+;(time (my106 1 4137))
+(time (my106 7 43))
+(time (my106 9 2))
+(time (my106 2 9))
+(time (my106 2 4))
+
