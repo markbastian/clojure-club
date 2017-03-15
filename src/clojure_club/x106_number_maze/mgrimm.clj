@@ -13,6 +13,7 @@
                          (not (seen b)) (conj [b (inc depth) (conj path :doub b)])
                          (not (or (seen c) (odd? x))) (conj [c (inc depth) (conj path :halv c)]))))))))
 
+(time (number-maze 1 4137))
 (time (number-maze 7 43))
 (time (number-maze 9 2))
 (time (number-maze 2 9))

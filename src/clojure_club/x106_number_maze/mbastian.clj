@@ -6,8 +6,11 @@
   (letfn[(nbrs[x] (cond-> [(* 2 x) (+ x 2)] (even? x) (conj (/ x 2))))]
     (inc (count (take-while #(not (% g)) (iterate #(reduce into #{} (map nbrs %)) #{s}))))))
 
-(number-maze 9 2)
-(number-maze 2 9)
+(time (number-maze 1 4137))
+(time (number-maze 7 43))
+(time (number-maze 9 2))
+(time (number-maze 2 9))
+(time (number-maze 2 4))
 
 ;Return a single path
 (defn number-path [s g]
@@ -18,9 +21,11 @@
         (v n) (recur v (pop q))
         :default (recur (conj v edge) (into (pop q) (map (fn [x] [x n]) (nbrs n))))))))
 
-(number-path 7 43)
-(number-path 9 2)
-(number-path 2 9)
+(time (number-path 1 4137))
+(time (number-path 7 43))
+(time (number-path 9 2))
+(time (number-path 2 9))
+(time (number-path 2 4))
 
 ;Return them all
 (defn number-paths[s g]
@@ -31,7 +36,7 @@
          (some #(when (some (comp #{g} peek) %) %))
          (filter (comp #{g} peek)))))
 
-(time (number-paths 1 4137))
+;(time (number-paths 1 4137))
 (time (number-paths 7 43))
 (time (number-paths 9 2))
 (time (number-paths 2 9))
@@ -49,7 +54,7 @@
            (filter pred)
            (mapv :path)))))
 
-(time (number-paths1 1 4137))
+;(time (number-paths1 1 4137))
 (time (number-paths1 7 43))
 (time (number-paths1 9 2))
 (time (number-paths1 2 9))
