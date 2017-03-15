@@ -36,7 +36,7 @@
          (some #(when (some (comp #{g} peek) %) %))
          (filter (comp #{g} peek)))))
 
-(time (number-paths 1 4137))
+;(time (number-paths 1 4137))
 (time (number-paths 7 43))
 (time (number-paths 9 2))
 (time (number-paths 2 9))
