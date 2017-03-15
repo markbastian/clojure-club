@@ -34,3 +34,17 @@
 ;; (map #(map second (:path %)) (min-solutions 9 2))
 ;; (min-solutions 9 2)
 ;; (clojure.pprint/pprint (min-solutions 9 2))
+
+(defn number-maze [start finish]
+  (let [ops [#(* 2 %) #(+ 2 %) #(/ % 2)]
+        branch-single (fn [num] (map #(% num) ops))
+        branch (fn [current] (set (filter integer? (mapcat branch-single current))))
+        branch-seq (iterate branch #{start})
+        unsolved? (complement #(% finish))]
+     (inc (count (take-while unsolved? branch-seq)))))
+
+;; (time (number-maze 1 4137))
+;; (time (number-maze 7 43))
+;; (time (number-maze 9 2))
+;; (time (number-maze 2 9))
+;; (time (number-maze 2 4))
