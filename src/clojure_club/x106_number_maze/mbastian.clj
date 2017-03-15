@@ -58,3 +58,35 @@
 (time (fast-number-paths 9 2))
 (time (fast-number-paths 2 9))
 (time (fast-number-paths 2 4))
+
+;The below code deconstructs the above function to demonstrate how easy it is to assemble/dissassemble and debug Clojure
+;forms.
+
+;How the front grows
+(defn nbrs[x] (cond-> [['* (* 2 x)] ['+ (+ x 2)]] (even? x) (conj ['/ (/ x 2)])))
+
+;One generation/step of growth - Must be self-similar for iteration
+(defn expand [{:keys [paths visited]}]
+  (let [p (for [path paths n (remove (comp visited second) (nbrs (peek path)))] (into path n))]
+    {:paths p :visited (into visited (map peek p))}))
+
+;Lazy sequence that expands all paths.
+; Note that iterate vs. loop-recur separates concerns of iteration from termination.
+(defn expand-from [s]
+  (iterate expand {:paths [[s]] :visited #{s}}))
+
+;When to stop
+(defn stop-cond [pred {:keys [paths]}] (when (some pred paths) paths))
+
+;The entire solution
+(defn fast-number-paths-deconstructed[s g]
+  (let [pred (comp #{g} peek)]
+    (->> (expand-from s)
+         (some (partial stop-cond pred))
+         (filter pred))))
+
+(time (fast-number-paths-deconstructed 1 4137))
+(time (fast-number-paths-deconstructed 7 43))
+(time (fast-number-paths-deconstructed 9 2))
+(time (fast-number-paths-deconstructed 2 9))
+(time (fast-number-paths-deconstructed 2 4))
