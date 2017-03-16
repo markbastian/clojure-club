@@ -18,3 +18,4 @@
 ;(time (number-maze 9 2))
 ;(time (number-maze 2 9))
 ;(time (number-maze 2 4))
+;(time (number-maze 2 2))

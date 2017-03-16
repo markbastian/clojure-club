@@ -11,6 +11,7 @@
 (time (number-maze 9 2))
 (time (number-maze 2 9))
 (time (number-maze 2 4))
+(time (number-maze 2 2))
 
 ;Return a single path
 (defn number-path [s g]
@@ -26,6 +27,7 @@
 (time (number-path 9 2))
 (time (number-path 2 9))
 (time (number-path 2 4))
+(time (number-path 2 2))
 
 ;Return them all - very slow
 (defn number-paths[s g]
@@ -41,6 +43,7 @@
 (time (number-paths 9 2))
 (time (number-paths 2 9))
 (time (number-paths 2 4))
+(time (number-paths 2 2))
 
 ;Return them all
 (defn fast-number-paths[s g]
@@ -58,6 +61,7 @@
 (time (fast-number-paths 9 2))
 (time (fast-number-paths 2 9))
 (time (fast-number-paths 2 4))
+(time (fast-number-paths 2 2))
 
 ;The below code deconstructs the above function to demonstrate how easy it is to
 ; assemble/dissassemble and debug Clojure forms.
@@ -90,3 +94,4 @@
 (time (fast-number-paths-deconstructed 9 2))
 (time (fast-number-paths-deconstructed 2 9))
 (time (fast-number-paths-deconstructed 2 4))
+(time (fast-number-paths-deconstructed 2 2))

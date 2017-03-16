@@ -15,3 +15,4 @@
 (time (num-maze 9 2))
 (time (num-maze 2 9))
 (time (num-maze 2 4))
+(time (num-maze 2 2))
