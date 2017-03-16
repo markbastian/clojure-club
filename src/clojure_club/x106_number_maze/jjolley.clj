@@ -1,3 +1,5 @@
+(ns clojure-club.x106-number-maze.jjolley)
+
 (defn number-maze
   [start finish]
   (letfn [(a [x] (if (not= nil x) (+ 2 x)))

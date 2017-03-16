@@ -1,3 +1,5 @@
+(ns clojure-club.x106-number-maze.wmatson)
+
 (def even-operations
   {:double (partial * 2)
    :halve #(/ % 2)
