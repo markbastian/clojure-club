@@ -59,8 +59,8 @@
 (time (fast-number-paths 2 9))
 (time (fast-number-paths 2 4))
 
-;The below code deconstructs the above function to demonstrate how easy it is to assemble/dissassemble and debug Clojure
-;forms.
+;The below code deconstructs the above function to demonstrate how easy it is to
+; assemble/dissassemble and debug Clojure forms.
 
 ;How the front grows
 (defn nbrs[x] (cond-> [['* (* 2 x)] ['+ (+ x 2)]] (even? x) (conj ['/ (/ x 2)])))
