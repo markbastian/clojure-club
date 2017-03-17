@@ -10,9 +10,11 @@
 (defn gen-paths [[paths dest]] [(distinct (reduce (partial reduce conj) (map gen-path paths))) dest])
 (defn has-dest? [[paths dest]]  (filter (fn [p] (= (second (first p)) dest)) paths))
 (defn find-path [start end]
-  (let [paths   ((comp has-dest? gen-paths)
+  (let [paths (if (= start end)
+                (list (list ["s" start]))
+                ((comp has-dest? gen-paths)
                   (last (take-while (comp empty? has-dest?)
-                                    (iterate gen-paths [(list (list ["s" start])) end])))) ]
+                                    (iterate gen-paths [(list (list ["s" start])) end]))))) ]
 
     {:count (count (first paths))
      :paths (map reverse paths)
@@ -21,9 +23,12 @@
     ))
 
 ;(time (find-path 1 4137))
-(time (find-path 7 43))
-(time (find-path 9 2))
-(time (find-path 2 9))
-(time (find-path 2 4))
+;(time (find-path 7 43))
+;(time (find-path 9 2))
+;(time (find-path 2 9))
+;(time (find-path 2 4))
 ;(time (find-path 2 2))
+
+
+
 

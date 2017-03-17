@@ -2,7 +2,9 @@
 
 ###Problems
 * More 4Clojure
-* How many ways can you solve fib and fact?
+* Create an app/game incrementally
+* AI/fn vs. AI fn
+* How many ways can you solve x (e.g. fib and fact)?
 * Pick a problem that emphasizes one of the concepts below
 
 ###Topics

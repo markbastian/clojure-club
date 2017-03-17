@@ -127,12 +127,12 @@
 (bfs-solve
   :start 1
   :goal 7
-  :neighbors {1 [2] 2 [3] 3 [4]})
+  :neighbors {1 [2] 2 [3 5] 3 [4]})
 
 ;Get creative....
 (def dungeon
   ["XXXXXXXX XXXXXXXX"
-   "X     XX XX    TX"
+   "X     XX XX X  TX"
    "X XXX       XXXXX"
    "X XXXX XX XXXXX X"
    "X  XXX XXXX     X"
