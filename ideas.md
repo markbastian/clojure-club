@@ -1,7 +1,9 @@
 ##Ideas
 
 ###Problems
+* More 4Clojure
 * How many ways can you solve fib and fact?
+* Pick a problem that emphasizes one of the concepts below
 
 ###Topics
 * Collections
@@ -24,3 +26,7 @@
   * multimethods, protocols
 * Macros
 * Debugging tips and tricks
+* Clojure/ClojureScript
+  * Reader conditionals
+  * "pure" vs. host specific Clojure
+  * REPL alternatives
