@@ -23,6 +23,7 @@
 (time (maze-runner 9 2))
 (time (maze-runner 2 9))
 (time (maze-runner 2 4))
+(time (maze-runner 2 2))
 
 
 (defn next-step [goal path]
