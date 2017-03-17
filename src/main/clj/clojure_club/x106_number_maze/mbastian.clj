@@ -1,4 +1,5 @@
 (ns clojure-club.x106-number-maze.mbastian
+  (:require [clojure.string :as cs])
   (:import (clojure.lang PersistentQueue)))
 
 ;Produce only the number of steps.
@@ -6,12 +7,12 @@
   (letfn[(nbrs[x] (cond-> [(* 2 x) (+ x 2)] (even? x) (conj (/ x 2))))]
     (inc (count (take-while #(not (% g)) (iterate #(reduce into #{} (map nbrs %)) #{s}))))))
 
-(time (number-maze 1 4137))
-(time (number-maze 7 43))
-(time (number-maze 9 2))
-(time (number-maze 2 9))
-(time (number-maze 2 4))
-(time (number-maze 2 2))
+;(time (number-maze 1 4137))
+;(time (number-maze 7 43))
+;(time (number-maze 9 2))
+;(time (number-maze 2 9))
+;(time (number-maze 2 4))
+;(time (number-maze 2 2))
 
 ;Return a single path
 (defn number-path [s g]
@@ -22,12 +23,12 @@
         (v n) (recur v (pop q))
         :default (recur (conj v edge) (into (pop q) (map (fn [x] [x n]) (nbrs n))))))))
 
-(time (number-path 1 4137))
-(time (number-path 7 43))
-(time (number-path 9 2))
-(time (number-path 2 9))
-(time (number-path 2 4))
-(time (number-path 2 2))
+;(time (number-path 1 4137))
+;(time (number-path 7 43))
+;(time (number-path 9 2))
+;(time (number-path 2 9))
+;(time (number-path 2 4))
+;(time (number-path 2 2))
 
 ;Return them all - very slow
 (defn number-paths[s g]
@@ -39,11 +40,11 @@
          (filter (comp #{g} peek)))))
 
 ;(time (number-paths 1 4137))
-(time (number-paths 7 43))
-(time (number-paths 9 2))
-(time (number-paths 2 9))
-(time (number-paths 2 4))
-(time (number-paths 2 2))
+;(time (number-paths 7 43))
+;(time (number-paths 9 2))
+;(time (number-paths 2 9))
+;(time (number-paths 2 4))
+;(time (number-paths 2 2))
 
 ;Return them all
 (defn fast-number-paths[s g]
@@ -56,12 +57,12 @@
            (some (fn [{:keys [paths]}] (when (some pred paths) paths)))
            (filter pred)))))
 
-(time (fast-number-paths 1 4137))
-(time (fast-number-paths 7 43))
-(time (fast-number-paths 9 2))
-(time (fast-number-paths 2 9))
-(time (fast-number-paths 2 4))
-(time (fast-number-paths 2 2))
+;(time (fast-number-paths 1 4137))
+;(time (fast-number-paths 7 43))
+;(time (fast-number-paths 9 2))
+;(time (fast-number-paths 2 9))
+;(time (fast-number-paths 2 4))
+;(time (fast-number-paths 2 2))
 
 ;The below code deconstructs the above function to demonstrate how easy it is to
 ; assemble/dissassemble and debug Clojure forms.
@@ -89,9 +90,77 @@
          (some (partial stop-cond pred))
          (filter pred))))
 
-(time (fast-number-paths-deconstructed 1 4137))
-(time (fast-number-paths-deconstructed 7 43))
-(time (fast-number-paths-deconstructed 9 2))
-(time (fast-number-paths-deconstructed 2 9))
-(time (fast-number-paths-deconstructed 2 4))
-(time (fast-number-paths-deconstructed 2 2))
+;(time (fast-number-paths-deconstructed 1 4137))
+;(time (fast-number-paths-deconstructed 7 43))
+;(time (fast-number-paths-deconstructed 9 2))
+;(time (fast-number-paths-deconstructed 2 9))
+;(time (fast-number-paths-deconstructed 2 4))
+;(time (fast-number-paths-deconstructed 2 2))
+
+;;;;;;;;;;;;;;;;;;Generalized Solver;;;;;;;;;;;;;;;;;;;;;;;
+(defn expand [{v :visited [[n :as edge]] :queue nbrs :neighbors :as m}]
+  (cond-> (update m :queue pop) (not (v n))
+          (->
+            (update :visited conj edge)
+            (update :queue into (map (fn [x] [x n]) (nbrs n))))))
+
+(defn bfs-expander [{:keys[start neighbors]}]
+  (iterate expand {:visited {}
+                   :queue (conj PersistentQueue/EMPTY [start :done])
+                   :neighbors neighbors}))
+
+(defn rsolve-path [goal {:keys [visited]}]
+  (when (visited goal) (reverse (take-while (complement #{:done}) (iterate visited goal)))))
+
+(defn bfs-solve [& {:keys [goal] :as ic}]
+  (some (fn [{:keys [queue] :as m}]
+          (or (rsolve-path goal m) (when (empty? queue) :no-solution)))
+        (bfs-expander ic)))
+
+;Solve today's problem
+(bfs-solve
+  :start 7
+  :goal 43
+  :neighbors (fn nbrs [x] (cond-> [(+ 2 x) (* 2 x)] (even? x) (conj (/ x 2)))))
+
+;Use another function to generate neighbors
+(bfs-solve
+  :start 1
+  :goal 7
+  :neighbors {1 [2] 2 [3] 3 [4]})
+
+;Get creative....
+(def dungeon
+  ["XXXXXXXX XXXXXXXX"
+   "X     XX XX    TX"
+   "X XXX       XXXXX"
+   "X XXXX XX XXXXX X"
+   "X  XXX XXXX     X"
+   "XX  XXXX    XXX X"
+   "XXX      XXXXXX X"
+   "XXS   XXXXXXXXX X"])
+
+(defn find-cell [d sym]
+  (first (for [i (range (count d)) j (range (count (d i)))
+               :when (= sym (get-in d [i j]))] [i j])))
+
+(defn square-neighbors [[i j]]
+  (map vector
+       ((juxt inc identity dec identity) i)
+       ((juxt identity inc identity dec) j)))
+
+(defn dungeon-neigbors [d c]
+  (filter #(#{\space \S \T} (get-in d %)) (square-neighbors c)))
+
+(def dungeon-path
+  (bfs-solve
+    :start (find-cell dungeon \S)
+    :goal (find-cell dungeon \T)
+    :neighbors (partial dungeon-neigbors dungeon)))
+
+(if (not= :no-solution dungeon-path)
+  (map cs/join
+       (reduce #(assoc-in %1 %2 \.)
+               (mapv vec dungeon)
+               (rest (butlast dungeon-path))))
+  "No solution!")
