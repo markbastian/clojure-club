@@ -10,7 +10,7 @@ the name $USER.clj.
 ## Problems
 
 Problem 1: [Number Maze](http://www.4clojure.com/problem/106)
- * Compute the minimum operations required to go from integer S<sub>i</sub> 
+ * Compute the minimum number of steps required to go from integer S<sub>i</sub> 
  to S<sub>f</sub>.
  * Allowed operations are:
    * S<sub>i+1</sub> = S<sub>i</sub> + 2
