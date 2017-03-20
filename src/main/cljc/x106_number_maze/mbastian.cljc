@@ -1,6 +1,7 @@
 (ns clojure-club.x106-number-maze.mbastian
   (:require [clojure.string :as cs])
-  (:import (clojure.lang PersistentQueue)))
+  (:import #?(:clj (clojure.lang PersistentQueue)
+              :cljs (cljs.core PersistentQueue))))
 
 ;Produce only the number of steps.
 (defn number-maze[s g]
