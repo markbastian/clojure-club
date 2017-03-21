@@ -1,4 +1,4 @@
-(ns clojure-club.x106-number-maze.wmatson)
+(ns main.cljc.x106-number-maze.wmatson)
 
 (def even-operations
   {:double (partial * 2)
@@ -45,7 +45,7 @@
         unsolved? (complement #(% finish))]
      (inc (count (take-while unsolved? branch-seq)))))
 
- ;(time (number-maze 1 4137))
+ ; (time (number-maze 1 4137))
  ;(time (number-maze 7 43))
  ;(time (number-maze 9 2))
  ;(time (number-maze 2 9))
