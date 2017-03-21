@@ -14,7 +14,7 @@
 (defn analyze [board color]
   (into {}
         (let [directions [[1 0] [1 1] [0 1] [-1 1] [-1 0] [-1 -1] [0 -1] [1 -1]]]
-          (for [i (range 4) j (range 4) d directions
+          (for [i (range (count board)) j (range (count (board i))) d directions
                 :let [b (boardwalk board color [i j] d)]
                 :when (not-empty b)]
             [[i j] (set b)]))))
