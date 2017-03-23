@@ -1,4 +1,4 @@
-(ns x124-analyze-reversi.mgrimm)
+(ns clojure-club.x124-analyze-reversi.mgrimm)
 
 (defn analyze-reversi [board color]
   (let [moves [[-1 -1] [-1 0] [-1 1] [0 -1] [0 1] [1 -1] [1 0] [1 1]]] 
