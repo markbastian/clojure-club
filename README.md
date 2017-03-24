@@ -9,6 +9,14 @@ the name $USER.clj.
 
 ## Problems
 
+Problem 2 (March 20, 2017 – March 24, 2017): [Analyze Reversi](https://www.4clojure.com/problem/124)
+
+* Implement your solution as a cljc file (src/main/cljc/x124_analyze_reversi/$USERNAME.cljc rather than a .clj.
+* If time allows, we’ll discuss reader conditionals, isomorphic Clojure, and the differences between clj, cljc, and cljs files.
+* Finally, bonus points for porting last week’s solution to cljc (Hints: I/O can behave differently on different platforms. PersistentQueue is imported from different locations.).
+
+Please submit your answer via git pull request to https://github.com/markbastian/clojure-club. However, if you email it to me I will continue to facilitate your bad behavior and add it myself.
+
 Problem 1: [Number Maze](http://www.4clojure.com/problem/106)
  * Compute the minimum number of steps required to go from integer S<sub>i</sub> 
  to S<sub>f</sub>.
