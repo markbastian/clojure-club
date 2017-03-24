@@ -8,6 +8,15 @@ for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
 ## Problems
+April 7th:
+
+We'll be working on two problems - pick the one you want.
+* Develop a quine in Clojure (https://www.4clojure.com/problem/125) and/or
+* Develop a Sudoku solver
+  * Boards will be a 9x9 nested vector with numeric or nil elements
+  * Name you function `solve` so that we have a uniform interface
+  * Note that there are several ways you could solve this including a search or using a 
+  [logic programming library](https://github.com/clojure/core.logic)
 
 Problem 2 (March 20, 2017 – March 24, 2017): [Analyze Reversi](https://www.4clojure.com/problem/124)
 
