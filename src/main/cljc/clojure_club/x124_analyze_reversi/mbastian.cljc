@@ -7,8 +7,7 @@
         (let [x (get-in board c)]
           (cond
             (f x) (recur (mapv + c dir) (conj res c))
-            (g x) res
-            :default nil))))))
+            (g x) res))))))
 
 ;TODO - Does assert work in cljs?
 (defn analyze [board color]
