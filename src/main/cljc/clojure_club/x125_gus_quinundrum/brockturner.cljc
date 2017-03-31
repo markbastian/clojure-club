@@ -9,3 +9,9 @@
 
 ;; 4-clojure doesn't like "update", so...
 (fn [] (let [x '[fn [] [let [x y] (str (apply list (update-in (assoc-in x [2 1 1] (list (quote quote) x)) [2] (partial apply list))))]]] (str (apply list (update-in (assoc-in x [2 1 1] (list (quote quote) x)) [2] (partial apply list))))))
+
+
+; This clojure-injection hack works on the 4-clojure site
+; -> nil ((fn ([] nil) ([x] "->")))
+(assert (= (str '-> nil ((fn ([] nil) ([x] "->"))))
+           (-> nil ((fn ([] nil) ([x] "->"))))))
