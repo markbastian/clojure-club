@@ -1,6 +1,5 @@
 (ns clojure-club.sudoku.mbastian)
 
-;Copied from https://github.com/markbastian/sudoku/blob/master/src/cljc/sudoku/rules.cljc
 (def valid-values (apply hash-set (range 1 10)))
 
 (defonce all-cells (for [i (range 9) j (range 9)] [i j]))
@@ -15,26 +14,27 @@
                           [a b])))]
            (zipmap all-cells (map #(disj (reduce into #{} (cells %)) %) all-cells))))
 
-(defn constraints [[board unsolved-cells]]
-  (letfn [(solved [cell] (apply hash-set (map #(valid-values (get-in board %)) (neighbors cell))))]
-    (->> unsolved-cells
-         (map (fn [c] [c (remove (solved c) valid-values)]))
-         (group-by (comp count second)))))
+(defn set-cell [board cell value]
+  (letfn [(safe-set [b c] (cond-> b (set? (get-in b c)) (update-in c disj value)))]
+    (-> (reduce safe-set board (neighbors cell)) (assoc-in cell value))))
 
-(defn lock-cells [[board unsolved-cells] [cell values]]
-  (map (fn [value] [(assoc-in board cell value) (disj unsolved-cells cell)]) values))
+(defn most-constrained [board]
+  (->> all-cells
+       (filter #(set? (get-in board %)))
+       (apply min-key #(count (get-in board %)))))
 
-(defn unknowns [board]
-  (apply hash-set (remove #(valid-values (get-in board %)) all-cells)))
+(defn initialize [problem]
+  (reduce
+    (fn [board cell]
+      (if-let [v (valid-values (get-in problem cell))]
+        (set-cell board cell v)
+        board))
+    (vec (repeat 9 (vec (repeat 9 valid-values))))
+    all-cells))
 
-(defn solve [initial-board]
-  (loop [[[board unsolved-cells :as f] & r] [[initial-board (unknowns initial-board)]]]
-    (if-not (empty? unsolved-cells)
-      (let [c (constraints f)]
-        (if (c 0)
-          (recur r)
-          (recur (into r (lock-cells f (first (some c (range 1 10))))))))
-      board)))
+(defn solve-step [board]
+  (let [best-cell (most-constrained board)]
+    (for [v (get-in board best-cell)] (set-cell board best-cell v))))
 
 (def hard
   '[[_ _ _ _ _ _ _ 1 2]
@@ -47,24 +47,14 @@
     [_ _ _ 6 2 _ _ _ _]
     [_ _ _ 1 _ _ _ _ _]])
 
-;(def hard
-;  '[[1 _ _ _ _ _ _ 1 2]
-;    [_ _ 8 _ 3 _ _ _ _]
-;    [_ _ _ _ _ _ _ 4 _]
-;    [1 2 _ 5 _ _ _ _ _]
-;    [_ _ _ _ _ 4 7 _ _]
-;    [_ 6 _ _ _ _ _ _ _]
-;    [5 _ 7 _ _ 9 3 _ _]
-;    [_ _ _ 6 2 _ _ _ _]
-;    [_ _ _ 1 _ _ _ _ _]])
+(defn solve [board]
+  (loop [[f & r] [(initialize board)]]
+    (cond
+      (every? #(every? integer? %) f) f
+      (nil? f) f
+      :default (recur (into r (solve-step f))))))
 
-(let [[[board unsolved-cells :as f] & r] [[hard (unknowns hard)]]]
-  (first (some (constraints f) (range)))
-  #_(if-not (empty? unsolved-cells)
-      (into r (lock-cells f (first (some (constraints f) (range)))))
-      board))
-
-(time (solve hard))
+;(solve hard)
 
 ;;;;;;;;;;;;;;;
 (defn valid-cell? [board cell]
