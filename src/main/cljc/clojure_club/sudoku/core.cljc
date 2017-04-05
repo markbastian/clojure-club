@@ -1,7 +1,8 @@
 (ns clojure-club.sudoku.core
   (:require
     [clojure.string :as cs]
-    [clojure-club.sudoku.mbastian2 :as mbastian]
+    [clojure-club.sudoku.mbastian :as mbastian]
+    [clojure-club.sudoku.example-problems :as ex]
     [taoensso.tufte :as tufte :refer (defnp p profiled profile)]
     #?(:clj [clojure.java.io :as io])))
 
@@ -23,9 +24,14 @@
 (defn test-solver [solver]
   (map solver test-cases))
 
+(defn test-examples [solver]
+  (time (mapv solver ex/all-example-problems)))
+
+;(test-examples mbastian/solve)
+
 ;(time (every? mbastian/valid-board? (pmap mbastian/solve (take 100 test-cases))))
 
 #_(profile ; Profile any `p` forms called during body execution
   {} ; Profiling options; we'll use the defaults for now
   (dotimes [_ 5]
-    (p :mbastian (doall (pmap mbastian/solve (take 10 test-cases))))))
+    (p :mbastian (doall (pmap mbastian/solve (take 100 test-cases))))))

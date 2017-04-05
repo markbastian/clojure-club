@@ -1,4 +1,4 @@
-(ns clojure-club.sudoku.mbastian2)
+(ns clojure-club.sudoku.mbastian-exp)
 
 (def valid-values (apply hash-set (range 1 10)))
 
@@ -14,27 +14,19 @@
                           [a b])))]
            (zipmap all-cells (map #(disj (reduce into #{} (cells %)) %) all-cells))))
 
-(defn set-cell [board cell value]
-  (letfn [(safe-set [b c] (cond-> b (set? (get-in b c)) (update-in c disj value)))]
-    (-> (reduce safe-set board (neighbors cell)) (assoc-in cell value))))
+(defn lock-cell [[board unknowns] cell v]
+  [(assoc-in board cell v)
+   (reduce (fn [u n] (cond-> u (u n) (update n disj v)))
+           (dissoc unknowns cell) (neighbors cell))])
 
-(defn most-constrained [board]
-  (->> all-cells
-       (filter #(set? (get-in board %)))
-       (apply min-key #(count (get-in board %)))))
-
-(defn initialize [problem]
+(defn initialize [b]
   (reduce
-    (fn [board cell]
-      (if-let [v (valid-values (get-in problem cell))]
-        (set-cell board cell v)
-        board))
-    (vec (repeat 9 (vec (repeat 9 valid-values))))
-    all-cells))
+    (fn [u c] (if-let[v (valid-values (get-in b c))] (lock-cell u c v) u))
+    [b (zipmap all-cells (repeat valid-values))] all-cells))
 
-(defn solve-step [board]
-  (let [best-cell (most-constrained board)]
-    (for [v (get-in board best-cell)] (set-cell board best-cell v))))
+(defn solve-step [[board unknowns :as soln]]
+  (let [[best-cell best-values] (apply min-key (comp count val) unknowns)]
+    (for [v best-values] (lock-cell soln best-cell v))))
 
 (def hard
   '[[_ _ _ _ _ _ _ 1 2]
@@ -48,9 +40,9 @@
     [_ _ _ 1 _ _ _ _ _]])
 
 (defn solve [board]
-  (loop [[f & r] [(initialize board)]]
+  (loop [[[board unknowns :as f] & r] [(initialize board)]]
     (cond
-      (every? #(every? integer? %) f) f
+      (and (empty? unknowns) (every? #(every? integer? %) board)) board
       (nil? f) f
       :default (recur (into r (solve-step f))))))
 
