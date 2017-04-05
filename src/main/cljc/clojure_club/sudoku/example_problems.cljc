@@ -57,7 +57,6 @@
    [nil nil 6 nil 7 nil nil nil 4]
    [nil nil nil nil 1 nil 2 nil nil]])
 
-
 ;http://puzzling.stackexchange.com/questions/252/how-do-i-solve-the-worlds-hardest-sudoku
 ;http://www.telegraph.co.uk/news/science/science-news/9359579/Worlds-hardest-sudoku-can-you-crack-it.html
 (def hardest
@@ -83,5 +82,17 @@
    [nil 4 nil nil nil nil nil nil 7]
    [nil nil 7 nil nil nil 3 nil nil]])
 
+;First problem from sudoku17.txt
+(def hard-17
+  [[nil nil nil nil nil nil nil 1 2]
+   [nil nil 8 nil 3 nil nil nil nil]
+   [nil nil nil nil nil nil nil 4 nil]
+   [1 2 nil 5 nil nil nil nil nil]
+   [nil nil nil nil nil 4 7 nil nil]
+   [nil 6 nil nil nil nil nil nil nil]
+   [5 nil 7 nil nil nil 3 nil nil]
+   [nil nil nil 6 2 nil nil nil nil]
+   [nil nil nil 1 nil nil nil nil nil]])
+
 (def all-example-problems
-  [easy broken hard absurd brutal hardest al-escargot])
+  [easy broken hard absurd brutal hardest al-escargot hard-17])

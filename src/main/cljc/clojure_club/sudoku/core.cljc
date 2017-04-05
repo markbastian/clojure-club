@@ -22,16 +22,13 @@
      :cljs []))
 
 (defn test-solver [solver]
-  (map solver test-cases))
+  (time (map solver test-cases)))
 
 (defn test-examples [solver]
-  (time (mapv solver ex/all-example-problems)))
+  (time (map solver ex/all-example-problems)))
 
-;(test-examples mbastian/solve)
-
-;(time (every? mbastian/valid-board? (pmap mbastian/solve (take 100 test-cases))))
-
-#_(profile ; Profile any `p` forms called during body execution
-  {} ; Profiling options; we'll use the defaults for now
+;Put your solver here
+#_(profile
+  {:dynamic? true}
   (dotimes [_ 5]
-    (p :mbastian (doall (pmap mbastian/solve (take 100 test-cases))))))
+    (p :mbastian (doall (map mbastian/solve ex/all-example-problems)))))

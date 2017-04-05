@@ -1,4 +1,6 @@
-(ns clojure-club.sudoku.mbastian)
+(ns clojure-club.sudoku.mbastian
+  (:require [taoensso.tufte :as tufte :refer (defnp p profiled profile)]
+            [clojure-club.sudoku.example-problems :as ex]))
 
 (def valid-values (apply hash-set (range 1 10)))
 
@@ -10,8 +12,7 @@
                  #(map (fn [i] [i (second %)]) (range 9))
                  #(map (fn [j] [(first %) j]) (range 9))
                  #(for [a (range 3) b (range 3)]
-                    (mapv + [(* 3 (quot (first %) 3)) (* 3 (quot (second %) 3))]
-                          [a b])))]
+                    (mapv + [(* 3 (quot (first %) 3)) (* 3 (quot (second %) 3))] [a b])))]
            (zipmap all-cells (map #(disj (reduce into #{} (cells %)) %) all-cells))))
 
 (defn lock-cell [[board unknowns] cell v]
@@ -28,17 +29,6 @@
   (let [[best-cell best-values] (apply min-key (comp count val) unknowns)]
     (for [v best-values] (lock-cell soln best-cell v))))
 
-(def hard
-  '[[_ _ _ _ _ _ _ 1 2]
-    [_ _ 8 _ 3 _ _ _ _]
-    [_ _ _ _ _ _ _ 4 _]
-    [1 2 _ 5 _ _ _ _ _]
-    [_ _ _ _ _ 4 7 _ _]
-    [_ 6 _ _ _ _ _ _ _]
-    [5 _ 7 _ _ _ 3 _ _]
-    [_ _ _ 6 2 _ _ _ _]
-    [_ _ _ 1 _ _ _ _ _]])
-
 (defn solve [board]
   (loop [[[board unknowns :as f] & r] [(initialize board)]]
     (cond
@@ -46,9 +36,6 @@
       (nil? f) f
       :default (recur (into r (solve-step f))))))
 
-;(time (solve hard))
-
-;;;;;;;;;;;;;;;
 (defn valid-cell? [board cell]
   (not-any? #{(get-in board cell)}
             (map (partial get-in board)
@@ -61,3 +48,17 @@
   (and
     (every? (partial get-in board) all-cells)
     (empty? (bad-cells board))))
+
+#_(profile
+  {:dynamic? true}
+  (dotimes [_ 5]
+    (p :mbastian (doall (map solve ex/all-example-problems)))
+    (p :easy (solve ex/easy))
+    (p :broken (solve ex/broken))
+    (p :hard (solve ex/hard))
+    (p :absurd (solve ex/absurd))
+    (p :brutal (solve ex/brutal))
+    (p :hardest (solve ex/hardest))
+    (p :al-escargot (solve ex/al-escargot))
+    (p :hard-17 (solve ex/hard-17))
+    (p :init (initialize ex/hard-17))))
