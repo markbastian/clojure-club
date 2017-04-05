@@ -49,16 +49,17 @@
     (every? (partial get-in board) all-cells)
     (empty? (bad-cells board))))
 
-#_(profile
-  {:dynamic? true}
-  (dotimes [_ 5]
-    (p :mbastian (doall (map solve ex/all-example-problems)))
-    (p :easy (solve ex/easy))
-    (p :broken (solve ex/broken))
-    (p :hard (solve ex/hard))
-    (p :absurd (solve ex/absurd))
-    (p :brutal (solve ex/brutal))
-    (p :hardest (solve ex/hardest))
-    (p :al-escargot (solve ex/al-escargot))
-    (p :hard-17 (solve ex/hard-17))
-    (p :init (initialize ex/hard-17))))
+;(tufte/add-basic-println-handler! {})
+;(profile
+;  {:dynamic? true}
+;  (dotimes [_ 5]
+;    (p :mbastian (doall (map solve ex/all-example-problems)))
+;    (p :easy (solve ex/easy))
+;    (p :broken (solve ex/broken))
+;    (p :hard (solve ex/hard))
+;    (p :absurd (solve ex/absurd))
+;    (p :brutal (solve ex/brutal))
+;    (p :hardest (solve ex/hardest))
+;    (p :al-escargot (solve ex/al-escargot))
+;    (p :hard-17 (solve ex/hard-17))
+;    (p :init (initialize ex/hard-17))))
