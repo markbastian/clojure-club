@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.8.51 {}
+// Compiled by ClojureScript 1.9.495 {}
 goog.provide('clojure_club.core');
 goog.require('cljs.core');
 goog.require('reagent.core');
@@ -8,4 +8,4 @@ clojure_club.core.on_js_reload = (function clojure_club$core$on_js_reload(){
 return null;
 });
 
-//# sourceMappingURL=core.js.map?rel=1490072957636
+//# sourceMappingURL=core.js.map?rel=1491273373517
