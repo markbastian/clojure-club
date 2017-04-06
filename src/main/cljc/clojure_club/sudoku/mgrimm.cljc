@@ -4,9 +4,9 @@
   (:require [clojure.core.logic.fd :as fd]
             [clojure-club.sudoku.example-problems :as ex]))
 
-(defn solve [initial]
-  (let [cells (mapv (fn [c l] (do (if c (== c l)) l)) 
-                   (apply concat initial) (repeatedly 81 lvar))
+(defn solve* [initial]
+  (let [cells (mapv (fn [c l] (if c (== c l)) l)
+                    (apply concat initial) (repeatedly 81 lvar))
         rows (partition 9 cells)
         cols (apply map vector rows)
         blks (for [y (range 0 81 27) x (range 0 9 3)] 
@@ -17,3 +17,5 @@
       (everyg fd/distinct rows)
       (everyg fd/distinct cols)
       (everyg fd/distinct blks))))
+
+(def solve #(partition 9 (first (solve* %))))
