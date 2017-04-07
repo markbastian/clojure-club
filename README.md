@@ -8,7 +8,23 @@ for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
 ## Problems
-April 7th:
+####April 14th: [Universal Computation Engine](https://www.4clojure.com/problem/121)
+
+From [4clojure.com](https://www.4clojure.com/problem/121): "Given a mathematical formula 
+in prefix notation, return a function that calculates the value of the formula. The 
+formula can contain nested calculations using the four basic mathematical operators, 
+numeric constants, and symbols representing variables. The returned function has to 
+accept a single parameter containing the map of variable names to their values."
+
+**Note that you may not use eval or resolve.**
+
+I haven't spend much time thinking about *advanced* aspects of this problem, but for bonus
+points you might want to try the following:
+ * Add transcendental functions (sin, cos, etc.)
+ * Take a look at symbolic differentiation (This may be extra extra out of scope, just
+ throwing it out there.)
+  
+####April 7th:
 
 We'll be working on two problems - pick the one you want.
 * Develop a quine in Clojure (https://www.4clojure.com/problem/125) and/or
@@ -18,7 +34,7 @@ We'll be working on two problems - pick the one you want.
   * Note that there are several ways you could solve this including a search or using a 
   [logic programming library](https://github.com/clojure/core.logic)
 
-Problem 2 (March 20, 2017 – March 24, 2017): [Analyze Reversi](https://www.4clojure.com/problem/124)
+####March 24th: [Analyze Reversi](https://www.4clojure.com/problem/124)
 
 * Implement your solution as a cljc file (src/main/cljc/x124_analyze_reversi/$USERNAME.cljc rather than a .clj.
 * If time allows, we’ll discuss reader conditionals, isomorphic Clojure, and the differences between clj, cljc, and cljs files.
@@ -26,7 +42,7 @@ Problem 2 (March 20, 2017 – March 24, 2017): [Analyze Reversi](https://www.4cl
 
 Please submit your answer via git pull request to https://github.com/markbastian/clojure-club. However, if you email it to me I will continue to facilitate your bad behavior and add it myself.
 
-Problem 1: [Number Maze](http://www.4clojure.com/problem/106)
+####March 17th: [Number Maze](http://www.4clojure.com/problem/106)
  * Compute the minimum number of steps required to go from integer S<sub>i</sub> 
  to S<sub>f</sub>.
  * Allowed operations are:
