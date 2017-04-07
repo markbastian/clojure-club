@@ -1,0 +1,4 @@
+(ns clojure-club.x125-gus-quinundrum.jstrength)
+
+(= (str '(fn [] (let [x "(fn [] (let [x " y " (str x \\\" x \"\\\" y \\\"\" (-> y (clojure.string/replace #\"\\\\\" \"\\\\\\\\\\\\\\\\\") (clojure.string/replace #\"\\\"\" \"\\\\\\\\\\\"\")) \"\\\"]\" y)))"] (str x \" x "\" y \"" (-> y (clojure.string/replace #"\\" "\\\\\\\\") (clojure.string/replace #"\"" "\\\\\"")) "\"]" y))))
+   ((fn [] (let [x "(fn [] (let [x " y " (str x \\\" x \"\\\" y \\\"\" (-> y (clojure.string/replace #\"\\\\\" \"\\\\\\\\\\\\\\\\\") (clojure.string/replace #\"\\\"\" \"\\\\\\\\\\\"\")) \"\\\"]\" y)))"] (str x \" x "\" y \"" (-> y (clojure.string/replace #"\\" "\\\\\\\\") (clojure.string/replace #"\"" "\\\\\"")) "\"]" y)))))

@@ -9,6 +9,7 @@
     (utils/node-env?) (try (js/require "ws")
                            (catch js/Error e
                              nil))
+    (utils/worker-env?) (aget js/self "WebSocket")
     :else nil))
 
 ;; messages have the following formats
@@ -46,6 +47,15 @@
   (set! (.-onclose @socket-atom) identity)
   (.close @socket-atom))
 
+(defn handle-incoming-message [msg]
+  (utils/debug-prn msg)
+  (and (map? msg)
+       (:msg-name msg)
+       ;; don't forward pings
+       (not= (:msg-name msg) :ping)
+       (swap! message-history-atom
+              conj msg)))
+
 (defn open [{:keys [retry-count retried-count websocket-url build-id] :as opts}]
   (if-let [WebSocket (get-websocket-imp)]
     (do
@@ -53,14 +63,9 @@
       (let [url (str websocket-url (if build-id (str "/" build-id) ""))
             socket (WebSocket. url)]
         (set! (.-onmessage socket) (fn [msg-str]
-                                     (when-let [msg (read-string (.-data msg-str))]
-                                       (utils/debug-prn msg)
-                                       (and (map? msg)
-                                            (:msg-name msg)
-                                            ;; don't forward pings
-                                            (not= (:msg-name msg) :ping)
-                                            (swap! message-history-atom
-                                                   conj msg)))))
+                                     (when-let [msg
+                                                (read-string (.-data msg-str))]
+                                       (#'handle-incoming-message msg))))
         (set! (.-onopen socket)  (fn [x]
                                    (reset! socket-atom socket)
                                    (when (utils/html-env?)
