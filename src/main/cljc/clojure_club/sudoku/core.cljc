@@ -23,6 +23,10 @@
   #?(:clj (-> "clojure_club/sudoku/sudoku17.txt" io/resource slurp read-solns)
      :cljs []))
 
+(def test-cases-1k
+  #?(:clj (-> "clojure_club/sudoku/sudoku17.1000.txt" io/resource slurp read-solns)
+     :cljs []))
+
 (defn test-solver [solver]
   (time (map solver test-cases)))
 
