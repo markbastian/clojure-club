@@ -2,6 +2,7 @@
   (:require
     [clojure.string :as cs]
     [clojure-club.sudoku.mbastian :as mbastian]
+    [clojure-club.sudoku.jstrength :as jstrength]
     [clojure-club.sudoku.example-problems :as ex]
     [taoensso.tufte :as tufte :refer (defnp p profiled profile)]
     #?(:clj [clojure.java.io :as io])))
@@ -32,3 +33,7 @@
   {:dynamic? true}
   (dotimes [_ 5]
     (p :mbastian (doall (map mbastian/solve ex/all-example-problems)))))
+#_(profile
+    {:dynamic? true}
+    (dotimes [_ 5]
+      (p :mbastian (doall (map jstrength/solve ex/all-example-problems)))))
