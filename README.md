@@ -8,7 +8,7 @@ for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
 ## Problems
-###April 14th: [Universal Computation Engine](https://www.4clojure.com/problem/121)
+#### April 14th: [Universal Computation Engine](https://www.4clojure.com/problem/121)
 
 From [4clojure.com](https://www.4clojure.com/problem/121): "Given a mathematical formula 
 in prefix notation, return a function that calculates the value of the formula. The 
