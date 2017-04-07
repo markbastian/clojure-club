@@ -18,7 +18,7 @@ accept a single parameter containing the map of variable names to their values."
 
 **Note that you may not use eval or resolve.**
 
-I haven't spend much time thinking about *advanced* aspects of this problem, but for bonus
+I haven't spent much time thinking about *advanced* aspects of this problem, but for bonus
 points you might want to try the following:
  * Add transcendental functions (sin, cos, etc.)
  * Take a look at symbolic differentiation (This may be extra extra out of scope, just
