@@ -1,5 +1,6 @@
 (ns main.cljc.clojure-club.x121-universal-computation-engine.wmatson)
 
+;;http://stackoverflow.com/a/19113820
 (def fix-op-quote-maddness {'+ + '/ / '- - '* *})
 
 (defn node-evaluator [var-map]
