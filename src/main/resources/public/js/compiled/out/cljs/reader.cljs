@@ -7,6 +7,7 @@
 ;   You must not remove this notice, or any other, from this software.
 
 (ns cljs.reader
+  (:require-macros [cljs.reader :refer [add-data-readers]])
   (:require [goog.string :as gstring])
   (:import goog.string.StringBuffer))
 
@@ -224,18 +225,22 @@ nil if the end of stream has been reached")
 
 (defn read-delimited-list
   [delim rdr recursive?]
-  (loop [a (transient [])]
+  (loop [a (array)]
     (let [ch (read-past whitespace? rdr)]
       (when-not ch (reader-error rdr "EOF while reading"))
       (if (identical? delim ch)
-        (persistent! a)
+        a
         (if-let [macrofn (macros ch)]
           (let [mret (macrofn rdr ch)]
-            (recur (if (identical? mret rdr) a (conj! a mret))))
+            (recur (if (identical? mret rdr) a (do
+                                                 (.push a mret)
+                                                 a))))
           (do
             (unread rdr ch)
             (let [o (read rdr true nil recursive?)]
-              (recur (if (identical? o rdr) a (conj! a o))))))))))
+              (recur (if (identical? o rdr) a (do
+                                                (.push a o)
+                                                a))))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; data structure readers
@@ -263,20 +268,27 @@ nil if the end of stream has been reached")
 
 (defn read-list
   [rdr _]
-  (apply list (read-delimited-list ")" rdr true)))
+  (let [arr (read-delimited-list ")" rdr true)]
+    (loop [i (alength arr) ^not-native r ()]
+      (if (> i 0)
+        (recur (dec i) (-conj r (aget arr (dec i))))
+        r))))
 
 (def read-comment skip-line)
 
 (defn read-vector
   [rdr _]
-  (read-delimited-list "]" rdr true))
+  (vec (read-delimited-list "]" rdr true)))
 
 (defn read-map
   [rdr _]
-  (let [l (read-delimited-list "}" rdr true)]
-    (when (odd? (count l))
+  (let [l (read-delimited-list "}" rdr true)
+        c (alength l)]
+    (when (odd? c)
       (reader-error rdr "Map literal must contain an even number of forms"))
-    (apply hash-map l)))
+    (if (<= c (* 2 (.-HASHMAP-THRESHOLD PersistentArrayMap)))
+      (.createWithCheck PersistentArrayMap l)
+      (.createWithCheck PersistentHashMap l))))
 
 (defn read-number
   [reader initch]
@@ -395,7 +407,7 @@ nil if the end of stream has been reached")
 
 (defn read-set
   [rdr _]
-  (set (read-delimited-list "}" rdr true)))
+  (.createWithCheck PersistentHashSet (read-delimited-list "}" rdr true)))
 
 (defn read-regex
   [rdr ch]
@@ -504,11 +516,11 @@ nil if the end of stream has been reached")
 
 (defn ^:private check [low n high msg]
   (when-not (<= low n high)
-    (reader-error nil (str msg " Failed:  " low "<=" n "<=" high))) 
+    (reader-error nil (str msg " Failed:  " low "<=" n "<=" high)))
   n)
 
 (defn parse-and-validate-timestamp [s]
-  (let [[_ years months days hours minutes seconds fraction offset-sign offset-hours offset-minutes :as v] 
+  (let [[_ years months days hours minutes seconds fraction offset-sign offset-hours offset-minutes :as v]
         (re-matches timestamp-regex s)]
     (if-not v
       (reader-error nil (str "Unrecognized date/time syntax: " s))
@@ -569,7 +581,7 @@ nil if the end of stream has been reached")
       (doseq [[k v] form]
         (aset obj (name k) v))
       obj)
-    
+
     :else
     (reader-error nil
       (str "JS literal expects a vector or map containing "
@@ -583,10 +595,11 @@ nil if the end of stream has been reached")
     (reader-error nil "UUID literal expects a string as its representation.")))
 
 (def ^:dynamic *tag-table*
-  (atom {"inst"  read-date
-         "uuid"  read-uuid
-         "queue" read-queue
-         "js"    read-js}))
+  (atom (add-data-readers
+          {"inst"  read-date
+           "uuid"  read-uuid
+           "queue" read-queue
+           "js"    read-js})))
 
 (def ^:dynamic *default-data-reader-fn*
   (atom nil))
