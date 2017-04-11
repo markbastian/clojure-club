@@ -25,7 +25,7 @@
     (fn [u c] (if-let[v (valid-values (get-in b c))] (lock-cell u c v) u))
     [b (zipmap all-cells (repeat valid-values))] all-cells))
 
-(defn solve-step [[board unknowns :as soln]]
+(defn solve-step [[_ unknowns :as soln]]
   (let [[best-cell best-values] (apply min-key (comp count val) unknowns)]
     (for [v best-values] (lock-cell soln best-cell v))))
 
