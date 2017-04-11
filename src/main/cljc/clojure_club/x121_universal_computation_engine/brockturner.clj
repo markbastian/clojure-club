@@ -1,6 +1,6 @@
 (ns clojure-club.x121-universal-computation-engine.brockturner)
 
-(fn [l]
+(defn engine [l]
   (letfn [(solve [m e]
             (if (sequential? e)
               (let [[op & r] e
