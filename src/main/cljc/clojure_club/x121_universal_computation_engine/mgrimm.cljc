@@ -1,15 +1,27 @@
 (ns clojure-club.x121-universal-computation-engine.mgrimm)
 
+(defn f' [e dv]
+  (cond
+    (list? e)
+    (let [[op & os] e]
+      
+      )
+    (number? e) 0
+    (and (symbol? e) (= e dv)) 1
+    :else 0))
+
 (defn calc [formula] 
   (fn [smap] 
-    (clojure.walk/postwalk 
+    (clojure.walk/prewalk
       #(if (list? %) 
-         (let [[op & os] (replace (merge smap {'/ / '* * '+ + '- -}) %)] 
+         (let [[op & os] (replace (merge smap {'/ / '* * '+ + '- - 'f' f'}) %)] 
            (apply op os)) 
          %) 
       formula)))
 
 ;; -----------------------------------------------------------------------------
+
+((calc '(f' x :dv)) '{a 2 :dv x})
 
 (assert (= 2 ((calc '(/ a b))
               '{b 8 a 16})))
