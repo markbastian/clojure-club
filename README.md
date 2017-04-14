@@ -17,6 +17,9 @@ Assignment: Pick any problem (trivial is fine) that uses reducers or transducers
 We'll discuss it next week. The focus will be on reducers, but if there's time we might get to 
 transducers.
 
+To begin, you might want to try using reducers on [this example submitted by Mike](https://github.com/markbastian/clojure-club/blob/master/src/main/cljc/clojure_club/playground/reducer_problem.clj).
+Be sure to make your own version so everyone isn't clobbering each other.
+
 Mike is leading the discussion.
  
  #### April 14<sup>th</sup>: [Universal Computation Engine](https://www.4clojure.com/problem/121)
