@@ -10,6 +10,25 @@
                        (number? t) t
                        :default ((compute t) m))) r)))))
 
+(defn differentiate [f]
+  (fn [m]
+    (cond
+      (number? f) 0
+      (m f) 1
+      (list f) (case (first f)
+                 + (reduce + (map (fn [x] ((differentiate x) m)) (rest f)))
+                 - (reduce - (map (fn [x] ((differentiate x) m)) (rest f)))
+                 * (reduce + (map
+                               (fn [i] (let [[u [x & r]] (split-at i (rest f))]
+                                         (* ((differentiate x) m) ((compute (cons '* (into u r))) m))))
+                               (range (count (rest f)))))
+                 / :not-yet))))
+
+
+;(differentiate '(+ (* x x x) (* 2 x x) (* -4 x) -3))
+;((differentiate '(+ (* x x x 3) (* x x) (* x -87) -84)) {'x 2})
+;((compute '(+ (* x x x 3) (* x x) (* x -87) -84)) {'x 2})
+
 ;; -----------------------------------------------------------------------------
 
 (assert (= 2 ((compute '(/ a b))
