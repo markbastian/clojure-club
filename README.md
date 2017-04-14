@@ -8,9 +8,16 @@ for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
 ## Problems
-#### April 21<sup>st</sup>: [Language of a DFA](https://www.4clojure.com/problem/164)
 
-Read the problem description [here](https://www.4clojure.com/problem/164) for details.
+#### April 21<sup>st</sup>: [Reducers](https://clojure.org/reference/reducers) or [Transducers](https://clojure.org/reference/transducers)
+
+Nobody groks any of this stuff. Time to grok. 
+
+Assignment: Pick any problem (trivial is fine) that uses reducers or transducers and work on it. 
+We'll discuss it next week. The focus will be on reducers, but if there's time we might get to 
+transducers.
+
+Mike is leading the discussion.
  
  #### April 14<sup>th</sup>: [Universal Computation Engine](https://www.4clojure.com/problem/121)
  
