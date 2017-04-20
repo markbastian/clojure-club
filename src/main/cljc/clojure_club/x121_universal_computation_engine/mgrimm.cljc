@@ -1,13 +1,36 @@
-(ns clojure-club.x121-universal-computation-engine.mgrimm)
+(ns clojure-club.x121-universal-computation-engine.mgrimm
+  (:require [clojure.walk :as walk]))
 
-(defn calc [formula] 
-  (fn [smap] 
-    (clojure.walk/postwalk 
-      #(if (list? %) 
-         (let [[op & os] (replace (merge smap {'/ / '* * '+ + '- -}) %)] 
-           (apply op os)) 
-         %) 
-      formula)))
+(defn f' [e dvar]
+  (cond
+    (list? e)
+    (let [[op u v] e
+          u' (f' u dvar) v' (f' v dvar)]
+      (case op
+        +   (list '+ u' v')
+        -   (list '- u' v')
+        *   (list '+ (list '* u v') (list '* v u'))
+        /   (list '/ (list '- (list '* v u') (list '* u v')) (list '* v v))
+        **  (list '* v (list '** u (dec v)))))
+    (number? e) 0
+    (and (symbol? e) (= e dvar)) 1
+    :else 0))
+
+(defn calc [formula]
+  (fn [smap]
+    (let [smap (merge smap {'/ / '* * '+ + '- - '** #(Math/pow %1 %2)})] 
+      (->> formula
+           (walk/prewalk
+             (fn [x]
+               (cond-> x
+                 (and (list? x) (#{'f'} (first x)))
+                 (->> rest (apply f')))))
+           (walk/postwalk
+             (fn [x]
+               (if (list? x)
+                 (let [[op & os] (replace smap x)]
+                   (apply op os))
+                 x)))))))
 
 ;; -----------------------------------------------------------------------------
 
@@ -27,3 +50,13 @@
 (assert (= 1 ((calc '(/ (+ x 2)
                         (* 3 (+ y 1))))
               '{x 4 y 1})))
+
+(assert (= 0 ((calc '(f' 2 x)) nil))) ; constant
+(assert (= 1 ((calc '(f' x x)) nil))) ; line
+(assert (= 0 ((calc '(f' y x)) nil)))
+(assert (= 3 ((calc '(f' (* x y) x)) '{x -1 y 3}))) ; product
+(assert (= 10 ((calc '(f' (* x x) x)) '{x 5}))) 
+(assert (= 40 ((calc '(f' (+ (* x x) (* 3 y)) x)) '{x 20 y -1})))
+(assert (= 1/8 ((calc '(f' (/ x (* 2 y)) x)) '{x -1 y 4}))) ; quotient
+(assert (= 6.0 ((calc '(f' (** x 2) x)) '{x 3}))) ; power
+(assert (= -1/4 ((calc '(f' (/ 1 x) x)) '{x 2}))) ; reciprocal
