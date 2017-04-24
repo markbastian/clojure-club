@@ -8,23 +8,58 @@ for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
 ## Problems
-#### April 14th: [Universal Computation Engine](https://www.4clojure.com/problem/121)
 
-From [4clojure.com](https://www.4clojure.com/problem/121): "Given a mathematical formula 
-in prefix notation, return a function that calculates the value of the formula. The 
-formula can contain nested calculations using the four basic mathematical operators, 
-numeric constants, and symbols representing variables. The returned function has to 
-accept a single parameter containing the map of variable names to their values."
+#### April 28<sup>th</sup>: GURPS Data Modeling
 
-**Note that you may not use eval or resolve.**
+Thanks to Wes for providing this exercise. I think it has a variety of interesting aspects, including
+data modeling, XML parsing, tree-walking, etc.
 
-I haven't spent much time thinking about *advanced* aspects of this problem, but for bonus
-points you might want to try the following:
- * Add transcendental functions (sin, cos, etc.)
- * Take a look at symbolic differentiation (This may be extra extra out of scope, just
- throwing it out there.)
+Various .adq/.skl/.eqp etc (actually xml format) files exist under this repository: https://github.com/richardwilkes/gcs_library
+They’re used by this fun swing app: http://gurpscharactersheet.com/ 
+
+Convert this particular one to .edn https://github.com/richardwilkes/gcs_library/blob/master/Library/Advantages/Basic%20Set.adq
+The exact modeling is up to you, but ideally, be able to “easily answer” various queries such as:
+ * Get all the Mental advantages/disadvantages
+ * Get all the advantage within a given base cost range (e.g. 15-20, < 12, = 10)
+   * Bonus points to anyone that makes this work with point modifier applications
+ * Find all advantages that give a bonus to a given skill by name
+ * Anything else you find entertaining
+
+The nature of each item can wildly differ, but the format stays relatively the same.
+
+Under most of the main folders, you’ll find a “Basic Set.*” file, the format should be mostly similar to the .adq file, but the content will be vastly different.
+For bonus points, make a more general xml->edn utility that works for this style of xml modeling.
+
+#### April 21<sup>st</sup>: [Reducers](https://clojure.org/reference/reducers) or [Transducers](https://clojure.org/reference/transducers)
+
+Nobody groks any of this stuff. Time to grok. 
+
+Assignment: Pick any problem (trivial is fine) that uses reducers or transducers and work on it. 
+We'll discuss it next week. The focus will be on reducers, but if there's time we might get to 
+transducers.
+
+To begin, you might want to try using reducers on [this example submitted by Mike](https://github.com/markbastian/clojure-club/blob/master/src/main/cljc/clojure_club/playground/reducer_problem.clj).
+Be sure to make your own version so everyone isn't clobbering each other.
+
+Mike is leading the discussion.
+ 
+ #### April 14<sup>th</sup>: [Universal Computation Engine](https://www.4clojure.com/problem/121)
+ 
+ From [4clojure.com](https://www.4clojure.com/problem/121): "Given a mathematical formula 
+ in prefix notation, return a function that calculates the value of the formula. The 
+ formula can contain nested calculations using the four basic mathematical operators, 
+ numeric constants, and symbols representing variables. The returned function has to 
+ accept a single parameter containing the map of variable names to their values."
+ 
+ **Note that you may not use eval or resolve.**
+ 
+ I haven't spent much time thinking about *advanced* aspects of this problem, but for bonus
+ points you might want to try the following:
+  * Add transcendental functions (sin, cos, etc.)
+  * Take a look at symbolic differentiation (This may be extra extra out of scope, just
+  throwing it out there.)
   
-#### April 7th:
+#### April 7<sup>th</sup>:
 
 We'll be working on two problems - pick the one you want.
 * Develop a quine in Clojure (https://www.4clojure.com/problem/125) and/or
@@ -34,7 +69,7 @@ We'll be working on two problems - pick the one you want.
   * Note that there are several ways you could solve this including a search or using a 
   [logic programming library](https://github.com/clojure/core.logic)
 
-#### March 24th: [Analyze Reversi](https://www.4clojure.com/problem/124)
+#### March 24<sup>th</sup>: [Analyze Reversi](https://www.4clojure.com/problem/124)
 
 * Implement your solution as a cljc file (src/main/cljc/x124_analyze_reversi/$USERNAME.cljc rather than a .clj.
 * If time allows, we’ll discuss reader conditionals, isomorphic Clojure, and the differences between clj, cljc, and cljs files.
@@ -42,7 +77,7 @@ We'll be working on two problems - pick the one you want.
 
 Please submit your answer via git pull request to https://github.com/markbastian/clojure-club. However, if you email it to me I will continue to facilitate your bad behavior and add it myself.
 
-#### March 17th: [Number Maze](http://www.4clojure.com/problem/106)
+#### March 17<sup>th</sup>: [Number Maze](http://www.4clojure.com/problem/106)
  * Compute the minimum number of steps required to go from integer S<sub>i</sub> 
  to S<sub>f</sub>.
  * Allowed operations are:
