@@ -9,6 +9,27 @@ the name $USER.clj.
 
 ## Problems
 
+#### April 28<sup>th</sup>: GURPS Data Modeling
+
+Thanks to Wes for providing this exercise. I think it has a variety of interesting aspects, including
+data modeling, XML parsing, tree-walking, etc.
+
+Various .adq/.skl/.eqp etc (actually xml format) files exist under this repository: https://github.com/richardwilkes/gcs_library
+They’re used by this fun swing app: http://gurpscharactersheet.com/ 
+
+Convert this particular one to .edn https://github.com/richardwilkes/gcs_library/blob/master/Library/Advantages/Basic%20Set.adq
+The exact modeling is up to you, but ideally, be able to “easily answer” various queries such as:
+ * Get all the Mental advantages/disadvantages
+ * Get all the advantage within a given base cost range (e.g. 15-20, < 12, = 10)
+   * Bonus points to anyone that makes this work with point modifier applications
+ * Find all advantages that give a bonus to a given skill by name
+ * Anything else you find entertaining
+
+The nature of each item can wildly differ, but the format stays relatively the same.
+
+Under most of the main folders, you’ll find a “Basic Set.*” file, the format should be mostly similar to the .adq file, but the content will be vastly different.
+For bonus points, make a more general xml->edn utility that works for this style of xml modeling.
+
 #### April 21<sup>st</sup>: [Reducers](https://clojure.org/reference/reducers) or [Transducers](https://clojure.org/reference/transducers)
 
 Nobody groks any of this stuff. Time to grok. 
