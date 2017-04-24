@@ -7,7 +7,8 @@
                  [org.clojure/clojurescript "1.9.495"]
                  [reagent "0.6.1"]
                  [com.taoensso/tufte "1.1.1"]
-                 [org.clojure/core.logic "0.8.11"]]
+                 [org.clojure/core.logic "0.8.11"]
+                 [org.clojure/data.xml "0.0.8"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.9"]]
