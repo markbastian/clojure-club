@@ -7,6 +7,14 @@
 
 (def x (->> "clojure_club/gurps/basic_set.adq" io/resource slurp xml/parse-str))
 
+#_(clojure.walk/prewalk
+  (fn [{:keys [tag attrs content] :as m}]
+    (cond
+      (string? content) {tag content}
+      (seq content) {tag m}
+      :else m))
+  x)
+
 (defn numeric-attr [{:keys [tag content]}]
   {tag (some-> content first)})
 
