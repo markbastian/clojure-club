@@ -2,8 +2,8 @@
   (:require [clojure.core.reducers :as r]
             [taoensso.tufte :as tufte :refer (defnp p profiled profile)]))
 
-(defn slow-range [n delay] (map (fn [i] (fn [] (Thread/sleep delay) i)) (range n)))
-(defn slow-rangev [n delay] (mapv (fn [i] (fn [] (Thread/sleep delay) i)) (range n)))
+(defn slow-range [n delay] (map (fn [i] (fn [] (when delay (Thread/sleep delay)) i)) (range n)))
+(defn slow-rangev [n delay] (mapv (fn [i] (fn [] (when delay (Thread/sleep delay)) i)) (range n)))
 
 (defn work-proxy [input]  (Thread/sleep input)  1)
 
@@ -21,17 +21,24 @@
   (->> (slow-range limit delay) (pmap counter) (map inc) (filter odd?) (reduce +)))
 
 ;Not reduced since it's not in a vec
-(defn slow-range-reducer [limit delay]
-  (->> (slow-range limit delay) (r/map counter) (r/map inc) (r/filter odd?) (r/fold 8 + +)))
+(defn slow-range-reducer [limit delay partitions]
+  (if partitions
+    (->> (slow-range limit delay) (r/map counter) (r/map inc) (r/filter odd?) (r/fold partitions + +))
+    (->> (slow-range limit delay) (r/map counter) (r/map inc) (r/filter odd?) (r/fold +))))
 
 ;Reduced since it's in a vec
-(defn slow-rangev-reducer [limit delay]
-  (->> (slow-rangev limit delay) (r/map counter) (r/map inc) (r/filter odd?) (r/fold 8 + +)))
+(defn slow-rangev-reducer [limit delay partitions]
+  (if partitions
+    (->> (slow-rangev limit delay) (r/map counter) (r/map inc) (r/filter odd?) (r/fold partitions + +))
+    (->> (slow-rangev limit delay) (r/map counter) (r/map inc) (r/filter odd?) (r/fold +))))
 
+;Same as above, but with logic broken out
 (def rxf #(->> % (r/map counter) (r/map inc) (r/filter odd?)))
 
-(defn slow-rangev-reducer-pipe [limit delay]
-  (->> (slow-rangev limit delay) rxf (r/fold 8 + +)))
+(defn slow-rangev-reducer-pipe [limit delay partitions]
+  (if partitions
+    (->> (slow-rangev limit delay) rxf (r/fold partitions + +))
+    (->> (slow-rangev limit delay) rxf (r/fold +))))
 
 ;Transducers compose pipelines
 (def xf
@@ -42,17 +49,30 @@
   (transduce xf + (slow-rangev limit delay)))
 
 (tufte/add-basic-println-handler! {})
-#_(profile
+(profile
   {:dynamic? true}
-  (let [samples 40 delay 100]
+  (let
+    ;[samples 16384 delay nil partitions 8]
+    ;[samples 1048576 delay nil partitions nil]
+    [samples 64 delay 1 partitions 8]
     (dotimes [_ 5]
       (p :baseline (do (baseline samples delay)))
-      (p :baseline+pmap (do (baseline+pmap samples delay)))
-      ;(p :slow-range-reducer (do (slow-range-reducer samples delay)))
-      ;(p :slow-rangev-reducer (do (slow-rangev-reducer samples delay)))
-      (p :slow-rangev-reducer-pipe (do (slow-rangev-reducer-pipe samples delay)))
-      ;(p :slow-rangev-transducer (do (slow-rangev-transducer samples delay)))
-      )))
+      (p :pmap (do (baseline+pmap samples delay)))
+      (p :reducer-seq (do (slow-range-reducer samples delay partitions)))
+      (p :reducer-vec (do (slow-rangev-reducer samples delay partitions)))
+      (p :reducer-vec-pipe (do (slow-rangev-reducer-pipe samples delay partitions)))
+      (p :transducer (do (slow-rangev-transducer samples delay))))))
+
+(defn froo [v]
+  [(p :fold (r/fold + v))
+   (p :r-reduce (r/reduce + v))
+   (p :simple-reduce (reduce + v))])
+
+(defonce v (vec (doall (range 10000000))))
+
+(profile
+  {:dynamic? true}
+  (dotimes [_ 1] (p :basic-comparisons (froo v))))
 
 ;Think of work proxy as set amount of calculation we want to do.
 ;What I was trying to do was get the reducers to run each thunk in parallel.
