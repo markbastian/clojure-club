@@ -7,15 +7,26 @@ Once a week a new problem will be posted. A package will be created in this proj
 for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
-## Ideas
- * Setting up your user profile and favorite plugins
- * Procedural generation of *stuff*
- * Cool libraries
-   * [Mount](https://github.com/tolitius/mount)
-   * [Specter](https://github.com/nathanmarz/specter)
- * More [4clojure](https://www.4clojure.com/)
-
 ## Problems
+
+#### May 5th<sup>th</sup>: Procedural Domain Generation and Modeling Using Spec
+
+[Spec](https://clojure.org/about/spec) is all the hotness in Clojure nowadays. It allows you to 
+create specifications for your data and do all kinds of things once you've generated a spec. Here's
+the [guide](https://clojure.org/guides/spec).
+
+Assignment:
+ * Pick a domain and create a spec that [generates](https://clojure.org/guides/spec#_generators) models within your domain.
+ * Suggested domain:
+   * D&D characters or similar
+     * A character has a:
+       * name: string
+       * class: fighter, cleric, magic user, assassin, barbarian (you can multiclass)
+       * level: integer
+       * traits: STR, DEX, INT, CHA, WIS, CON
+       * There are other aspects you could model, such as spells, weapons, etc. Go as deep as you want.
+ * You can do whatever domain you want, but if you do the above we'll all be on the same page.
+ * Put your solution in src/main/cljc/clojure_club/rpg_spec/{username}
 
 #### April 28<sup>th</sup>: GURPS Data Modeling
 
@@ -103,6 +114,18 @@ Please submit your answer via git pull request to https://github.com/markbastian
  distinguish ambiguous solutions like [[2 4][2 4]], which would become 
  [[2 + 2 = 4][2 * 2 = 4]]. How the operations are expressed aren't important.
 
+## Ideas
+ * Setting up your user profile and favorite plugins
+   * Create your own!
+   * code coverage, etc.
+ * Procedural generation of *stuff*
+   * including spec (X2)
+ * Cool libraries
+   * [Mount](https://github.com/tolitius/mount)
+   * [Specter](https://github.com/nathanmarz/specter)
+   * [Quil](http://quil.info/)
+ * More [4clojure](https://www.4clojure.com/)
+ 
 ## License
 
 Copyright © 2017 Mark Bastian, Matt Grimm, Jacob Strength, Jerek Anderson, 
