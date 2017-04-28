@@ -7,6 +7,14 @@ Once a week a new problem will be posted. A package will be created in this proj
 for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
+## Ideas
+ * Setting up your user profile and favorite plugins
+ * Procedural generation of *stuff*
+ * Cool libraries
+   * [Mount](https://github.com/tolitius/mount)
+   * [Specter](https://github.com/nathanmarz/specter)
+ * More [4clojure](https://www.4clojure.com/)
+
 ## Problems
 
 #### April 28<sup>th</sup>: GURPS Data Modeling
