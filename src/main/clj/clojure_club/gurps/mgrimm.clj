@@ -38,7 +38,7 @@
 
 ;; Tests -----------------------------------------------------------------------
 
-(let [hik (->hik "clojure_club/gurps/basic_set.adq")]
+(let [hik (->hik "clojure_club/gurps/basic_set.xml")]
   #_(advantages-by-name #"Walk On Air" hik)
   #_(advantages-by-type #"Mental, Supernatural" hik)
   #_(advantages-by-cost #(> % 100) hik)
