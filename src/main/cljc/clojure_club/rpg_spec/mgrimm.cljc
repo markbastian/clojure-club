@@ -39,7 +39,8 @@
 (s/def ::wis ::trait)
 (s/def ::con ::trait)
 (s/def ::traits (s/keys :req [::str ::dex ::int ::cha ::wis ::con]))
-(s/def ::name (s/with-gen string?  #(s/gen (into #{} (apply map str (vals (rand-nth (seq names))))))))
+(s/def ::name (s/with-gen string?
+                #(s/gen (into #{} (apply map (fn [p s] (str (name p) (name s))) (vals (rand-nth (seq names))))))))
 
 (s/def ::gender #{:male :female})
 (s/def ::race #{:dwarf :elf :gnome :half-elf :half-orc :halfling :human})
