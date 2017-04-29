@@ -1,7 +1,5 @@
 (ns clojure-club.rpg-spec.mgrimm
   (:require 
-    [clojure.pprint :as pp]
-    [clojure.string :as string]
     [clojure.core.reducers :as r]
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as g]))
@@ -44,7 +42,8 @@
 
 (s/def ::gender #{:male :female})
 (s/def ::race #{:dwarf :elf :gnome :half-elf :half-orc :halfling :human})
-(s/def ::class #{:barbarian :bard :cleric :druid :fighter :monk :paladin :ranger :rogue :sorcerer :wizard})
+(s/def ::class (s/coll-of #{:barbarian :bard :cleric :druid :fighter :monk :paladin :ranger :rogue :sorcerer :wizard} 
+                          :min-count 1 :max-count 2 :distinct true :into #{}))
 (s/def ::level (s/with-gen (s/int-in 1 21) #(s/gen #{1})))
 
 (s/def ::character (s/keys :req [::name ::gender ::race ::class ::level ::traits]))
@@ -54,4 +53,4 @@
 (defn create-character []
   (first (g/sample (s/gen ::character) 100)))
 
-#_(pp/pprint (create-character))
+#_(clojure.pprint/pprint (create-character))
