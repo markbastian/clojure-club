@@ -10,7 +10,8 @@
                  [com.taoensso/tufte "1.1.1"]
                  [org.clojure/core.logic "0.8.11"]
                  [org.clojure/data.xml "0.0.8"]
-                 [com.rpl/specter "1.0.1"]]
+                 [com.rpl/specter "1.0.1"]
+                 [mount "0.1.11"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.9"]]
