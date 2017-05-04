@@ -56,3 +56,25 @@
   (s/keys :req [::name ::race ::character-class ::character-stats ::skills ::weapon-class]))
 
 (gen/sample (s/gen ::character) 10)
+
+(defn save [c attr]
+  {:pre [(s/assert ::character c)]}
+  (get-in c [::character-stats attr]))
+
+(save (first (gen/sample (s/gen ::character) 10)) ::str)
+
+(save
+  {:name "",
+   :race :clojure-club.rpg-spec.mbastian/elf,
+   :character-class :clojure-club.rpg-spec.mbastian/ranger,
+   :character-stats {:str 6,
+                     :dex 4,
+                     :con 4,
+                     :int 3,
+                     :wis 4,
+                     :cha 5},
+   :skills #{:survival},
+   :weapon-class :meelee}
+  ::str)
+
+(save 3 4)
