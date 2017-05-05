@@ -70,31 +70,32 @@
 
 (level-up (first (gen/sample (s/gen ::character) 10)))
 
-(level-up
-  {:name "",
-   :race :clojure-club.rpg-spec.mbastian/elf,
-   :character-class :clojure-club.rpg-spec.mbastian/ranger,
-   :level 2
-   :character-stats {:str 6,
-                     :dex 4,
-                     :con 4,
-                     :int 3,
-                     :wis 4,
-                     :cha 5},
-   :skills #{:survival},
-   :weapon-class :meelee})
-
-(level-up 3)
-
-;;;;;;;;;;;;;;;Using instrument;;;;;;;;;;;;;;
-(defn enskill [c]
-  (update c ::skills conj :stealth))
-
-(s/fdef enskill
-        :args (s/cat :character ::character)
-        :ret ::character)
-
-(stest/instrument `enskill)
-
-(enskill (first (gen/sample (s/gen ::character) 10)))
-(enskill 34)
+;;This will fail since the keywords aren't ns-qualified.
+;(level-up
+;  {:name "",
+;   :race :clojure-club.rpg-spec.mbastian/elf,
+;   :character-class :clojure-club.rpg-spec.mbastian/ranger,
+;   :level 2
+;   :character-stats {:str 6,
+;                     :dex 4,
+;                     :con 4,
+;                     :int 3,
+;                     :wis 4,
+;                     :cha 5},
+;   :skills #{:survival},
+;   :weapon-class :meelee})
+;
+;(level-up 3)
+;
+;;;;;;;;;;;;;;;;Using instrument;;;;;;;;;;;;;;
+;(defn enskill [c]
+;  (update c ::skills conj :stealth))
+;
+;(s/fdef enskill
+;        :args (s/cat :character ::character)
+;        :ret ::character)
+;
+;(stest/instrument `enskill)
+;
+;(enskill (first (gen/sample (s/gen ::character) 10)))
+;(enskill 34)

@@ -9,6 +9,13 @@ the name $USER.clj.
 
 ## Problems
 
+#### May 12th<sup>th</sup>: [Mount](https://github.com/tolitius/mount)
+
+Mark will be talking about mount, a simple library for managing state in Clojure. For context, any sizeable app will
+need some sort of basic configuration (a database being the classic example) to function. For testing you need the
+ability to setup and teardown different configs on fly. Mount is a great way to do this. It can be used to mock up any
+set of states you might want for dev, test, prod, or whatever.
+
 #### May 5th<sup>th</sup>: Procedural Domain Generation and Modeling Using Spec
 
 [Spec](https://clojure.org/about/spec) is all the hotness in Clojure nowadays. It allows you to 
@@ -125,6 +132,12 @@ Please submit your answer via git pull request to https://github.com/markbastian
    * [Specter](https://github.com/nathanmarz/specter)
    * [Quil](http://quil.info/)
  * More [4clojure](https://www.4clojure.com/)
+ * Java interop
+   * Java -> Clojure
+   * Clojure -> Java
+   * Skin a game (two teams - clj, cljs)
+   * UIs
+   * JavaFX
  
 ## License
 
