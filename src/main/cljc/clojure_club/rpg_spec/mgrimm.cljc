@@ -71,7 +71,7 @@
 (defn create-character []
   (let [{cls ::class {con ::con} ::attributes :as ch} (one-sample ::character)
         start-cls (first (seq cls))
-        hp (+ con (base-hp start-cls))]
+        hp (+ con (class-base-hp start-cls))]
     (assoc ch ::hp hp)))
 
 #_(clojure.pprint/pprint (create-character))
