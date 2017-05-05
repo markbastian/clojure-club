@@ -9,6 +9,32 @@ the name $USER.clj.
 
 ## Problems
 
+#### May 12th<sup>th</sup>: [Mount](https://github.com/tolitius/mount)
+
+Mark will be talking about mount, a simple library for managing state in Clojure. For context, any sizeable app will
+need some sort of basic configuration (a database being the classic example) to function. For testing you need the
+ability to setup and teardown different configs on fly. Mount is a great way to do this. It can be used to mock up any
+set of states you might want for dev, test, prod, or whatever.
+
+#### May 5th<sup>th</sup>: Procedural Domain Generation and Modeling Using Spec
+
+[Spec](https://clojure.org/about/spec) is all the hotness in Clojure nowadays. It allows you to 
+create specifications for your data and do all kinds of things once you've generated a spec. Here's
+the [guide](https://clojure.org/guides/spec).
+
+Assignment:
+ * Pick a domain and create a spec that [generates](https://clojure.org/guides/spec#_generators) models within your domain.
+ * Suggested domain:
+   * D&D characters or similar
+     * A character has a:
+       * name: string
+       * class: fighter, cleric, magic user, assassin, barbarian (you can multiclass)
+       * level: integer
+       * traits: STR, DEX, INT, CHA, WIS, CON
+       * There are other aspects you could model, such as spells, weapons, etc. Go as deep as you want.
+ * You can do whatever domain you want, but if you do the above we'll all be on the same page.
+ * Put your solution in src/main/cljc/clojure_club/rpg_spec/{username}
+
 #### April 28<sup>th</sup>: GURPS Data Modeling
 
 Thanks to Wes for providing this exercise. I think it has a variety of interesting aspects, including
@@ -95,6 +121,24 @@ Please submit your answer via git pull request to https://github.com/markbastian
  distinguish ambiguous solutions like [[2 4][2 4]], which would become 
  [[2 + 2 = 4][2 * 2 = 4]]. How the operations are expressed aren't important.
 
+## Ideas
+ * Setting up your user profile and favorite plugins
+   * Create your own!
+   * code coverage, etc.
+ * Procedural generation of *stuff*
+   * including spec (X2)
+ * Cool libraries
+   * [Mount](https://github.com/tolitius/mount)
+   * [Specter](https://github.com/nathanmarz/specter)
+   * [Quil](http://quil.info/)
+ * More [4clojure](https://www.4clojure.com/)
+ * Java interop
+   * Java -> Clojure
+   * Clojure -> Java
+   * Skin a game (two teams - clj, cljs)
+   * UIs
+   * JavaFX
+ 
 ## License
 
 Copyright © 2017 Mark Bastian, Matt Grimm, Jacob Strength, Jerek Anderson, 
