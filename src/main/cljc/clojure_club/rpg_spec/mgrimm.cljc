@@ -24,11 +24,16 @@
 
 ;; -----------------------------------------------------------------------------
 
-(s/def ::1d6 (s/int-in 2 7))
+(def class-base-hp
+  {:barbarian 12 :bard 8 :cleric 8 :druid 8 :fighter 10
+   :monk 8 :paladin 10 :ranger 10 :rogue 8 :sorcerer 6 :wizard 6})
+
+(s/def ::1d6 (s/int-in 1 7))
 (s/def ::4d6 (s/tuple ::1d6 ::1d6 ::1d6 ::1d6))
 
-(s/def ::attribute (s/with-gen (s/int-in 8 25)
+(s/def ::attribute (s/with-gen (s/int-in 4 25)
                      #(s/gen (into #{} (r/map (partial r/fold +) (g/sample (s/gen ::4d6) 100))))))
+
 (s/def ::str ::attribute)
 (s/def ::dex ::attribute)
 (s/def ::int ::attribute)
@@ -38,22 +43,35 @@
 (s/def ::attributes (s/keys :req [::str ::dex ::int ::cha ::wis ::con]))
 
 (s/def ::name (s/with-gen string?
-                #(s/gen (into #{} (apply map (fn [p s] (str (name p) (name s))) (vals (rand-nth (seq names))))))))
+                #(s/gen (into #{} (apply map (fn [p s] (str (name p) (name s)))
+                                         (vals (rand-nth (seq names))))))))
 
 (s/def ::gender #{:male :female})
+
 (s/def ::race #{:dwarf :elf :gnome :half-elf :half-orc :halfling :human})
-(s/def ::class (s/coll-of #{:barbarian :bard :cleric :druid :fighter :monk :paladin :ranger :rogue :sorcerer :wizard} 
+
+(s/def ::class (s/coll-of (into #{} (keys class-base-hp))
                           :min-count 1 :max-count 2 :distinct true :into #{}))
+
 (s/def ::alignment #{:lawful-good :lawful-neutral :lawful-evil
                      :neutral-good :true-neutral :neutral-evil
                      :chaotic-good :chaotic-neutral :chaotic-evil})
+
 (s/def ::level (s/with-gen (s/int-in 1 21) #(s/gen #{1})))
 
-(s/def ::character (s/keys :req [::name ::gender ::race ::class ::alignment ::level ::attributes]))
+(s/def ::hp (s/and integer? (some-fn zero? pos?)))
+
+(s/def ::character (s/keys :req [::name ::gender ::race ::class ::alignment
+                                 ::level ::attributes ::hp]))
 
 ;; -----------------------------------------------------------------------------
 
+(defn one-sample [spec] (first (g/sample (s/gen spec) 100)))
+
 (defn create-character []
-  (first (g/sample (s/gen ::character) 100)))
+  (let [{cls ::class {con ::con} ::attributes :as ch} (one-sample ::character)
+        start-cls (first (seq cls))
+        hp (+ con (class-base-hp start-cls))]
+    (assoc ch ::hp hp)))
 
 #_(clojure.pprint/pprint (create-character))
