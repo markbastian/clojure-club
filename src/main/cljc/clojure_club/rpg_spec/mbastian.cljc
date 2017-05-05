@@ -47,26 +47,34 @@
 
 (s/def ::skills (s/with-gen (s/* ::skill)
                             #(gen/fmap
-                               (fn [d] (take 2 d))
+                               (fn [d] (set (take 2 d)))
                                (s/gen (s/+ ::skill)))))
 
 (s/def ::weapon-class #{:ranged :meelee})
 
+(s/def ::level (s/and int? pos?))
+
 (s/def ::character
-  (s/keys :req [::name ::race ::character-class ::character-stats ::skills ::weapon-class]))
+  (s/keys :req [::name ::race ::level ::character-class ::character-stats ::skills ::weapon-class]))
 
 (gen/sample (s/gen ::character) 10)
 
-(defn save [c attr]
-  {:pre [(s/assert ::character c)]}
-  (get-in c [::character-stats attr]))
+;;;;;;;;;;;;;;;Using pre/post conds;;;;;;;;;;;;;;
+;Conditions only work when asserts are enabled
+(s/check-asserts true)
 
-(save (first (gen/sample (s/gen ::character) 10)) ::str)
+(defn level-up [c]
+  {:pre [(s/assert ::character c)]
+   :post [(and (s/assert ::character %) (> (::level %) (::level c)))]}
+  (update c ::level inc))
 
-(save
+(level-up (first (gen/sample (s/gen ::character) 10)))
+
+(level-up
   {:name "",
    :race :clojure-club.rpg-spec.mbastian/elf,
    :character-class :clojure-club.rpg-spec.mbastian/ranger,
+   :level 2
    :character-stats {:str 6,
                      :dex 4,
                      :con 4,
@@ -74,7 +82,19 @@
                      :wis 4,
                      :cha 5},
    :skills #{:survival},
-   :weapon-class :meelee}
-  ::str)
+   :weapon-class :meelee})
 
-(save 3 4)
+(level-up 3)
+
+;;;;;;;;;;;;;;;Using instrument;;;;;;;;;;;;;;
+(defn enskill [c]
+  (update c ::skills conj :stealth))
+
+(s/fdef enskill
+        :args (s/cat :character ::character)
+        :ret ::character)
+
+(stest/instrument `enskill)
+
+(enskill (first (gen/sample (s/gen ::character) 10)))
+(enskill 34)
