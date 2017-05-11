@@ -11,7 +11,11 @@
                  [org.clojure/core.logic "0.8.11"]
                  [org.clojure/data.xml "0.0.8"]
                  [com.rpl/specter "1.0.1"]
-                 [mount "0.1.11"]]
+                 [mount "0.1.11"]
+                 [uncomplicate/neanderthal "0.9.0"]
+                 [uncomplicate/clojurecl "0.7.1"]
+                 [com.novemberain/monger "3.1.0"]
+                 [com.github.fakemongo/fongo "2.0.13"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.9"]]
