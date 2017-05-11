@@ -15,10 +15,13 @@
                  [uncomplicate/neanderthal "0.9.0"]
                  [uncomplicate/clojurecl "0.7.1"]
                  [com.novemberain/monger "3.1.0"]
-                 [com.github.fakemongo/fongo "2.0.13"]]
+                 [com.github.fakemongo/fongo "2.0.13"]
+                 [environ "1.1.0"]
+                 [cheshire "5.7.1"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
-            [lein-figwheel "0.5.9"]]
+            [lein-figwheel "0.5.9"]
+            [lein-environ "1.1.0"]]
 
   :source-paths ["src/main/clj" "src/main/cljc"]
   :test-paths ["src/test/clj" "src/test/cljc"]
