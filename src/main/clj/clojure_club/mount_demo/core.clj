@@ -2,49 +2,71 @@
   (:require [mount.core :refer [defstate] :as mount]
             [environ.core :refer [env]]
             [monger.core :as mg]
-            [cheshire.core :as ch])
+            [cheshire.core :as ch]
+            [clojure-club.mount-demo.data :as d]
+            [clojure-club.mount-demo.weather :as wx]
+            [clojure.pprint :as pp]
+            [monger.collection :as mc])
   (:import (com.github.fakemongo Fongo)))
 
-;You can config once from your env, but you can reload or modify.
-env
+;(pp/pprint env)
 
-;(mg/connect-via-uri connection-str)
+;Global startup and shutdown - Normally call (mount/start) somewhere and don't call (mount/stop).
+;(mount/start)
+;(pp/pprint (wx/weather))
+;(mount/stop)
+;
+;(mount/start)
+;(mc/insert (d/get-db) "data" (wx/weather))
+;(mount/stop)
 
-;Dynamic vars
-(def ^:dynamic *mongo-connection* (Fongo. "mongo server 1"))
-(alter-var-root #'*mongo-connection* (constantly "New binding here"))
-(with-bindings {#'*mongo-connection* (Fongo. "mongo server 1")}
-  (prn *mongo-connection*))
-(prn *mongo-connection*)
+;Note that start-with - stop is not a stack - (mount/stop) does not pop the state. It stops everything.
 
-;You could use an atom, but you'd have to pass this around everywhere
-(def mongo-connection (atom {:conn (Fongo. "mongo server 1")}))
+;Hot swap the db to test.
+(let [_ (mount/start-with
+          {#'d/db "test"})
+      w (wx/weather)
+      res (mc/insert (d/get-db) "data" w)
+      _ (mount/stop)]
+  res)
 
-(defstate
-  db
-  :start (Fongo. "mongo server 1")
-  :stop (prn "It's over!"))
-
-(defn wx->edn [url] (ch/parse-string (slurp url) true))
-
-(defstate
-  weather-service-url
-  :start "http://api.wunderground.com/api/46b315c0cf22f273/conditions/q/ID/Boise.json")
-
-(mount/start)
-(wx->edn weather-service-url)
+;Use an alternate weather service
+(let [_ (mount/start-with
+          {#'wx/weather-service-url wx/openweathermap-url})
+      w (wx/weather)
+      res (mc/insert (d/get-db) "data" w)
+      _ (mount/stop)]
+  res)
 
 (let [_ (mount/start-with
-        {#'weather-service-url
-         "http://api.openweathermap.org/data/2.5/weather?q=Boise,ID&appid=f5f2079dd7f4a6c3b6730d3441efb2c2"})
-      wx (wx->edn weather-service-url)
+          {#'wx/weather-service-url wx/openweathermap-url})
+      w (wx/weather)
+      res (mc/insert (d/get-db) "data" w)
       _ (mount/stop)]
-  wx)
+  res)
 
-(mount/stop)
-(mount/start)
-(:current_observation (wx->edn weather-service-url))
+;In memory - all else the same
+(let [_ (mount/start-with
+          {#'d/conn (d/fongo-conn)})
+      conn-info (bean d/conn)
+      w (wx/weather)
+      res (mc/insert (d/get-db) "data" w)
+      the-weather (mc/find-maps (d/get-db) "data")
+      _ (mount/stop)]
+  [conn-info res the-weather])
 
-;DB db = fongo.getDB("mydb");
-;DBCollection collection = db.getCollection("mycollection");
-;collection.insert(new BasicDBObject("name", "jon"));
+;In memory + alt wx svc
+(let [_ (mount/start-with
+          {#'d/conn (d/fongo-conn)
+           #'wx/weather-service-url wx/openweathermap-url})
+      conn-info (bean d/conn)
+      res1 (d/insert-data (wx/weather))
+      res2 (d/insert-data (wx/weather))
+      the-weather (mc/find-maps (d/get-db) "data")
+      _ (mount/stop)]
+  {:connection-info conn-info
+   :db-results [res1 res2]
+   :data the-weather})
+
+;There should be no state here since we've shut it all down.
+(pp/pprint d/conn)
