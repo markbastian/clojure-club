@@ -9,6 +9,23 @@ the name $USER.clj.
 
 ## Problems
 
+#### May 19th<sup>th</sup>: [Making Data Dance](http://www.4clojure.com/problem/113)
+
+From 4clojure.com: Write a function that takes a variable number of integer arguments. If the output is coerced into a 
+string, it should return a comma (and space) separated list of the inputs sorted smallest to largest. If the output is 
+coerced into a sequence, it should return a seq of unique input elements in the same order as they were entered.
+
+Place your solution in src/main/clj/x113_making_data_dance/$username.clj
+
+Note that you may not use proxy. Speaking of proxy...
+
+In addition to the solving this problem, I'd like to discuss several handy methods for Java interop, including:
+ * proxy
+ * reify
+ * definterface
+ * doto
+ * bean
+
 #### May 12th<sup>th</sup>: [Mount](https://github.com/tolitius/mount)
 
 Mark will be talking about mount, a simple library for managing state in Clojure. For context, any sizeable app will

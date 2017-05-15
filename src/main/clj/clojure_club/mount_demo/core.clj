@@ -36,13 +36,13 @@ env
 
 (let [_ (mount/start-with
         {#'weather-service-url
-         "http://api.openweathermap.org/data/2.5/weather?q=Boise,ID&appid=f5f2079dd7f4a6c3b6730d3441efb2c2"})
+         "http://api.openweathermap.org/data/2.5/weather?q=Boise,ID&appid=f5f2079dd7f4a6c3b6730d3441efb2c2&units=imperial"})
       wx (wx->edn weather-service-url)
       _ (mount/stop)]
   wx)
 
-(mount/stop)
-(mount/start)
+;(mount/stop)
+;(mount/start)
 (:current_observation (wx->edn weather-service-url))
 
 ;DB db = fongo.getDB("mydb");
