@@ -20,7 +20,9 @@
   (let [table-model (proxy [AbstractTableModel] []
                       (getRowCount [] (count (get-in @state [:data])))
                       (getColumnCount [] (count (get-in @state [:data 0])))
-                      (getValueAt [row col] (get-in @state [:data row col])))]
+                      (getValueAt [row col] (get-in @state [:data row col]))
+                      (setValueAt [o row col] (swap! state assoc-in [:data row col] o))
+                      (isCellEditable [row col] true))]
     (add-watch state ::table-data-changed
                (fn [_ _ o n]
                  (do
@@ -28,18 +30,20 @@
                    (.fireTableStructureChanged table-model))))
     table-model))
 
-(def state (atom {:data [[1 2] [3 4]]}))
+(defn launch-app [state]
+  (doto (JFrame. "The App")
+    (.setSize 800 600)
+    (.setDefaultCloseOperation JFrame/DISPOSE_ON_CLOSE)
+    (.setLayout (BorderLayout.))
+    (.setJMenuBar (doto (JMenuBar.)
+                    (.add (doto (JMenu. "File")
+                            (.add (JMenuItem. (openAction state)))))
+                    (.add (JMenu. "Edit"))))
+    (.add (doto (JScrollPane.
+                  (doto (JTable. (model state))
+                    (.setGridColor Color/BLACK))))
+          BorderLayout/CENTER)
+    (.setVisible true)))
 
-(doto (JFrame. "The App")
-  (.setSize 800 600)
-  (.setDefaultCloseOperation JFrame/DISPOSE_ON_CLOSE)
-  (.setLayout (BorderLayout.))
-  (.setJMenuBar (doto (JMenuBar.)
-                  (.add (doto (JMenu. "File")
-                          (.add (JMenuItem. (openAction state)))))
-                  (.add (JMenu. "Edit"))))
-  (.add (doto (JScrollPane.
-                (doto (JTable. (model state))
-                  (.setGridColor Color/BLACK))))
-        BorderLayout/CENTER)
-  (.setVisible true))
+;(def state (atom {:data [[1 2] [3 4]]}))
+;(launch-app state)
