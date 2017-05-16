@@ -95,18 +95,18 @@
     {:default (map parse-adq content)}
     (prn tag)))
 
-;(def m (parse-adq x))
+(def m (parse-adq x))
 ;(parse-adq x)
 
 ;filters
-(defn mental-disadvangate [{:keys [type categories] :as m}]
+(defn mental-disadvantage [{:keys [type categories] :as m}]
   (and (type :mental) (categories :disadvantage)))
 
-(defn mental-advangate [{:keys [type categories] :as m}]
+(defn mental-advantage [{:keys [type categories] :as m}]
   (and (type :mental) (categories :advantage)))
 
-;(filter (fn [{:keys [categories base_points] :as m}]
+;(map :name (filter (fn [{:keys [categories base_points] :as m}]
 ;          (and base_points
 ;               (categories :advantage)
 ;               (<= 5 base_points 15)))
-;        m)
+;        m))

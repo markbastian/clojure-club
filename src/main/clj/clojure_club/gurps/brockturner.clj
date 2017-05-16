@@ -1,6 +1,7 @@
 (ns clojure-club.gurps.brockturner
   (:require [clojure.xml :as xml]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [clojure.pprint :as pp]))
 
 (defn build-tree
   ([node] (build-tree {} node))
@@ -38,6 +39,6 @@
      io/input-stream
      xml/parse
      build-tree
-     pprint
+     pp/pprint
      with-out-str
      (spit "base_test.edn"))

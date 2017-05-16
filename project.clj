@@ -3,15 +3,25 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[org.clojure/clojure "1.9.0-alpha16"]
                  [org.clojure/clojurescript "1.9.495"]
                  [reagent "0.6.1"]
+                 [hickory "0.7.1"]
                  [com.taoensso/tufte "1.1.1"]
                  [org.clojure/core.logic "0.8.11"]
-                 [org.clojure/data.xml "0.0.8"]]
+                 [org.clojure/data.xml "0.0.8"]
+                 [com.rpl/specter "1.0.1"]
+                 [mount "0.1.11"]
+                 [uncomplicate/neanderthal "0.9.0"]
+                 [uncomplicate/clojurecl "0.7.1"]
+                 [com.novemberain/monger "3.1.0"]
+                 [com.github.fakemongo/fongo "2.0.13"]
+                 [environ "1.1.0"]
+                 [cheshire "5.7.1"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
-            [lein-figwheel "0.5.9"]]
+            [lein-figwheel "0.5.9"]
+            [lein-environ "1.1.0"]]
 
   :source-paths ["src/main/clj" "src/main/cljc"]
   :test-paths ["src/test/clj" "src/test/cljc"]
@@ -25,7 +35,8 @@
              :dev {:plugins [[lein-cljsbuild "1.1.5"]
                              [org.clojure/clojurescript "1.9.495"]]
                    :dependencies [[com.cemerick/piggieback "0.2.1"]
-                                  [figwheel-sidecar "0.5.9"]]
+                                  [figwheel-sidecar "0.5.9"]
+                                  [org.clojure/test.check "0.9.0"]]
                    :repl-options {:nrepl-middleware
                                   [cemerick.piggieback/wrap-cljs-repl]}}
              :cljs {:plugins [[lein-cljsbuild "1.1.5"]] }}
