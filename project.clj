@@ -12,12 +12,14 @@
                  [org.clojure/data.xml "0.0.8"]
                  [com.rpl/specter "1.0.1"]
                  [mount "0.1.11"]
-                 [uncomplicate/neanderthal "0.9.0"]
-                 [uncomplicate/clojurecl "0.7.1"]
+                 ;[uncomplicate/neanderthal "0.9.0"]
+                 ;[uncomplicate/clojurecl "0.7.1"]
                  [com.novemberain/monger "3.1.0"]
                  [com.github.fakemongo/fongo "2.0.13"]
                  [environ "1.1.0"]
-                 [cheshire "5.7.1"]]
+                 [cheshire "5.7.1"]
+                 ;; https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+                 [org.slf4j/slf4j-api "1.7.25"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.9"]

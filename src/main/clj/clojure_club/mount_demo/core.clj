@@ -31,19 +31,19 @@ env
   weather-service-url
   :start "http://api.wunderground.com/api/46b315c0cf22f273/conditions/q/ID/Boise.json")
 
-(mount/start)
-(wx->edn weather-service-url)
+;(mount/start)
+;(wx->edn weather-service-url)
 
-(let [_ (mount/start-with
-        {#'weather-service-url
-         "http://api.openweathermap.org/data/2.5/weather?q=Boise,ID&appid=f5f2079dd7f4a6c3b6730d3441efb2c2&units=imperial"})
-      wx (wx->edn weather-service-url)
-      _ (mount/stop)]
-  wx)
+;(let [_ (mount/start-with
+;        {#'weather-service-url
+;         "http://api.openweathermap.org/data/2.5/weather?q=Boise,ID&appid=f5f2079dd7f4a6c3b6730d3441efb2c2&units=imperial"})
+;      wx (wx->edn weather-service-url)
+;      _ (mount/stop)]
+;  wx)
 
 ;(mount/stop)
 ;(mount/start)
-(:current_observation (wx->edn weather-service-url))
+;(:current_observation (wx->edn weather-service-url))
 
 ;DB db = fongo.getDB("mydb");
 ;DBCollection collection = db.getCollection("mycollection");

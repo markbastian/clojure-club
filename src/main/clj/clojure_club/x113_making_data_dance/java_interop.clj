@@ -41,9 +41,10 @@
                     (.add (JMenu. "Edit"))))
     (.add (doto (JScrollPane.
                   (doto (JTable. (model state))
+                    (.setAutoResizeMode JTable/AUTO_RESIZE_OFF)
                     (.setGridColor Color/BLACK))))
           BorderLayout/CENTER)
     (.setVisible true)))
 
-;(def state (atom {:data [[1 2] [3 4]]}))
-;(launch-app state)
+(def state (atom {:data [[1 2] [3 4]]}))
+(launch-app state)
