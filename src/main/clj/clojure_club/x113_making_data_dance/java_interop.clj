@@ -1,6 +1,6 @@
 (ns clojure-club.x113-making-data-dance.java-interop
   (:require [clojure.string :as cs])
-  (:import (javax.swing JFrame JTable JScrollPane JMenuBar JMenu JMenuItem Action AbstractAction JFileChooser)
+  (:import (javax.swing JFrame JTable JScrollPane JMenuBar JMenu JMenuItem Action AbstractAction JFileChooser UIManager)
            (java.awt BorderLayout Color)
            (javax.swing.table AbstractTableModel)
            (java.awt.event ActionEvent)))
@@ -31,6 +31,7 @@
     table-model))
 
 (defn launch-app [state]
+  (UIManager/setLookAndFeel (UIManager/getSystemLookAndFeelClassName))
   (doto (JFrame. "The App")
     (.setSize 800 600)
     (.setDefaultCloseOperation JFrame/DISPOSE_ON_CLOSE)
@@ -46,5 +47,5 @@
           BorderLayout/CENTER)
     (.setVisible true)))
 
-(def state (atom {:data [[1 2] [3 4]]}))
-(launch-app state)
+;(def state (atom {:data [[1 2] [3 4]]}))
+;(launch-app state)
