@@ -7,8 +7,24 @@ Once a week a new problem will be posted. A package will be created in this proj
 for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
-## Problems
+## Problems/Topics
 
+#### May 26th<sup>th</sup>: Java Calls Clojure
+
+One of the biggest concerns of decision makers moving to a new JVM language is support for calling artifacts generated
+in that language in Java. Clojure has great support for being called from its host platform. We'll spend some time
+investigating this and in all of its incarnations, including:
+ * gen-class
+ * :gen-class
+ * definterface
+ * records
+ * Direct invocation of clojure.lang APIs
+ 
+Some links:
+ * [DZone gen-class example](https://dzone.com/articles/java-clojure-interop-calling)
+ * [3 Things Java Programmers Can Steal from Clojure](http://www.lispcast.com/3-things-java-can-steal-from-clojure)
+ * [Using clojure.lang.RT](https://clojurefun.wordpress.com/2012/12/24/invoking-clojure-code-from-java/)
+ 
 #### May 19th<sup>th</sup>: [Making Data Dance](http://www.4clojure.com/problem/113)
 
 From 4clojure.com: Write a function that takes a variable number of integer arguments. If the output is coerced into a 
