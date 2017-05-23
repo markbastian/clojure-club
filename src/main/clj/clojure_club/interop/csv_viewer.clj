@@ -1,4 +1,4 @@
-(ns clojure-club.x113-making-data-dance.java-interop
+(ns clojure-club.interop.csv-viewer
   (:require [clojure.string :as cs])
   (:import (javax.swing JFrame JTable JScrollPane JMenuBar JMenu JMenuItem Action AbstractAction JFileChooser UIManager JLabel SwingUtilities)
            (java.awt BorderLayout Color)
