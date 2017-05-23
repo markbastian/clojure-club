@@ -1,6 +1,6 @@
 (ns clojure-club.x113-making-data-dance.java-interop
   (:require [clojure.string :as cs])
-  (:import (javax.swing JFrame JTable JScrollPane JMenuBar JMenu JMenuItem Action AbstractAction JFileChooser UIManager JLabel)
+  (:import (javax.swing JFrame JTable JScrollPane JMenuBar JMenu JMenuItem Action AbstractAction JFileChooser UIManager JLabel SwingUtilities)
            (java.awt BorderLayout Color)
            (javax.swing.table AbstractTableModel DefaultTableCellRenderer TableCellRenderer)
            (java.awt.event ActionEvent)))
@@ -77,12 +77,14 @@
     (.setVisible true)))
 
 ;(def state (atom {:data [[1 2] [3 4][1 2] [3 4]]}))
-;(launch-app state)
+;(def app (launch-app state))
+;(.setSize app 300 300)
+;(swap! state assoc :data [["Hi" "There"] ["I" "like"] ["Clojure" "!"]])
 
 ;;Poking around
 ;(bean (JFrame.))
 ;(parents JFrame) ;Immediate - classes and derived hierarchies
-;(base JFrame) ;Immediate - classes only
+;(bases JFrame) ;Immediate - classes only
 ;(ancestors JFrame) ;Also works for derived hierarchies
 ;(supers JFrame) ;classes only
 ;(ancestors (class {}))
