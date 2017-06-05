@@ -9,11 +9,20 @@ the name $USER.clj.
 
 ## Problems/Topics
 
+#### June 9<sup>th</sup>: [Core Async](https://github.com/clojure/core.async)
+
+"Facilities for async programming and communication in Clojure"
+
+ * [Code Walkthrough](https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj)
+
 #### June 2<sup>nd</sup>: [Transducers](https://clojure.org/reference/transducers)
 
 Matt will be discussion transducers, a way to compose algorithmic transforms. A few links:
   * [clojure.org](https://clojure.org/reference/transducers)
   * [Rich's blog post](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming)
+  
+Follow up:
+  * Here's a link to Matt's examples: https://github.com/tkocmathla/transducer-adducers
 
 #### May 26<sup>th</sup>: Java Calls Clojure
 
