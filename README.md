@@ -9,13 +9,15 @@ the name $USER.clj.
 
 ## Problems/Topics
 
-#### June 16<sup>th</sup>: [Core Async](https://github.com/clojure/core.async)
+#### June 16<sup>th</sup>: TBD
 
+How do we feel like getting back to basics like destructuring?
+
+#### June 9<sup>th</sup>: [Core Async](https://github.com/clojure/core.async)
+                          
 "Facilities for async programming and communication in Clojure"
-
+                         
  * [Code Walkthrough](https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj)
-
-#### June 9<sup>th</sup>: Cancelled
 
 #### June 2<sup>nd</sup>: [Transducers](https://clojure.org/reference/transducers)
 
