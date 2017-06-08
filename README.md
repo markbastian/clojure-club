@@ -9,7 +9,26 @@ the name $USER.clj.
 
 ## Problems/Topics
 
-#### May 26th<sup>th</sup>: Java Calls Clojure
+#### June 16<sup>th</sup>: TBD
+
+How do we feel like getting back to basics like destructuring?
+
+#### June 9<sup>th</sup>: [Core Async](https://github.com/clojure/core.async)
+                          
+"Facilities for async programming and communication in Clojure"
+                         
+ * [Code Walkthrough](https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj)
+
+#### June 2<sup>nd</sup>: [Transducers](https://clojure.org/reference/transducers)
+
+Matt will be discussion transducers, a way to compose algorithmic transforms. A few links:
+  * [clojure.org](https://clojure.org/reference/transducers)
+  * [Rich's blog post](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming)
+  
+Follow up:
+  * Here's a link to Matt's examples: https://github.com/tkocmathla/transducer-adducers
+
+#### May 26<sup>th</sup>: Java Calls Clojure
 
 One of the biggest concerns of decision makers moving to a new JVM language is support for calling artifacts generated
 in that language in Java. Clojure has great support for being called from its host platform. We'll spend some time
@@ -25,7 +44,13 @@ Some links:
  * [3 Things Java Programmers Can Steal from Clojure](http://www.lispcast.com/3-things-java-can-steal-from-clojure)
  * [Using clojure.lang.RT](https://clojurefun.wordpress.com/2012/12/24/invoking-clojure-code-from-java/)
  
-#### May 19th<sup>th</sup>: [Making Data Dance](http://www.4clojure.com/problem/113)
+Follow up:
+At the meet we discussed these two demo projects that can be used as a launching point for using Clojure in
+your Java projects:
+ * [clojure-makes-java](https://github.com/markbastian/clojure-makes-java)
+ * [java-calls-clojure](https://github.com/markbastian/java-calls-clojure)
+ 
+#### May 19<sup>th</sup>: [Making Data Dance](http://www.4clojure.com/problem/113)
 
 From 4clojure.com: Write a function that takes a variable number of integer arguments. If the output is coerced into a 
 string, it should return a comma (and space) separated list of the inputs sorted smallest to largest. If the output is 
@@ -42,14 +67,14 @@ In addition to the solving this problem, I'd like to discuss several handy metho
  * doto
  * bean
 
-#### May 12th<sup>th</sup>: [Mount](https://github.com/tolitius/mount)
+#### May 12<sup>th</sup>: [Mount](https://github.com/tolitius/mount)
 
 Mark will be talking about mount, a simple library for managing state in Clojure. For context, any sizeable app will
 need some sort of basic configuration (a database being the classic example) to function. For testing you need the
 ability to setup and teardown different configs on fly. Mount is a great way to do this. It can be used to mock up any
 set of states you might want for dev, test, prod, or whatever.
 
-#### May 5th<sup>th</sup>: Procedural Domain Generation and Modeling Using Spec
+#### May 5<sup>th</sup>: Procedural Domain Generation and Modeling Using Spec
 
 [Spec](https://clojure.org/about/spec) is all the hotness in Clojure nowadays. It allows you to 
 create specifications for your data and do all kinds of things once you've generated a spec. Here's
