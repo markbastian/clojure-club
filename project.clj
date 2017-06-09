@@ -21,8 +21,8 @@
                  ;; https://mvnrepository.com/artifact/org.slf4j/slf4j-api
                  [org.slf4j/slf4j-api "1.7.25"]
                  [org.clojure/tools.trace "0.7.9"]
-                 [org.clojure/core.async "0.3.443"]]
-]
+                 [org.clojure/core.async "0.3.443"]
+                 [clojure-csv/clojure-csv "2.0.1"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.9"]
