@@ -11,8 +11,12 @@
     (map reverse)))
 
 (def rechan (chan 10 multistage-xducer))
+;Only gets one value
 (go (println (<! rechan)))
+
+;Execute the above go block for every put since we aren't looping
 (>!! rechan 1123)
+(>!! rechan (rand))
 
 ;;;;;;;;;;;;;A network of channels with transducers;;;;;;;;;;;;;;
 

@@ -9,9 +9,17 @@ the name $USER.clj.
 
 ## Problems/Topics
 
-#### June 16<sup>th</sup>: TBD
+#### June 16<sup>th</sup>: Destructuring
 
-How do we feel like getting back to basics like destructuring?
+A primary need in a data-oriented language is the ability to easily pull your data structures apart
+and get at all of its pieces. Clojure does this wonderfully with destructuring, but it can be 
+confusing at first. This week we'll talk all about it.
+
+Here are some useful links:
+ * [The official guide](https://clojure.org/guides/destructuring)
+ * [Cheatsheet](https://gist.github.com/john2x/e1dca953548bfdfb9844)
+ * [Jay Fields' Guide](http://blog.jayfields.com/2010/07/clojure-destructuring.html)
+ * [Yet another guide](http://blog.brunobonacci.com/2014/11/16/clojure-complete-guide-to-destructuring/)
 
 #### June 9<sup>th</sup>: [Core Async](https://github.com/clojure/core.async)
                           

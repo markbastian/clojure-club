@@ -22,6 +22,8 @@
 (pipeline 10 d (replace {1 "one" 2 "two" 3 "three" 4 "four" 5 "five" 6 "six" 7 "seven"}) c)
 
 (go (>! a "The quick brown fox jumped over the lazy dog"))
+(go (>! a "Cheese and sprinkles"))
+(go (>! a "I like turtles"))
 
 (go-loop []
          (println (<! d))

@@ -8,7 +8,7 @@
 ;This creates a channel
 (def echo-chan (chan))
 (go (println (<! echo-chan)))
-(>!! echo-chan "ketchup")
+(go (>! echo-chan "ketchup"))
 
 (do
   (thread (println (count (slurp (<!! echo-chan)))))
