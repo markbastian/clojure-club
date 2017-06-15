@@ -50,3 +50,12 @@
     (->> [2 (remover 2 (drop 2 (range)))]
          (iterate (fn [[p [f & r]]] [f (remover f r)]))
          (map first))))
+
+(defn lazy-seq-primes
+  ([[f & r]] (cons f (lazy-seq (lazy-seq-primes (remove #(zero? (mod % f)) r)))))
+  ([] (lazy-seq-primes (drop 2 (range)))))
+
+(defn update-kvs [m & [k v & r]]
+  (if k
+    (recur (update m k v) r)
+    m))
