@@ -17,7 +17,7 @@ Assignment: Find or write an interesting macro that you are willing to discuss. 
 to the alternatives. Put your example in src/main/cljc/clojure_club/macros/$username.cljc. If you can't come up with
 anything, try this:
 
-Write a macro called bizarro that replaces a function with its opposite. For example (bizarro + 6 2) should return 4, not 2.
+Write a macro called bizarro that replaces a function with its opposite. For example (bizarro + 6 2) should return 4, not 8.
 Do this for at least +, -, *, and /. Feel free to make sin be cos and vice-versa.
 
 As always, come even if you weren't able to do anything.
