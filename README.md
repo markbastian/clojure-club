@@ -9,6 +9,26 @@ the name $USER.clj.
 
 ## Problems/Topics
 
+#### June 23<sup>rd</sup>: Interesting Macros
+
+We'll be talking about macros. What are they? How do they work? When do you use them instead of functions?
+
+Assignment: Find or write an interesting macro that you are willing to discuss. Something short and simple is preferable
+to the alternatives. Put your example in src/main/cljc/clojure_club/macros/$username.cljc. If you can't come up with
+anything, try this:
+
+Write a macro called bizarro that replaces a function with its opposite. For example (bizarro + 6 2) should return 4, not 2.
+Do this for at least +, -, *, and /. Feel free to make sin be cos and vice-versa.
+
+As always, come even if you weren't able to do anything.
+
+Reading: 
+* [The official docs](https://clojure.org/reference/macros)
+* [Brave Clojure's treatment](http://www.braveclojure.com/writing-macros/)
+
+Note: Some folks check in namespaces that contain src.main.cljc or similar in them. Please ensure that they are
+(ns clojure-club.macros.$username).
+
 #### June 16<sup>th</sup>: Destructuring
 
 A primary need in a data-oriented language is the ability to easily pull your data structures apart

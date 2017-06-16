@@ -1,28 +1,38 @@
-(ns clojure-club.destructuring.core)
+(ns clojure-club.destructuring.core
+  (:require [clojure.string :as cs]))
 
 ;;;;;;;;;;;;Seq Destructuring;;;;;;;;;;;;
 
 ;you can do any number of placeholders
 ;& captures the rest
 ;:as captures the entire seq
-(let [[a b _ & r :as v] (range 5)] [a b r v])
+(let [[a b _ & r :as v] (range 5)]
+  [a b r v])
 
 ;"overbinding" maps to nil
-(let [[a b _ & r :as v] (range 1)] [a b r v])
+(let [[a b _ & r :as v] (range 1)]
+  [a b r v])
 
 ;"underbinding" drops the rest
-(let [[a _ b _ c] (range)] [a b c])
+(let [[a _ b _ c] (range)]
+  [a b c])
 
 ;You can nest destructuring
 (let [[a _ & [f & [g :as h] :as b] :as c] (range 10)]
-  [a f (last h)])
+  [a f h (last h)])
 
 ;Use seq destructuring with regexes
 (defn year-reformatter [s]
   (let [[_ m d [_ _ y0 y1]] (re-matches #"(\d{2})-(\d{2})-(\d{4})" s)]
     (str y0 y1 "/" m "/" d)))
 
-;(year-reformatter "07-04-1776")
+(year-reformatter "07-04-1776")
+
+;Destructuring can also be used with replace for awesome text manipulation.
+(cs/replace
+  "07-04-1776 was before 07-04-1984"
+  #"(\d{2})-(\d{2})-(\d{4})"
+  (fn [[full-match dd mm yyyy]] (str "`" (subs yyyy 2))))
 
 ;Seq destructuring function arguments
 (defn det2x2 [[[a b] [c d]]]
@@ -61,10 +71,11 @@
 ;Clever destructuring with map for a lazy fib seq
 (def fib-seq (map first (iterate (fn [[a b]] [b (+ a b)]) [0N 1N])))
 
-;(take 1000 fib-seq)
+(take 1000 fib-seq)
 
-;map implement the sequence abstraction as key-value pairs
-(let [[[k v]] (seq {:a 1 :b 2})] [k v])
+;maps implement the sequence abstraction as key-value pairs
+(let [[[k v]] (seq {:a 1 :b 2})]
+  [k v])
 
 ;Here we destructure map pairs in a for comprehension
 (defn invert-map [mp]
@@ -75,46 +86,57 @@
 
 (invert-map {:a '(1 2 3), :b '(1 2 3 6 7), :c '(1 2 8 9 10)})
 
-;destructuring an argument list with a seq
+;destructuring an argument list with a seq - & provides variable length args
 (defn update-kvs [m & [k v & r]]
   (if k
     (recur (update m k v) r)
     m))
 
-(update-kvs {:a 1 :b 2} :a inc :b (comp dec dec))
+(update-kvs {:a 1 :b 2} :a inc :b (comp dec dec) :a (comp str))
 
 ;Function arguments are nothing more than destructured seqs (and maps)
 (defn mean [& v]
   (let [c (count v)]
     (when (pos? c) (double (/ (reduce + v) c)))))
 
+(mean 2 4 5 4 2)
+
 ;Destructuring in a loop recur can make the code quite concise and easy to think about
 (defn n-primes [n]
   (loop [[f & r] (drop 2 (range)) res []]
-  (if (= n (count res))
-    res
-    (recur (remove #(zero? (mod % f)) r) (conj res f)))))
+    (if (= n (count res))
+      res
+      (recur (remove #(zero? (mod % f)) r) (conj res f)))))
+
+(n-primes 21)
 
 ;Another example
 (defn lazy-seq-primes
   ([[f & r]] (cons f (lazy-seq (lazy-seq-primes (remove #(zero? (mod % f)) r)))))
   ([] (lazy-seq-primes (drop 2 (range)))))
 
-;And another one using iterate
+(take 1000 (lazy-seq-primes))
+
+;And another one using iterate + a destructured value + seq
 (def prime-seq
   (letfn [(remover [n s](remove #(zero? (mod % n)) s))]
     (->> [2 (remover 2 (drop 2 (range)))]
          (iterate (fn [[p [f & r]]] [f (remover f r)]))
          (map first))))
 
+(take 1000 prime-seq)
+
 ;;;;;;;;;;;;Map Destructuring;;;;;;;;;;;;
 
 ;keys grabs the keys corresponding to the keywords
-(let [{:keys [a b c]} {:a 1 :b 2 :c 3}] [a b c])
+(let [{:keys [a b c]} {:a 1 :b 2 :c 3}]
+  [a b c])
 
 ;There's also strs and syms, which are almost never used
-(let [{:strs [a b c]} {"a" 1 "b" 2 "c" 3}] [a b c])
-(let [{:syms [a b c]} {'a 1 'b 2 'c 3}] [a b c])
+(let [{:strs [a b c]} {"a" 1 "b" 2 "c" 3}]
+  [a b c])
+(let [{:syms [a b c]} {'a 1 'b 2 'c 3}]
+  [a b c])
 
 ;:as works the same as with seq destructuring
 (let [{:keys [a b c] :as m} {:a 1 :b 2 :c 3}]
@@ -128,17 +150,18 @@
 (let [{:keys [a b c d] :as m :or {a 3 d 4}} {:a 1 :b 2 :c 3}]
   [a b c d m])
 
-;reverse maps can also be used. This is useful for name clashes
-;as well as deeper destructuring
-(let [{x :a y :b z :c} {:a 1 :b 2 :c 3}]
-  [x y z])
+;reverse maps can also be used. This is useful for name clashes,
+; deeper destructuring, and destructuring on data keys.
+(let [{:keys [a b c]} {:a 1 :b 2 :c 3}
+      {x :a y :b z :c i 1 s #{42}} {:a 4 :b 5 :c 6 1 3 #{42} 24}]
+  [a b c x y z i s])
 
 ;You can also mix and match
 (let [{:keys [x z] v :y :as m :or {z 3}} {:x 1 :y 2}]
   [x v z m])
 
 ;Argument name clash. Might also want to prevent collision with
-;standard name and int functions.
+;standard name and int functions. Note: just use max-key
 (defn smarter [{:keys [name int]} { n :name i :int}]
   (if (>= int i) name n))
 
@@ -155,10 +178,18 @@
               :amazon-prime #{"Endeavour" "A Man Called Ove"}
               :hbo #{"Game of Thrones"}) title "nothing")))
 
+(stream "Sherlock" :service :netflix)
+(stream "Sherlock" :service :hbo)
+(stream "A Man Called Ove" :service :amazon-prime)
+
 ;Nested destructuring works
 (defn this-is-weird [{:keys [x] [f s & r] :y}]
+  ;Note r dropped the first two elements of y
+  ;a and b are the seqs from the split
   (let [[a b] (split-with (complement #{x}) r)]
     [a f b s]))
+
+(this-is-weird {:x 5 :y (range 10)})
 
 ;loop-recur complects iteration and termination, so it can be nice
 ;to convert to an iterate.
