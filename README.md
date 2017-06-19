@@ -7,9 +7,78 @@ Once a week a new problem will be posted. A package will be created in this proj
 for participants to post their solutions. Please put your solution in a ns with
 the name $USER.clj.
 
-## Problems
+## Problems/Topics
 
-#### May 19th<sup>th</sup>: [Making Data Dance](http://www.4clojure.com/problem/113)
+#### June 23<sup>rd</sup>: Interesting Macros
+
+We'll be talking about macros. What are they? How do they work? When do you use them instead of functions?
+
+Assignment: Find or write an interesting macro that you are willing to discuss. Something short and simple is preferable
+to the alternatives. Put your example in src/main/cljc/clojure_club/macros/$username.cljc. If you can't come up with
+anything, try this:
+
+Write a macro called bizarro that replaces a function with its opposite. For example (bizarro + 6 2) should return 4, not 8.
+Do this for at least +, -, *, and /. Feel free to make sin be cos and vice-versa.
+
+As always, come even if you weren't able to do anything.
+
+Reading: 
+* [The official docs](https://clojure.org/reference/macros)
+* [Brave Clojure's treatment](http://www.braveclojure.com/writing-macros/)
+
+Note: Some folks check in namespaces that contain src.main.cljc or similar in them. Please ensure that they are
+(ns clojure-club.macros.$username).
+
+#### June 16<sup>th</sup>: Destructuring
+
+A primary need in a data-oriented language is the ability to easily pull your data structures apart
+and get at all of its pieces. Clojure does this wonderfully with destructuring, but it can be 
+confusing at first. This week we'll talk all about it.
+
+Here are some useful links:
+ * [The official guide](https://clojure.org/guides/destructuring)
+ * [Cheatsheet](https://gist.github.com/john2x/e1dca953548bfdfb9844)
+ * [Jay Fields' Guide](http://blog.jayfields.com/2010/07/clojure-destructuring.html)
+ * [Yet another guide](http://blog.brunobonacci.com/2014/11/16/clojure-complete-guide-to-destructuring/)
+
+#### June 9<sup>th</sup>: [Core Async](https://github.com/clojure/core.async)
+                          
+"Facilities for async programming and communication in Clojure"
+                         
+ * [Code Walkthrough](https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj)
+
+#### June 2<sup>nd</sup>: [Transducers](https://clojure.org/reference/transducers)
+
+Matt will be discussion transducers, a way to compose algorithmic transforms. A few links:
+  * [clojure.org](https://clojure.org/reference/transducers)
+  * [Rich's blog post](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming)
+  
+Follow up:
+  * Here's a link to Matt's examples: https://github.com/tkocmathla/transducer-adducers
+
+#### May 26<sup>th</sup>: Java Calls Clojure
+
+One of the biggest concerns of decision makers moving to a new JVM language is support for calling artifacts generated
+in that language in Java. Clojure has great support for being called from its host platform. We'll spend some time
+investigating this and in all of its incarnations, including:
+ * gen-class
+ * :gen-class
+ * definterface
+ * records
+ * Direct invocation of clojure.lang APIs
+ 
+Some links:
+ * [DZone gen-class example](https://dzone.com/articles/java-clojure-interop-calling)
+ * [3 Things Java Programmers Can Steal from Clojure](http://www.lispcast.com/3-things-java-can-steal-from-clojure)
+ * [Using clojure.lang.RT](https://clojurefun.wordpress.com/2012/12/24/invoking-clojure-code-from-java/)
+ 
+Follow up:
+At the meet we discussed these two demo projects that can be used as a launching point for using Clojure in
+your Java projects:
+ * [clojure-makes-java](https://github.com/markbastian/clojure-makes-java)
+ * [java-calls-clojure](https://github.com/markbastian/java-calls-clojure)
+ 
+#### May 19<sup>th</sup>: [Making Data Dance](http://www.4clojure.com/problem/113)
 
 From 4clojure.com: Write a function that takes a variable number of integer arguments. If the output is coerced into a 
 string, it should return a comma (and space) separated list of the inputs sorted smallest to largest. If the output is 
@@ -26,14 +95,14 @@ In addition to the solving this problem, I'd like to discuss several handy metho
  * doto
  * bean
 
-#### May 12th<sup>th</sup>: [Mount](https://github.com/tolitius/mount)
+#### May 12<sup>th</sup>: [Mount](https://github.com/tolitius/mount)
 
 Mark will be talking about mount, a simple library for managing state in Clojure. For context, any sizeable app will
 need some sort of basic configuration (a database being the classic example) to function. For testing you need the
 ability to setup and teardown different configs on fly. Mount is a great way to do this. It can be used to mock up any
 set of states you might want for dev, test, prod, or whatever.
 
-#### May 5th<sup>th</sup>: Procedural Domain Generation and Modeling Using Spec
+#### May 5<sup>th</sup>: Procedural Domain Generation and Modeling Using Spec
 
 [Spec](https://clojure.org/about/spec) is all the hotness in Clojure nowadays. It allows you to 
 create specifications for your data and do all kinds of things once you've generated a spec. Here's

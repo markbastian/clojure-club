@@ -1,12 +1,12 @@
-(ns main.clj.clojure-club.gurps.wmatson
+(ns clojure-club.gurps.wmatson
   (:require [clojure.data.xml :as xml]
             [clojure.java.io :as io]))
 
-(def raw-data (->> "clojure_club/gurps/basic_set.xml" io/resource slurp xml/parse-str))
-
-(def raw-data (clojure.walk/prewalk #(if (map? %) (into {} %) %) (xml/parse file)))
-
-(def vis360 (first (:content raw-data)))
+;(def file (->> "clojure_club/gurps/basic_set.xml" io/resource slurp xml/parse-str))
+;
+;(def raw-data (clojure.walk/prewalk #(if (map? %) (into {} %) %) (xml/parse file)))
+;
+;(def vis360 (first (:content raw-data)))
 
 (defn leaf? [node]
   (and (:content node) (not (some :content (:content node)))))

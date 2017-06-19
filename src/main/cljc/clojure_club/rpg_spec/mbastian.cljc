@@ -42,7 +42,7 @@
 
 (s/def ::skill #{:acrobatics :animal-handling :arcana :athletics :deception
                  :history :insight :intimidation :investigation :medicine
-                 :nature :perception :performance :persuations :religion
+                 :nature :perception :performance :persuasions :religion
                  :slight-of-hand :stealth :survival})
 
 (s/def ::skills (s/with-gen (s/* ::skill)
@@ -57,18 +57,18 @@
 (s/def ::character
   (s/keys :req [::name ::race ::level ::character-class ::character-stats ::skills ::weapon-class]))
 
-(gen/sample (s/gen ::character) 10)
+;(gen/sample (s/gen ::character) 10)
 
 ;;;;;;;;;;;;;;;Using pre/post conds;;;;;;;;;;;;;;
 ;Conditions only work when asserts are enabled
-(s/check-asserts true)
+;(s/check-asserts true)
 
 (defn level-up [c]
   {:pre [(s/assert ::character c)]
    :post [(and (s/assert ::character %) (> (::level %) (::level c)))]}
   (update c ::level inc))
 
-(level-up (first (gen/sample (s/gen ::character) 10)))
+;(level-up (first (gen/sample (s/gen ::character) 10)))
 
 ;;This will fail since the keywords aren't ns-qualified.
 ;(level-up
