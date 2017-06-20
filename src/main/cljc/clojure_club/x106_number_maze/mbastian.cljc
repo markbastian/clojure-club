@@ -73,14 +73,14 @@
 (defn nbrs[x] (cond-> [['* (* 2 x)] ['+ (+ x 2)]] (even? x) (conj ['/ (/ x 2)])))
 
 ;One generation/step of growth - Must be self-similar for iteration
-(defn expand [{:keys [paths visited]}]
+(defn expand-step [{:keys [paths visited]}]
   (let [p (for [path paths n (remove (comp visited second) (nbrs (peek path)))] (into path n))]
     {:paths p :visited (into visited (map peek p))}))
 
 ;Lazy sequence that expands all paths.
 ; Note that iterate vs. loop-recur separates concerns of iteration from termination.
 (defn expand-from [s]
-  (iterate expand {:paths [[s]] :visited #{s}}))
+  (iterate expand-step {:paths [[s]] :visited #{s}}))
 
 ;When to stop
 (defn stop-cond [pred {:keys [paths]}] (when (some pred paths) paths))
