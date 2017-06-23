@@ -1,5 +1,6 @@
 (ns clojure-club.macros.mbastian
-  (:require [taoensso.tufte :as tufte :refer (defnp p profiled profile)]))
+  (:require [taoensso.tufte :as tufte :refer (defnp p profiled profile)]
+            [clojure.pprint :as pp]))
 
 ;Techniques for manual polynomial creation
 (defn canonical-fn [t]
@@ -38,27 +39,41 @@
 
 ;Macros that allow for definition of complex polynomials with the convenience
 ;of a coefficients vector and the performance of manual expansion.
-(defmacro defpoly-canonical [n terms]
+(defmacro canonical-expand [terms]
   (let [t# (eval terms)]
-    `(defn ~n [~'t]
+    `(fn [~'t]
        (+ ~@(for [i (range (count t#)) :let [c (t# i)]]
               `(* ~c ~@(repeat i 't)))))))
 
-(defmacro defpoly-horner [n terms]
+(defmacro horner-expand [terms]
   (let [t# (rseq (eval terms))]
-    `(defn ~n [~'t]
+    `(fn [~'t]
      ~(reduce (fn [b a] `(+ ~a (* ~b ~'t))) t#))))
 
 ;Macroexpand to see what happend
-(macroexpand
-  '(defpoly-canonical canonical-poly-macro [134.96340251 477198.8675605 0.0088553 1.4343E-5]))
+(pp/pprint
+  (macroexpand
+  '(canonical-expand [134.96340251 477198.8675605 0.0088553 1.4343E-5])))
 
-(macroexpand
-  '(defpoly-horner horner-poly-macro [134.96340251 477198.8675605 0.0088553 1.4343E-5]))
+(pp/pprint
+  (macroexpand
+  '(horner-expand [134.96340251 477198.8675605 0.0088553 1.4343E-5])))
+
+;Create a macro to easily create functions along the lines of defn
+(defmacro defpoly [n terms]
+  `(def n (horner-expand ~terms)))
+
+(def c [1 2 3 4])
+(defpoly p c)
+(macroexpand '(defpoly p c))
+(pp/pprint (clojure.walk/macroexpand-all '(defpoly p c)))
 
 ;Define the functions
-(defpoly-canonical canonical-poly-macro [134.96340251 477198.8675605 0.0088553 1.4343E-5])
-(defpoly-horner horner-poly-macro [134.96340251 477198.8675605 0.0088553 1.4343E-5])
+(def canonical-poly-macro
+  (canonical-expand [134.96340251 477198.8675605 0.0088553 1.4343E-5]))
+
+(def horner-poly-macro
+  (horner-expand [134.96340251 477198.8675605 0.0088553 1.4343E-5]))
 
 (canonical-poly-macro 0.0426236319)
 (horner-poly-macro 0.0426236319)
@@ -81,11 +96,13 @@
 (def coefficients
   (vec (repeatedly 100 (comp dec #(* 2 %) rand))))
 
-(macroexpand
-  '(defpoly-canonical canonical-poly-macro coefficients))
+(macroexpand '(canonical-expand coefficients))
 
-(defpoly-canonical big-canonical coefficients)
-(defpoly-horner big-horner coefficients)
+(def big-canonical
+  (canonical-expand coefficients))
+
+(def big-horner
+  (horner-expand coefficients))
 
 (profile
   {:dynamic? true}
