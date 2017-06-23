@@ -128,7 +128,7 @@
 
 ;;;;;;;;;;;;Map Destructuring;;;;;;;;;;;;
 
-;keys grabs the keys corresponding to the keywords
+;keys grabs the vals corresponding to the keywords
 (let [{:keys [a b c]} {:a 1 :b 2 :c 3}]
   [a b c])
 
@@ -157,8 +157,8 @@
   [a b c x y z i s])
 
 ;You can also mix and match
-(let [{:keys [x z] v :y :as m :or {z 3}} {:x 1 :y 2}]
-  [x v z m])
+(let [{:keys [x z] v :y b :x :as m :or {z 3}} {:x 1 :y 2}]
+  [x v z m b])
 
 ;Argument name clash. Might also want to prevent collision with
 ;standard name and int functions. Note: just use max-key
@@ -204,10 +204,20 @@
       (assoc :sieve (remove #(zero? (mod % f)) r))))
 
 ;Drop the step function into an iterate and map over the result key
-;Use take n to debug or take-while to terminate (or whatever else you want)
-(nth (map :primes (iterate prime-step {:sieve (drop 2 (range))})) 100)
+(def prime-iter (map :primes (rest (iterate prime-step {:sieve (drop 2 (range))}))))
 
-;See clojure-club.x106-number-maze.mbastian, starting at line 102
+;Use take n to debug or take-while to terminate (or whatever else you want)
+(nth prime-iter 100)
+
+;Primes below 100
+(some (fn [[f & r]] (when (> f 100) r)) prime-iter)
+
+;See clojure-club.x106-number-maze.mbastian, lines 69-93 for a good example:
+;expand-step is the step function
+;expand-from creates the iterator
+;fast-number-paths-deconstructed brings it all together with a custom end condition
+
+;See clojure-club.x106-number-maze.mbastian, line 102 for a more interesting example:
 ;expand is the step function
 ;bfs-expander creates the iterator
 ;bfs-solve configures the solver using named arguments
