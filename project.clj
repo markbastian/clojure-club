@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0-alpha16"]
                  [org.clojure/clojurescript "1.9.495"]
+                 [com.taoensso/timbre "4.8.0"]
                  [reagent "0.6.1"]
                  [hickory "0.7.1"]
                  [com.taoensso/tufte "1.1.1"]
