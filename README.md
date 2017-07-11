@@ -9,6 +9,19 @@ the name $USER.clj.
 
 ## Problems/Topics
 
+#### July 14<sup>th</sup>: Zippers
+
+Zippers are an intuitive way to navigate and modify an arbitrary data structure in any direction. We'll discuss what makes
+them distinct from other navigation functions (tree-seq, postwalk, etc.) and where they come in handy, and will explore some
+less obvious uses and interesting applications.
+
+Quoting from the [Clojure reference page](https://clojure.org/reference/other_libraries):
+
+"A zipper is a data structure representing a location in a hierarchical data structure, and the path it took to get there.
+It provides down/up/left/right navigation, and localized functional 'editing’, insertion and removal of nodes. With zippers
+you can write code that looks like an imperative, destructive walk through a tree, call root when you are done and get a new
+tree reflecting all the changes, when in fact nothing at all is mutated - it’s all thread safe and shareable."
+
 #### June 23<sup>rd</sup>: Interesting Macros
 
 We'll be talking about macros. What are they? How do they work? When do you use them instead of functions?
