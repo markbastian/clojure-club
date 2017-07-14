@@ -9,7 +9,7 @@ the name $USER.clj.
 
 ## Problems/Topics
 
-#### July 21<sup>st</sup>: State - Part 1
+#### July 21<sup>st</sup>: Clojure Applications with State - Part 1
 
 Select an application that requires state, especially with user interaction. Model the domain as data. You may write 
 basic functions that do things like set up an initial hand, but the focus should be on the data, not the actions.
