@@ -9,6 +9,25 @@ the name $USER.clj.
 
 ## Problems/Topics
 
+#### July 21<sup>st</sup>: State - Part 1
+
+Select an application that requires state, especially with user interaction. Model the domain as data. You may write 
+basic functions that do things like set up an initial hand, but the focus should be on the data, not the actions.
+This will be the basis for a series on how Clojure separates state, action, and representation, so pick something that
+you would like to build upon into an eventual working application.
+
+Suggestions:
+* A card game (or any other game)
+ * War, Old Maid, Go Fish - Note that some games like War, Chutes & Ladders, and Candyland are completely random. The 
+ user simply "makes it go" by performing a repetitive action and resolving the outcome. You might want to avoid this
+ type of game.
+ * Dominion, Hearts, Pinochle (We really like Dominion the best, though)
+* Any other simple game
+ * Tetris, Snakes, Missile Command, Asteroids,...
+* An editor of any sort (If you have a more "serious" application in mind)
+ * Graphics
+ * Financial modeling
+
 #### July 14<sup>th</sup>: Zippers
 
 Zippers are an intuitive way to navigate and modify an arbitrary data structure in any direction. We'll discuss what makes
