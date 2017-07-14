@@ -18,15 +18,15 @@ you would like to build upon into an eventual working application.
 
 Suggestions:
 * A card game (or any other game)
- * War, Old Maid, Go Fish - Note that some games like War, Chutes & Ladders, and Candyland are completely random. The 
+  * War, Old Maid, Go Fish - Note that some games like War, Chutes & Ladders, and Candyland are completely random. The 
  user simply "makes it go" by performing a repetitive action and resolving the outcome. You might want to avoid this
  type of game.
- * Dominion, Hearts, Pinochle (We really like Dominion the best, though)
+  * Dominion, Hearts, Pinochle (We really like Dominion the best, though)
 * Any other simple game
- * Tetris, Snakes, Missile Command, Asteroids,...
+  * Tetris, Snakes, Missile Command, Asteroids,...
 * An editor of any sort (If you have a more "serious" application in mind)
- * Graphics
- * Financial modeling
+  * Graphics
+  * Financial modeling
 
 #### July 14<sup>th</sup>: Zippers
 
