@@ -41,6 +41,9 @@ It provides down/up/left/right navigation, and localized functional 'editing’,
 you can write code that looks like an imperative, destructive walk through a tree, call root when you are done and get a new
 tree reflecting all the changes, when in fact nothing at all is mutated - it’s all thread safe and shareable."
 
+Follow up:
+  * Here's a link to Matt's examples: https://github.com/tkocmathla/zipper-snippets
+
 #### June 23<sup>rd</sup>: Interesting Macros
 
 We'll be talking about macros. What are they? How do they work? When do you use them instead of functions?
@@ -81,7 +84,7 @@ Here are some useful links:
 
 #### June 2<sup>nd</sup>: [Transducers](https://clojure.org/reference/transducers)
 
-Matt will be discussion transducers, a way to compose algorithmic transforms. A few links:
+Matt will be discussing transducers, a way to compose algorithmic transforms. A few links:
   * [clojure.org](https://clojure.org/reference/transducers)
   * [Rich's blog post](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming)
   
