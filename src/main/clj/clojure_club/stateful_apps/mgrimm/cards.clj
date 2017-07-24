@@ -19,7 +19,7 @@
   Card (cost [_ _ _] 2)
   VictoryCard (points [_ _ _] 1)
 
-  Operation 
+  Operation
   (can-acquire? [this game player] (pos? (count (:quantity this))))
   (acquire [this game player] (update this :quantity dec)))
 
@@ -27,7 +27,7 @@
   Card (cost [_ _ _] 5)
   VictoryCard (points [_ _ _] 3)
 
-  Operation 
+  Operation
   (can-acquire? [this game player] (pos? (count (:quantity this))))
   (acquire [this game player] (update this :quantity dec)))
 

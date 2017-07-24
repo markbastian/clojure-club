@@ -9,7 +9,20 @@ the name $USER.clj.
 
 ## Problems/Topics
 
-#### July 21<sup>st</sup>: Clojure Applications with State - Part 1
+#### August 4<sup>th</sup>: Clojure Applications with State - Part 2
+
+Pick a domain model, any domain model, that contains state. Implement a stateful application in your domain. This likely
+will have some sort of UI element. Pick any implementation you want (Swing, web, text, etc.).
+
+Ideas:
+* A game, such as what we did in our last meeting.
+* A simple text or graphical editor.
+
+Things to research if you haven't already:
+* atoms, agents, refs
+* watches
+
+#### July 24<sup>th</sup>: Clojure Applications with State - Part 1
 
 Select an application that requires state, especially with user interaction. Model the domain as data. You may write 
 basic functions that do things like set up an initial hand, but the focus should be on the data, not the actions.
