@@ -9,7 +9,7 @@ the name $USER.clj.
 
 ## Problems/Topics
 
-#### August 4<sup>th</sup>: Clojure Applications with State - Part 2
+#### August 11<sup>th</sup>: Clojure Applications with State - Part 2
 
 Pick a domain model, any domain model, that contains state. Implement a stateful application in your domain. This likely
 will have some sort of UI element. Pick any implementation you want (Swing, web, text, etc.).
@@ -21,6 +21,10 @@ Ideas:
 Things to research if you haven't already:
 * atoms, agents, refs
 * watches
+
+#### August 4<sup>th</sup>: Understanding the REPL
+
+John is going to show us all kinds of ways to use the REPL beyond simply using it as an interactive code editor.
 
 #### July 24<sup>th</sup>: Clojure Applications with State - Part 1
 
