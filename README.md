@@ -9,6 +9,58 @@ the name $USER.clj.
 
 ## Problems/Topics
 
+#### August 11<sup>th</sup>: Clojure Applications with State - Part 2
+
+Pick a domain model, any domain model, that contains state. Implement a stateful application in your domain. This likely
+will have some sort of UI element. Pick any implementation you want (Swing, web, text, etc.).
+
+Ideas:
+* A game, such as what we did in our last meeting.
+* A simple text or graphical editor.
+
+Things to research if you haven't already:
+* atoms, agents, refs
+* watches
+
+#### August 4<sup>th</sup>: Understanding the REPL
+
+John is going to show us all kinds of ways to use the REPL beyond simply using it as an interactive code editor.
+
+#### July 24<sup>th</sup>: Clojure Applications with State - Part 1
+
+Select an application that requires state, especially with user interaction. Model the domain as data. You may write 
+basic functions that do things like set up an initial hand, but the focus should be on the data, not the actions.
+This will be the basis for a series on how Clojure separates state, action, and representation, so pick something that
+you would like to build upon into an eventual working application.
+
+Suggestions:
+* A card game (or any other game)
+  * War, Old Maid, Go Fish - Note that some games like War, Chutes & Ladders, and Candyland are completely random. The 
+ user simply "makes it go" by performing a repetitive action and resolving the outcome. You might want to avoid this
+ type of game.
+  * Dominion, Hearts, Pinochle (We really like Dominion the best, though)
+* Any other simple game
+  * Tetris, Snakes, Missile Command, Asteroids,...
+* An editor of any sort (If you have a more "serious" application in mind)
+  * Graphics
+  * Financial modeling
+
+#### July 14<sup>th</sup>: Zippers
+
+Zippers are an intuitive way to navigate and modify an arbitrary data structure in any direction. We'll discuss what makes
+them distinct from other navigation functions (tree-seq, postwalk, etc.) and where they come in handy, and will explore some
+less obvious uses and interesting applications.
+
+Quoting from the [Clojure reference page](https://clojure.org/reference/other_libraries):
+
+"A zipper is a data structure representing a location in a hierarchical data structure, and the path it took to get there.
+It provides down/up/left/right navigation, and localized functional 'editing’, insertion and removal of nodes. With zippers
+you can write code that looks like an imperative, destructive walk through a tree, call root when you are done and get a new
+tree reflecting all the changes, when in fact nothing at all is mutated - it’s all thread safe and shareable."
+
+Follow up:
+  * Here's a link to Matt's examples: https://github.com/tkocmathla/zipper-snippets
+
 #### June 23<sup>rd</sup>: Interesting Macros
 
 We'll be talking about macros. What are they? How do they work? When do you use them instead of functions?
@@ -49,7 +101,7 @@ Here are some useful links:
 
 #### June 2<sup>nd</sup>: [Transducers](https://clojure.org/reference/transducers)
 
-Matt will be discussion transducers, a way to compose algorithmic transforms. A few links:
+Matt will be discussing transducers, a way to compose algorithmic transforms. A few links:
   * [clojure.org](https://clojure.org/reference/transducers)
   * [Rich's blog post](http://blog.cognitect.com/blog/2014/8/6/transducers-are-coming)
   
