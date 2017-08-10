@@ -2,14 +2,5 @@
   (:require [main.clj.clojure-club.stateful-apps.wmatson.game-schema :as gs]))
 
 (def cards
-  [{:name :woodcutter :types #{:action} :cost 3}])
-
-(defmethod gs/play-card :woodcutter
-  [game card] (gs/update-self game
-                 #(-> %
-                      (update :treasure + 2)
-                      (update :buys inc))))
-
-
-
-
+  [{:name :woodcutter :types #{:action} :cost 3 :buys 1 :treasure 2}
+   {:name :village :types #{:action} :cost 3 :actions 2 :cards 1}])

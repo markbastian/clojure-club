@@ -1,13 +1,29 @@
 (ns main.clj.clojure-club.stateful-apps.wmatson.game-schema)
 
 (defrecord Player [name deck hand in-play discard treasure actions buys])
-(defrecord Game [players kingdom-cards trash turn-order])
+(defrecord Game [players kingdom-cards trash turn-order phase])
 
-(defmulti play-card (fn [game card] (:name card))
-  :default (fn [game card] game))
+(defn current-player-kw [game]
+  (-> game :turn-order first))
+
+(defn current-player [game]
+  (get-in game [:players (current-player-kw game)]))
+
+(defmulti can-play? (fn [game card] (:name card)))
+  
+(defmethod can-play? :default [game card]
+      (or (and (#{:main} (:phase game))
+               ((:types card) :action)
+               (> 0 (:actions (current-player game))))
+          (and (#{:buying} (:phase game))
+               ((:types card) :treasure))))
+
+(defmulti special-effects (fn [game card] (:name card)))
+
+(defmethod special-effects :default [game card] game)
 
 (defn update-self [game update-fn]
-  (let [current-player (-> game :turn-order first)]
+  (let [current-player (current-player-kw game)]
     (update-in game [:players current-player] update-fn)))
 
 (defn draw
@@ -30,3 +46,18 @@
 
 (defn add-treasure [game amount]
   (update-self game #(update % :treasure + amount)))
+
+(defn add-buys [game amount]
+  (update-self game #(update % :buys + amount)))
+
+(defn add-actions [game amount]
+  (update-self game #(update % :actions + amount)))
+
+(defn play-card [game card]
+  (-> game
+      (add-treasure (:treasure card 0))
+      (add-buys (:buys card 0))
+      (add-actions (:actions card 0))
+      (update-self #(draw % (:cards card 0)))
+      (special-effects card)))
+

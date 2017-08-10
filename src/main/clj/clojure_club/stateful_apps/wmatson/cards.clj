@@ -18,7 +18,3 @@
 (def cards
   (let [group->pair (fn [[key [val]]] [key val])]
     (into {} (map group->pair (group-by :name cards-raw)))))
-
-(doseq [treasure (filter #((:types %) :treasure) base-cards)]
-  (defmethod gs/play-card (:name treasure)
-    [game card] (gs/add-treasure game (:treasure card))))

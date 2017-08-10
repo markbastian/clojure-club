@@ -6,10 +6,12 @@
   (shuffle (concat (repeat 7 :copper) (repeat 3 :estate))))
 
 (defn new-player [name]
-  (gs/->Player name (starting-deck) [] [] [] 0 1 1))
+  (-> (gs/->Player name (starting-deck) [] [] [] 0 1 1)
+      (gs/draw 5)))
 
 (def test-game (gs/->Game {:bob (new-player "Bob")}
-                          [] [] [:bob]))
+                          [] [] [:bob] :main))
 
 (:treasure (get-in test-game [:players (-> test-game :turn-order first)]))
-(gs/play-card test-game (:gold dc/cards))
+
+(gs/play-card test-game (:woodcutter dc/cards))
