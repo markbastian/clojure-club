@@ -9,9 +9,12 @@
   (-> (gs/->Player name (starting-deck) [] [] [] 0 1 1)
       (gs/draw 5)))
 
-(def test-game (gs/->Game {:bob (new-player "Bob")}
-                          [] [] [:bob] :main))
+(defn new-game [player-names]
+  (let [player-map (into {}  (map #(vector (keyword %) (new-player %)) player-names))]
+    (gs/->Game player-map [] [] (vec (keys player-map)) :main)))
+
+(def test-game (new-game ["Bob" "Sally"]))
 
 (:treasure (get-in test-game [:players (-> test-game :turn-order first)]))
 
-(gs/play-card test-game (:woodcutter dc/cards))
+(gs/play-card test-game (:village dc/cards))

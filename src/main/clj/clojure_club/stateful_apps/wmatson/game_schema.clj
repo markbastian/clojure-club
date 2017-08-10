@@ -1,7 +1,28 @@
 (ns main.clj.clojure-club.stateful-apps.wmatson.game-schema)
 
-(defrecord Player [name deck hand in-play discard treasure actions buys])
-(defrecord Game [players kingdom-cards trash turn-order phase])
+(defprotocol IODevice
+  (get-choice [options])
+  (display [game]))
+
+(defprotocol PlayerControl
+  (choose [game options]))
+
+
+(deftype HumanPlayerControl [io]
+  (reify
+    PlayerControl
+    (choose [game options]
+      (do
+        (display io game)
+        (get-choice io options)))))
+  
+
+(defrecord Player [control name deck hand in-play discard treasure actions buys])
+(defn player
+  ([name] (player)))
+
+(defrecord Game [ players kingdom-cards trash turn-order phase])
+
 
 (defn current-player-kw [game]
   (-> game :turn-order first))
