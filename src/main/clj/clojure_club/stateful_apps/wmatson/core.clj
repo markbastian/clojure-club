@@ -26,24 +26,26 @@
 (defrecord LanternaIO [screen]
   gs/IODevice
   (get-input [{:keys [screen]}]
-    (input->axis (ls/get-key-blocking screen)))
+    (input->axis (ls/get-key-blocking screen {:interval 100 :timeout 1000})))
   (display [{:keys [screen]} game]
     (let [size (ls/get-size screen)
           [player-x player-y] (map #(/ % 2) size)
           enemies-xy (enemies->xyg (:enemies game) player-x player-y)]
       (ls/clear screen)
-      (ls/put-string screen player-x player-y "+")
+      (ls/put-string screen player-x player-y "+" {:fg :green :bg :black})
       (ls/move-cursor screen player-x player-y)
       (doseq [[x y g] enemies-xy]
-        (ls/put-string screen x y (str g)))
+        (ls/put-string screen x y (str g) {:bg :red :fg :yellow}))
       (ls/redraw screen))))
 
 (def test-game
   (gs/->Game []
-             [(gs/->Enemy 0 5 \A)
-              (gs/->Enemy 1 4 \W)
-              (gs/->Enemy 2 3 \D)
-              (gs/->Enemy 3 2 \S)]))
+             [(gs/->Enemy 0 10 \A)
+              (gs/->Enemy 0 9 \A)
+              (gs/->Enemy 0 8 \A)
+              (gs/->Enemy 1 8 \W)
+              (gs/->Enemy 2 6 \D)
+              (gs/->Enemy 3 4 \S)]))
 
 (defn main- []
   (let [scr (ls/get-screen)
