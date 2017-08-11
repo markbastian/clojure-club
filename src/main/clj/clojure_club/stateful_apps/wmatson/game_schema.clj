@@ -29,8 +29,26 @@
           (update :input-queue rest))
       game)))
 
+(def spawn-pool
+  (concat
+    (repeat 4 0)
+    (repeat 2 1)
+    (repeat 2 2)
+    (repeat 1 3)
+    (repeat 6 nil)))
+
+(def spawn-graphic
+  [\A \# \@ \% \X \K \D \S \W])
+
+(defn- spawn-enemy [game distance]
+  (if-let [new-axis (rand-nth spawn-pool)]
+    (update game :enemies conj (->Enemy new-axis distance (rand-nth spawn-graphic)))
+    game))
+
 (defn- enemy-move [game]
-  (update game :enemies (fn [enemies] (map #(update % :distance dec) enemies))))
+  (-> game
+    (update :enemies (fn [enemies] (map #(update % :distance dec) enemies)))
+    (spawn-enemy 10)))
 
 (defn- step [game]
   (-> game

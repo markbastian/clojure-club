@@ -26,7 +26,7 @@
 (defrecord LanternaIO [screen]
   gs/IODevice
   (get-input [{:keys [screen]}]
-    (input->axis (ls/get-key-blocking screen {:interval 100 :timeout 1000})))
+    (input->axis (ls/get-key-blocking screen {:interval 100 :timeout 500})))
   (display [{:keys [screen]} game]
     (let [size (ls/get-size screen)
           [player-x player-y] (map #(/ % 2) size)
@@ -55,4 +55,4 @@
     (gs/game-loop io initial-game)
     (ls/stop scr)))
 
-;; (main-)
+(main-)
