@@ -1,31 +1,56 @@
 (ns main.clj.clojure-club.stateful-apps.wmatson.core
   (:require [main.clj.clojure-club.stateful-apps.wmatson.game-schema :as gs]
-            [main.clj.clojure-club.stateful-apps.wmatson.cards :as dc]))
+            [lanterna.screen :as ls]))
 
-(defprotocol IODevice
-  (get-choice [this options])
-  (display [this game]))
+(def input->axis
+  {\a 0
+   \w 1
+   \d 2
+   \s 3
+   \q :quit})
 
-(deftype HumanPlayerControl [io]
-    PlayerControl
-    (choose [this game options]
-      (do
-        (display io game)
-        (get-choice io options))))
+(defn radial->cartesian [axis distance]
+  (case axis
+    0 [(- distance) 0]
+    1 [0 (- distance)]
+    2 [distance 0]
+    3 [0 distance]))
 
-(defn starting-deck []
-  (shuffle (concat (repeat 7 :copper) (repeat 3 :estate))))
+(defn enemy->xyg [{:keys [axis distance graphic]} player-x player-y]
+  (let [[x y] (radial->cartesian axis distance)]
+    [(+ player-x x) (+ player-y y) graphic]))
 
-(defn new-player [name]
-  (-> (gs/->Player name (starting-deck) [] [] [] 0 1 1)
-      (gs/draw 5)))
+(defn enemies->xyg [enemies player-x player-y]
+  (map #(enemy->xyg % player-x player-y) enemies))
 
-(defn new-game [player-names]
-  (let [player-map (into {}  (map #(vector (keyword %) (new-player %)) player-names))]
-    (gs/->Game player-map [] [] (vec (keys player-map)) :main)))
+(defrecord LanternaIO [screen]
+  gs/IODevice
+  (get-input [{:keys [screen]}]
+    (input->axis (ls/get-key-blocking screen)))
+  (display [{:keys [screen]} game]
+    (let [size (ls/get-size screen)
+          [player-x player-y] (map #(/ % 2) size)
+          enemies-xy (enemies->xyg (:enemies game) player-x player-y)]
+      (ls/clear screen)
+      (ls/put-string screen player-x player-y "+")
+      (ls/move-cursor screen player-x player-y)
+      (doseq [[x y g] enemies-xy]
+        (ls/put-string screen x y (str g)))
+      (ls/redraw screen))))
 
-(def test-game (new-game ["Bob" "Sally"]))
+(def test-game
+  (gs/->Game []
+             [(gs/->Enemy 0 5 \A)
+              (gs/->Enemy 1 4 \W)
+              (gs/->Enemy 2 3 \D)
+              (gs/->Enemy 3 2 \S)]))
 
-(:treasure (get-in test-game [:players (-> test-game :turn-order first)]))
+(defn main- []
+  (let [scr (ls/get-screen)
+        io (->LanternaIO scr)
+        initial-game test-game]
+    (ls/start scr)
+    (gs/game-loop io initial-game)
+    (ls/stop scr)))
 
-(gs/play-card test-game (:village dc/cards))
+;; (main-)

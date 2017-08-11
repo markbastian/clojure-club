@@ -1,67 +1,55 @@
-(ns main.clj.clojure-club.stateful-apps.wmatson.game-schema)
+(ns main.clj.clojure-club.stateful-apps.wmatson.game-schema
+  (:require [main.clj.clojure-club.stateful-apps.wmatson.util :as u]))
 
+(defprotocol IODevice
+  (get-input [this])
+  (display [this game]))
 
-(defprotocol PlayerControl
-  (choose [this game options]))
+(defrecord Enemy [axis distance graphic])
 
-(defrecord Player [control name deck hand in-play discard treasure actions buys])
+(defrecord Game [input-queue enemies])
 
-(defrecord Game [ players kingdom-cards trash turn-order phase])
+(defn take-input [io game]
+  (if-let [input (get-input io)]
+    ;;TODO set up operations to keep this a vector
+    (do
+      (update game :input-queue vec)
+      (update game :input-queue conj input))
+    game))
 
-(defn current-player-kw [game]
-  (-> game :turn-order first))
+(defn- kill-nearest [enemies axis]
+  (->> (sort-by :distance enemies);;TODO: Keep enemies sorted
+       (u/remove-one #(#{axis} (:axis %)))))
+       
+(defn- player-move [game]
+  (let [input (-> game :input-queue first)]
+    (if ((complement #{:quit}) input)
+      (-> game
+          (update :enemies kill-nearest input)
+          (update :input-queue rest))
+      game)))
 
-(defn current-player [game]
-  (get-in game [:players (current-player-kw game)]))
+(defn- enemy-move [game]
+  (update game :enemies (fn [enemies] (map #(update % :distance dec) enemies))))
 
-(defmulti can-play? (fn [game card] (:name card)))
-  
-(defmethod can-play? :default [game card]
-      (or (and (#{:main} (:phase game))
-               ((:types card) :action)
-               (> 0 (:actions (current-player game))))
-          (and (#{:buying} (:phase game))
-               ((:types card) :treasure))))
-
-(defmulti special-effects (fn [game card] (:name card)))
-
-(defmethod special-effects :default [game card] game)
-
-(defn update-self [game update-fn]
-  (let [current-player (current-player-kw game)]
-    (update-in game [:players current-player] update-fn)))
-
-(defn draw
-  ([player amount]
-   (->> (iterate draw player)
-        (take (inc amount))
-        last))
-  ([{:keys [deck discard] :as player}]
-   (if (and (empty? deck) (empty? discard))
-     player
-     (let [[next & rest] deck]
-       (if next
-         (-> player
-             (update :hand conj next)
-             (assoc :deck rest))
-         (-> player
-             (assoc :deck (shuffle discard))
-             (assoc :discard [])
-             (draw player)))))))
-
-(defn add-treasure [game amount]
-  (update-self game #(update % :treasure + amount)))
-
-(defn add-buys [game amount]
-  (update-self game #(update % :buys + amount)))
-
-(defn add-actions [game amount]
-  (update-self game #(update % :actions + amount)))
-
-(defn play-card [game card]
+(defn- step [game]
   (-> game
-      (add-treasure (:treasure card 0))
-      (add-buys (:buys card 0))
-      (add-actions (:actions card 0))
-      (update-self #(draw % (:cards card 0)))
-      (special-effects card)))
+      player-move
+      enemy-move))
+
+(defn io-step [io game]
+  (->> game
+      (take-input io)
+      step))
+
+(defn game-loop [io game]
+  (display io game)
+  (let [input-queue (:input-queue game)
+        quit? (some #{:quit} input-queue)]
+    (if (not quit?)
+      (recur io  (io-step io game)))))
+
+;; (gs/game-loop (reify gs/IODevice
+;;                (display [this game]
+;;                  (clojure.pprint/pprint game))
+;;                (get-input [this] :quit)) test-game)
