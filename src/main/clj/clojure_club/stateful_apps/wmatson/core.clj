@@ -2,6 +2,17 @@
   (:require [main.clj.clojure-club.stateful-apps.wmatson.game-schema :as gs]
             [main.clj.clojure-club.stateful-apps.wmatson.cards :as dc]))
 
+(defprotocol IODevice
+  (get-choice [this options])
+  (display [this game]))
+
+(deftype HumanPlayerControl [io]
+    PlayerControl
+    (choose [this game options]
+      (do
+        (display io game)
+        (get-choice io options))))
+
 (defn starting-deck []
   (shuffle (concat (repeat 7 :copper) (repeat 3 :estate))))
 
