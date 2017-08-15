@@ -9,6 +9,10 @@ the name $USER.clj.
 
 ## Problems/Topics
 
+#### August 18<sup>th</sup>: Stuart Sierra's Component Library
+
+John Conti will give a presentation on [component](https://github.com/stuartsierra/component).
+
 #### August 11<sup>th</sup>: Clojure Applications with State - Part 2
 
 Pick a domain model, any domain model, that contains state. Implement a stateful application in your domain. This likely
