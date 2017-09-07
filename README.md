@@ -9,7 +9,11 @@ the name $USER.clj.
 
 ## Problems/Topics
 
-#### August 18<sup>th</sup>: Stuart Sierra's Component Library
+#### September 1<sup>st</sup>: Records, Protocols, and more Component
+
+John Conti will continue with his discussions on the above.
+
+#### August 25<sup>th</sup>: Stuart Sierra's Component Library
 
 John Conti will give a presentation on [component](https://github.com/stuartsierra/component).
 
