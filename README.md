@@ -9,6 +9,10 @@ the name $USER.clj.
 
 ## Problems/Topics
 
+#### September 22<sup>nd</sup>: [Quil](http://quil.info/)
+
+Matt Grimm and Mark Bastian will give live demonstrations of the amazing [Quil](http://quil.info/) library. If you want to see reloadable isomorphic code in all its glory along with some cool demos, come on by.
+
 #### September 1<sup>st</sup>: Records, Protocols, and more Component
 
 John Conti will continue with his discussions on the above.
