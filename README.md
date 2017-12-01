@@ -9,6 +9,12 @@ the name $USER.clj.
 
 ## Problems/Topics
 
+#### December 1<sup>st</sup>: [Datascript](https://github.com/tonsky/datascript)
+
+This is a follow up to John Conti's initial datascript/datalog talk.
+
+Pull [this repo](https://github.com/markbastian/datascript-playground) to see my demo.
+
 #### September 22<sup>nd</sup>: [Quil](http://quil.info/)
 
 Matt Grimm and Mark Bastian will give live demonstrations of the amazing [Quil](http://quil.info/) library. If you want to see reloadable isomorphic code in all its glory along with some cool demos, come on by.
