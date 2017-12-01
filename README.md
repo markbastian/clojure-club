@@ -9,11 +9,34 @@ the name $USER.clj.
 
 ## Problems/Topics
 
-#### December 1<sup>st</sup>: [Datascript](https://github.com/tonsky/datascript)
+#### December 1<sup>st</sup>: [Datascript (Again)](https://github.com/tonsky/datascript)
 
 This is a follow up to John Conti's initial datascript/datalog talk.
 
 Pull [this repo](https://github.com/markbastian/datascript-playground) to see my demo.
+
+#### November 3<sup>rd</sup>: Emacs, Robots, etc.
+
+John Conti gave us some Emacs and Rx tips. Mark showed his balance bot, but was unable to get the network connection 
+going to show the REPL on the EV3 Brick.
+
+#### October 27<sup>th</sup>: [Datascript](https://github.com/tonsky/datascript)
+
+John Conti will be introducing Datascript, an in-memory (re)implementation of the Datalog engine in the Datomic database.  
+Datascript turns data manipulations into queries, which are declarative and usually closer to the domain model.  
+The result is better agility, fewer bugs and more fun at the expense of some performance. Given the IO bound nature of 
+server programs though, performance is often no concern.
+
+#### October 13<sup>th</sup>: [Datascript](https://github.com/tonsky/datascript)
+
+John Conti will talk to us about reactive programming and the beicon library. In his words:
+
+“Reactive Extensions (usually called Rx) is a streaming event library and specification for several languages. 
+Netflix is a primary user.  I'm going to introduce Rx using the Clojure beicon library.”
+
+#### October 6<sup>th</sup>: [Codingame](https://www.codingame.com/start)
+
+This week for Clojure Club, Jonathan will discuss https://www.codingame.com/start.
 
 #### September 22<sup>nd</sup>: [Quil](http://quil.info/)
 
