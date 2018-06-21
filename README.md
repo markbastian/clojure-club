@@ -1,13 +1,108 @@
 # Clojure-Club
 
-Wherein we solve interesting problems on our own then compare to see how we did.
+Wherein we solve interesting problems on our own then compare to see how we did. Also, we discuss cool and useful ideas and topics.
 
 ## How it works
-Once a week a new problem will be posted. A package will be created in this project
-for participants to post their solutions. Please put your solution in a ns with
-the name $USER.clj.
+For programming problems: We'll post a problem description here. A package will be created in this project
+for participants to post their solutions. Please put your solution in a ns with the name $USER.clj.
+
+For everything (including the above), just show up and learn and have fun.
 
 ## Problems/Topics
+
+#### July 13<sup>th</sup>: Tile Laying
+Many board games such as Carcassonne, Al Hambra, and Lanterns consist of an evolving grid of square tiles that must be 
+drawn and placed. Often, placement must be done in such a way that the image or pattern on the drawn tile and the images 
+on the grid must match.
+
+Challenge:
+ * Develop a model to represent the aspects of this problem (tile encoding, board representation, etc.)
+ * Write a function that takes an existing board/game state and a tile and determines every valid location a tile can be placed
+ 
+Bonus: Some games have a similar mechanic, but with hexagonal tiles (e.g. Takenoko, Eclipse, Twilight Imperium).
+Design your function such that it accommodates either tile shape. Most of these don't require any special orientation, 
+but some do (e.g. Eclipse wormholes).
+
+As this is a generic functionality and we may have future meetings in which we render the results as web or thick client apps,
+please put your solution in a cljc file. For reference, I've put my stubbed out solution ns at (ns clojure-club.tile-laying.mbastian).
+If you create a separate project for this, please add a link here and submit a PR.
+
+#### June 29<sup>th</sup>: TBD
+
+#### June 15<sup>th</sup>: Systems
+
+Mark Bastian will be talking about building systems using [Component](https://github.com/stuartsierra/component) and [Integrant](https://github.com/weavejester/integrant), how to build system-ready code, and give a demo of a cool XMPP chat-bot using Integrant components.
+
+#### May 4<sup>th</sup>: [Spyscope](https://github.com/dgrnbrg/spyscope)
+
+John Conti will be discussing Spyscope, a trace-oriented debug tool for Clojure "designed to make it easy to debug single- and multi-threaded applications."
+
+#### April 20<sup>th</sup>: Datascript and Datomic
+
+Mark Bastian will share information about [Datomic](https://www.datomic.com/on-prem.html) and [Datascript](https://github.com/tonsky/datascript). Things he’ll discuss:
+ * When you might choose one of these vs. SQL or Mongo
+ * Schemas
+ * The pull and entity functions
+ * History (Datomic only)
+ * Installing Datomic
+ 
+Datascript examples can be found [here](https://github.com/markbastian/datascript-playground/blob/master/src/datascript_playground/schemas.clj).
+
+#### April 6<sup>th</sup>: Tooling, Benchmarking, Profiling
+
+Matt Grimm will introduce some tooling and strategies for benchmarking and profiling Clojure code. We'll look at tufte, clj-async-profiler, and criterium, and when it's appropriate to use each library.
+
+
+#### March 23<sup>rd</sup>: Ring From the Ground Up
+
+Mark Bastian will be discuss building web applications using Ring (https://github.com/ring-clojure/ring), an HTTP server abstraction library. 
+He’ll start with an extremely simple “Hello World” server app and work his way up through a variety of different scenarios, demonstrating how to do each of these using Ring and libraries built on top of it. 
+Baby-step topics covered include:
+ * Jetty and Immutant servers
+ * Hiccup
+ * Passing parameters
+ * Routing
+ * Uploads
+ * Sessions
+ * Static resources
+ * Compojure
+ * Routing
+ * Swagger APIs
+
+The intent is to show a bunch of extremely simple applications that illustrate how each library/middleware works. 
+You can then pick and choose from them to make whatever application you want without bringing the full weight of Luminus to bear. 
+
+The repository for this project can be found [here](https://github.com/markbastian/ring-playground).
+
+#### February 23<sup>rd</sup>: Using Clojure for Testing in Java Apps
+
+Wesley Matson will be talking about some super cool testing work he’s been doing in which he connects a Clojure REPL to a Java project and gets Clojure tests to run against Java code on build. 
+This is all done without introducing Clojure as a non-test dependency. 
+Anecdotally, this has resulted in significantly less code while achieving feature parity.
+
+#### February 9<sup>th</sup>: Middlewares Demonstration
+
+Jonathan will demonstrate an application of the middleware pattern he used to implement a domain specific language 
+to represent conditional override logic in a format that can be stored as json and later applied to manipulate data.
+
+#### January 26<sup>th</sup>: Example Middlewares
+
+We’ll be doing some hands-on examples of using middlewares. Mark Bastian has some examples that show how to use
+middlewares to perform implicit data coercion and John Conti has some middleware examples to show as well. 
+
+#### January 12<sup>th</sup>: Intro to the Middleware Pattern
+
+John Conti will be talking about Middleware, a functional programming idiom. His overview:
+
+“Middleware is the name of a functional programming idiom. It is a pattern in the sense of OO patterns. Used throughout web server and client libraries it lurks unseen in many other libraries. It is a workhorse.
+
+However middleware code can be confusing to read.  When this simple pattern is fully understood, many difficult program organization problems become simple. I wish I had learned it a couple of years ago.
+
+This talk will simply seek to introduce the pattern and show its basic function. Follow on talks will walk through specific use cases to show how to make the pattern work for you to solve daily Clojure programming problems.”
+
+#### December 15<sup>th</sup>: Intro to the Middleware Pattern
+
+Matt Grimm will show us some really cool Quil stuff (I am told particle systems may be involved) and Wes Matson has a bag of coolness to draw from and demo (some combination of cljs, figwheel, matrix/octave stuff, and/or datascript).
 
 #### December 1<sup>st</sup>: [Datascript (Again)](https://github.com/tonsky/datascript)
 
