@@ -16,9 +16,24 @@ drawn and placed. Often, placement must be done in such a way that the image or 
 on the grid must match.
 
 Challenge:
+
  * Develop a model to represent the aspects of this problem (tile encoding, board representation, etc.)
  * Write a function that takes an existing board/game state and a tile and determines every valid location a tile can be placed
- 
+
+Examples:
+
+ * [Alhambra](https://boardgamegeek.com/boardgame/6249/alhambra): Tiles are placed such that wall boundaries must be respected.
+
+ ![](https://cf.geekdo-images.com/medium/img/CVie6sSUZtPT3hMYT9Dxpk9nmUA=/fit-in/500x500/filters:no_upscale()/pic116129.jpg)
+
+ * [Lanterns: The Harvest Festival](https://www.renegadegamestudios.com/lanterns-the-harvest-festival/): In Lanterns, tiles are placed such that colored, floating lanterns are placed in any desired location. However, cards are only awarded if edge colors match.
+
+ ![](https://cf.geekdo-images.com/medium/img/hVU19yWC012X1Gzh_RC3PHhJmuQ=/fit-in/500x500/filters:no_upscale()/pic2289072.jpg)
+
+ * [Carcassonne](https://www.zmangames.com/en/products/carcassonne/): This one is particularly interesting because the edge alignment of each tile and the connectivity of the edge elements in the tile can produce different scoring results. For example, two city boundaries can exist on the left and top edges of a tile or a tile can have a city corner that includes those same edges, or a number of roads can connect to different tile edges but how those roads join or terminate can vary per tile.
+
+ ![Basic Carcassonne Tiles](https://cf.geekdo-images.com/medium/img/fiuwpUNlEJfasztW7zT-CbT0p94=/fit-in/500x500/filters:no_upscale()/pic115467.jpg)
+
 Bonus: Some games have a similar mechanic, but with hexagonal tiles (e.g. Takenoko, Eclipse, Twilight Imperium).
 Design your function such that it accommodates either tile shape. Most of these don't require any special orientation, 
 but some do (e.g. Eclipse wormholes).
@@ -27,7 +42,9 @@ As this is a generic functionality and we may have future meetings in which we r
 please put your solution in a cljc file. For reference, I've put my stubbed out solution ns at (ns clojure-club.tile-laying.mbastian).
 If you create a separate project for this, please add a link here and submit a PR.
 
-#### June 29<sup>th</sup>: TBD
+#### June 29<sup>th</sup>: Advanced Datascript/Datomic
+
+Mark Bastian will go over some very interesting datascript examples.
 
 #### June 15<sup>th</sup>: Systems
 
