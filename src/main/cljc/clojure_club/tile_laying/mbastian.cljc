@@ -8,69 +8,55 @@
 (defn available-neighbors [tiles]
   (->> tiles (mapcat neighbors) distinct (remove (set tiles))))
 
-(defn random-neigbhor [tiles]
-  (rand-nth (available-neighbors tiles)))
+(defn compute-slots [state]
+  (for [n (available-neighbors (keys state))]
+    [n (mapv (fn [i v] (get v i)) [2 3 0 1] (map state (neighbors n)))]))
 
-(defn random-grow [tiles]
-  (conj tiles (random-neigbhor tiles)))
+(defn compatible? [oriented-piece slot]
+  (let [match (comp #(apply = %) #(filter identity %) vector)]
+    (every? true? (map match oriented-piece slot))))
 
-(defn rotate-ccw [shape]
-  (apply mapv vector (map rseq shape)))
+(defn compatible-orientations [piece slot]
+  (let [c (count piece)]
+    ;Do I put distinct in the butlast position?
+    (->> piece cycle (partition c 1) (take c) (filter #(compatible? % slot)) seq)))
+
+(defn all-possible-moves [state piece]
+  (->>
+    state
+    compute-slots
+    (map (fn [[location slot]] [location (compatible-orientations piece slot)]))
+    (filter second)
+    (group-by first)
+    (reduce (fn [m [k v]] (assoc m k (mapcat second v))) {})))
+
+;Coords are arranged as:
+;[right top left bottom]
 
 (def tiles
-  [
-   ;Central monastery
-   [:L :L :L :L]
-   [:L :L :L :L]
-   [:L :L :L :L]
-   [:L :L :L :L]
-   ;Central monastery
+  [[:L :L :L :L]
    [:L :L :L :R]
-   [:L :L :L :R]
-   ;Mega-city with shield
    [:C :C :C :C]
-   ;City open at bottom
    [:C :C :C :L]
-   [:C :C :C :L]
-   [:C :C :C :L]
-   ;City open at bottom with shield
-   [:C :C :C :L]
-   ;City with single road
    [:C :C :C :R]
-   ;City with single road + shield
-   [:C :C :C :R]
-   [:C :C :C :R]
-   ;Corner city
    [:L :C :C :L]
-   [:L :C :C :L]
-   [:L :C :C :L]
-   ;Corner city + shield
-   [:L :C :C :L]
-   [:L :C :C :L]
-   ;Corner city with non-connected corner road
    [:R :C :C :R]
-   [:R :C :C :R]
-   [:R :C :C :R]
-   ])
-
-[[:U :U :U :U]
- [:U :R :R :U]
- [:U :C :C :C]
- [:U :U :C :L]]
+   [:C :L :C :L]
+   [:L :C :L :L]
+   [:L :C :R :R]
+   [:R :C :L :R]
+   [:R :C :R :R]
+   [:R :C :R :L]
+   [:L :R :L :R]
+   [:L :L :R :R]
+   [:R :L :R :R]
+   [:R :R :R :R]])
 
 (def initial-state {[0 0] [:R :C :R :L]})
 
-(def state-1 {[0 0] [:R :C :R :L]
-              [1 0] [:R :C :R :L]
-              [0 1] [:R :L :R :C]})
+(def state-0 {[0 0] [:R :C :R :L]
+              [1 0] [:C :R :R :C]
+              [0 1] [:L :C :L :C]})
 
-(for [n (available-neighbors (keys state-1))]
-  [n (mapv (fn [i v] (get v i)) [2 3 0 1] (map state-1 (neighbors n)))])
-
-(defn compatible [piece slot]
-  (->> piece
-       cycle
-       (partition 4 1)
-       (take 4)
-       ;not quite - maybe reverse seqs?
-       (filter (fn [s] (every? true? (map (comp #(apply = %) #(filter identity %) vector) s slot))))))
+(all-possible-moves state-0 [:L :L :R :L])
+(all-possible-moves state-0 (rand-nth tiles))
