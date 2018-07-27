@@ -27,8 +27,7 @@
     compute-slots
     (map (fn [[location slot]] [location (compatible-orientations piece slot)]))
     (filter second)
-    (group-by first)
-    (reduce (fn [m [k v]] (assoc m k (mapcat second v))) {})))
+    (reduce (fn [m [k v]] (update m k into v)) {})))
 
 ;Coords are arranged as:
 ;[right top left bottom]
@@ -60,3 +59,9 @@
 
 (all-possible-moves state-0 [:L :L :R :L])
 (all-possible-moves state-0 (rand-nth tiles))
+
+(defn random-move [state]
+  (let [[loc moves] (->> tiles rand-nth (all-possible-moves state) seq rand-nth)]
+    (assoc state loc (rand-nth moves))))
+
+;(take 10 (iterate random-move initial-state))
