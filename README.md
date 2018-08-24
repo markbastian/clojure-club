@@ -10,6 +10,14 @@ For everything (including the above), just show up and learn and have fun.
 
 ## Problems/Topics
 
+#### August 24<sup>th</sup>: Back to Basics
+Clojure workflow.
+
+#### August 10<sup>th</sup>: Reagent Tips
+Jonathan Romrell discussed best practices with Reagent, a Clojurescript wrapper around React. Jonathan has spent 
+significant time working with Reagent and other front-end technologies and is our local expert on how to use these 
+libraries effectively and correctly.
+
 #### July 13<sup>th</sup>: Tile Laying
 Many board games such as Carcassonne, Al Hambra, and Lanterns consist of an evolving grid of square tiles that must be 
 drawn and placed. Often, placement must be done in such a way that the image or pattern on the drawn tile and the images 
