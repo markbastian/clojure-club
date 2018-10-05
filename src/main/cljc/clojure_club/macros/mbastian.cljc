@@ -96,6 +96,30 @@
 (def coefficients
   (vec (repeatedly 100 (comp dec #(* 2 %) rand))))
 
+(defmacro exp-coefficients [n]
+  `(->> (iterate (fn [[i# f#]] [(inc i#) (* i# f#)]) [1.0 1.0])
+        (map second)
+        (take ~n)
+        (take-while #(Double/isFinite %))
+        (mapv #(/ 1.0 %))))
+
+(def e-coefficients
+  (->> (iterate (fn [[i f]] [(inc i) (* i f)]) [1.0 1.0])
+       (map second)
+       (take-while #(Double/isFinite %))
+       (mapv #(/ 1.0 %))))
+
+(def e-canonical (canonical-expand e-coefficients))
+(def e-horner (horner-expand e-coefficients))
+
+(profile
+  {:dynamic? true}
+  (dotimes [_ 1000]
+    (p :canonical-macro (e-canonical 1.0))
+    (p :horner-macro (e-horner 1.0))
+    (p :canonical-eval (eval-canonical 1.0 e-coefficients))
+    (p :horner-eval (eval-horner 1.0 e-coefficients))))
+
 (macroexpand '(canonical-expand coefficients))
 
 (def big-canonical
@@ -103,6 +127,22 @@
 
 (def big-horner
   (horner-expand coefficients))
+
+(defn nutation-canonical [t]
+  (+ 134.96340251
+     (* t 477198.8675605)
+     (* t t 0.0088553)
+     (* t t t 1.4343E-5)))
+
+(defn nutation-horner [t]
+  (+ 134.96340251
+     (*
+       (+ 477198.8675605
+          (*
+            (+ 0.0088553
+               (* 1.4343E-5 t))
+            t))
+       t)))
 
 (profile
   {:dynamic? true}

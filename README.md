@@ -1,13 +1,174 @@
 # Clojure-Club
 
-Wherein we solve interesting problems on our own then compare to see how we did.
+Wherein we solve interesting problems on our own then compare to see how we did. Also, we discuss cool and useful ideas and topics.
 
 ## How it works
-Once a week a new problem will be posted. A package will be created in this project
-for participants to post their solutions. Please put your solution in a ns with
-the name $USER.clj.
+For programming problems: We'll post a problem description here. A package will be created in this project
+for participants to post their solutions. Please put your solution in a ns with the name $USER.clj.
+
+For everything (including the above), just show up and learn and have fun.
 
 ## Problems/Topics
+
+#### August 24<sup>th</sup>: Back to Basics
+Clojure workflow.
+
+#### August 10<sup>th</sup>: Reagent Tips
+Jonathan Romrell discussed best practices with Reagent, a Clojurescript wrapper around React. Jonathan has spent 
+significant time working with Reagent and other front-end technologies and is our local expert on how to use these 
+libraries effectively and correctly.
+
+#### July 13<sup>th</sup>: Tile Laying
+Many board games such as Carcassonne, Al Hambra, and Lanterns consist of an evolving grid of square tiles that must be 
+drawn and placed. Often, placement must be done in such a way that the image or pattern on the drawn tile and the images 
+on the grid must match.
+
+Challenge:
+
+ * Develop a model to represent the aspects of this problem (tile encoding, board representation, etc.)
+ * Write a function that takes an existing board/game state and a tile and determines every valid location a tile can be placed
+
+Examples:
+
+ * [Alhambra](https://boardgamegeek.com/boardgame/6249/alhambra): Tiles are placed such that wall boundaries must be respected.
+
+ ![](https://cf.geekdo-images.com/medium/img/CVie6sSUZtPT3hMYT9Dxpk9nmUA=/fit-in/500x500/filters:no_upscale()/pic116129.jpg)
+
+ * [Lanterns: The Harvest Festival](https://www.renegadegamestudios.com/lanterns-the-harvest-festival/): In Lanterns, tiles are placed such that colored, floating lanterns are placed in any desired location. However, cards are only awarded if edge colors match.
+
+ ![](https://cf.geekdo-images.com/medium/img/hVU19yWC012X1Gzh_RC3PHhJmuQ=/fit-in/500x500/filters:no_upscale()/pic2289072.jpg)
+
+ * [Carcassonne](https://www.zmangames.com/en/products/carcassonne/): This one is particularly interesting because the edge alignment of each tile and the connectivity of the edge elements in the tile can produce different scoring results. For example, two city boundaries can exist on the left and top edges of a tile or a tile can have a city corner that includes those same edges, or a number of roads can connect to different tile edges but how those roads join or terminate can vary per tile.
+
+ ![Basic Carcassonne Tiles](https://cf.geekdo-images.com/medium/img/fiuwpUNlEJfasztW7zT-CbT0p94=/fit-in/500x500/filters:no_upscale()/pic115467.jpg)
+
+Bonus: Some games have a similar mechanic, but with hexagonal tiles (e.g. Takenoko, Eclipse, Twilight Imperium).
+Design your function such that it accommodates either tile shape. Most of these don't require any special orientation, 
+but some do (e.g. Eclipse wormholes).
+
+As this is a generic functionality and we may have future meetings in which we render the results as web or thick client apps,
+please put your solution in a cljc file. For reference, I've put my stubbed out solution ns at (ns clojure-club.tile-laying.mbastian).
+If you create a separate project for this, please add a link here and submit a PR.
+
+#### June 29<sup>th</sup>: Advanced Datascript/Datomic
+
+Mark Bastian will go over some very interesting datascript examples.
+
+#### June 15<sup>th</sup>: Systems
+
+Mark Bastian will be talking about building systems using [Component](https://github.com/stuartsierra/component) and [Integrant](https://github.com/weavejester/integrant), how to build system-ready code, and give a demo of a cool XMPP chat-bot using Integrant components.
+
+#### May 4<sup>th</sup>: [Spyscope](https://github.com/dgrnbrg/spyscope)
+
+John Conti will be discussing Spyscope, a trace-oriented debug tool for Clojure "designed to make it easy to debug single- and multi-threaded applications."
+
+#### April 20<sup>th</sup>: Datascript and Datomic
+
+Mark Bastian will share information about [Datomic](https://www.datomic.com/on-prem.html) and [Datascript](https://github.com/tonsky/datascript). Things he’ll discuss:
+ * When you might choose one of these vs. SQL or Mongo
+ * Schemas
+ * The pull and entity functions
+ * History (Datomic only)
+ * Installing Datomic
+ 
+Datascript examples can be found [here](https://github.com/markbastian/datascript-playground/blob/master/src/datascript_playground/schemas.clj).
+
+#### April 6<sup>th</sup>: Tooling, Benchmarking, Profiling
+
+Matt Grimm will introduce some tooling and strategies for benchmarking and profiling Clojure code. We'll look at tufte, clj-async-profiler, and criterium, and when it's appropriate to use each library.
+
+
+#### March 23<sup>rd</sup>: Ring From the Ground Up
+
+Mark Bastian will be discuss building web applications using Ring (https://github.com/ring-clojure/ring), an HTTP server abstraction library. 
+He’ll start with an extremely simple “Hello World” server app and work his way up through a variety of different scenarios, demonstrating how to do each of these using Ring and libraries built on top of it. 
+Baby-step topics covered include:
+ * Jetty and Immutant servers
+ * Hiccup
+ * Passing parameters
+ * Routing
+ * Uploads
+ * Sessions
+ * Static resources
+ * Compojure
+ * Routing
+ * Swagger APIs
+
+The intent is to show a bunch of extremely simple applications that illustrate how each library/middleware works. 
+You can then pick and choose from them to make whatever application you want without bringing the full weight of Luminus to bear. 
+
+The repository for this project can be found [here](https://github.com/markbastian/ring-playground).
+
+#### February 23<sup>rd</sup>: Using Clojure for Testing in Java Apps
+
+Wesley Matson will be talking about some super cool testing work he’s been doing in which he connects a Clojure REPL to a Java project and gets Clojure tests to run against Java code on build. 
+This is all done without introducing Clojure as a non-test dependency. 
+Anecdotally, this has resulted in significantly less code while achieving feature parity.
+
+#### February 9<sup>th</sup>: Middlewares Demonstration
+
+Jonathan will demonstrate an application of the middleware pattern he used to implement a domain specific language 
+to represent conditional override logic in a format that can be stored as json and later applied to manipulate data.
+
+#### January 26<sup>th</sup>: Example Middlewares
+
+We’ll be doing some hands-on examples of using middlewares. Mark Bastian has some examples that show how to use
+middlewares to perform implicit data coercion and John Conti has some middleware examples to show as well. 
+
+#### January 12<sup>th</sup>: Intro to the Middleware Pattern
+
+John Conti will be talking about Middleware, a functional programming idiom. His overview:
+
+“Middleware is the name of a functional programming idiom. It is a pattern in the sense of OO patterns. Used throughout web server and client libraries it lurks unseen in many other libraries. It is a workhorse.
+
+However middleware code can be confusing to read.  When this simple pattern is fully understood, many difficult program organization problems become simple. I wish I had learned it a couple of years ago.
+
+This talk will simply seek to introduce the pattern and show its basic function. Follow on talks will walk through specific use cases to show how to make the pattern work for you to solve daily Clojure programming problems.”
+
+#### December 15<sup>th</sup>: Intro to the Middleware Pattern
+
+Matt Grimm will show us some really cool Quil stuff (I am told particle systems may be involved) and Wes Matson has a bag of coolness to draw from and demo (some combination of cljs, figwheel, matrix/octave stuff, and/or datascript).
+
+#### December 1<sup>st</sup>: [Datascript (Again)](https://github.com/tonsky/datascript)
+
+This is a follow up to John Conti's initial datascript/datalog talk.
+
+Pull [this repo](https://github.com/markbastian/datascript-playground) to see my demo.
+
+#### November 3<sup>rd</sup>: Emacs, Robots, etc.
+
+John Conti gave us some Emacs and Rx tips. Mark showed his balance bot, but was unable to get the network connection 
+going to show the REPL on the EV3 Brick.
+
+#### October 27<sup>th</sup>: [Datascript](https://github.com/tonsky/datascript)
+
+John Conti will be introducing Datascript, an in-memory (re)implementation of the Datalog engine in the Datomic database.  
+Datascript turns data manipulations into queries, which are declarative and usually closer to the domain model.  
+The result is better agility, fewer bugs and more fun at the expense of some performance. Given the IO bound nature of 
+server programs though, performance is often no concern.
+
+#### October 13<sup>th</sup>: [Datascript](https://github.com/tonsky/datascript)
+
+John Conti will talk to us about reactive programming and the beicon library. In his words:
+
+“Reactive Extensions (usually called Rx) is a streaming event library and specification for several languages. 
+Netflix is a primary user.  I'm going to introduce Rx using the Clojure beicon library.”
+
+#### October 6<sup>th</sup>: [Codingame](https://www.codingame.com/start)
+
+This week for Clojure Club, Jonathan will discuss https://www.codingame.com/start.
+
+#### September 22<sup>nd</sup>: [Quil](http://quil.info/)
+
+Matt Grimm and Mark Bastian will give live demonstrations of the amazing [Quil](http://quil.info/) library. If you want to see reloadable isomorphic code in all its glory along with some cool demos, come on by.
+
+#### September 1<sup>st</sup>: Records, Protocols, and more Component
+
+John Conti will continue with his discussions on the above.
+
+#### August 25<sup>th</sup>: Stuart Sierra's Component Library
+
+John Conti will give a presentation on [component](https://github.com/stuartsierra/component).
 
 #### August 11<sup>th</sup>: Clojure Applications with State - Part 2
 

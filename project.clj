@@ -3,31 +3,36 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.9.0-alpha16"]
-                 [org.clojure/clojurescript "1.9.495"]
-                 [com.taoensso/timbre "4.8.0"]
-                 [reagent "0.6.1"]
+  :dependencies [[org.clojure/clojure "1.9.0"]
+                 [org.clojure/clojurescript "1.10.339"]
+                 [com.taoensso/timbre "4.10.0"]
+                 [reagent "0.8.1"]
                  [hickory "0.7.1"]
-                 [com.taoensso/tufte "1.1.1"]
+                 [com.taoensso/tufte "2.0.1"]
                  [org.clojure/core.logic "0.8.11"]
                  [org.clojure/data.xml "0.0.8"]
-                 [com.rpl/specter "1.0.1"]
-                 [mount "0.1.11"]
+                 [com.rpl/specter "1.1.1"]
+                 [mount "0.1.13"]
+                 [clojure-lanterna "0.9.7"]
                  ;[uncomplicate/neanderthal "0.9.0"]
                  ;[uncomplicate/clojurecl "0.7.1"]
                  [com.novemberain/monger "3.1.0"]
-                 [com.github.fakemongo/fongo "2.0.13"]
+                 [com.github.fakemongo/fongo "2.1.1"]
                  [environ "1.1.0"]
-                 [cheshire "5.7.1"]
+                 [cheshire "5.8.0"]
                  ;; https://mvnrepository.com/artifact/org.slf4j/slf4j-api
                  [org.slf4j/slf4j-api "1.7.25"]
                  [org.clojure/tools.trace "0.7.9"]
-                 [org.clojure/core.async "0.3.443"]
-                 [clojure-csv/clojure-csv "2.0.1"]]
+                 [org.clojure/core.async "0.4.474"]
+                 [clojure-csv/clojure-csv "2.0.2"]
+                 [clj-sockets "0.1.0"]
+                 [org.clojure/tools.cli "0.3.7"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.9"]
             [lein-environ "1.1.0"]]
+
+  :main clojure-club.workflow.core
 
   :source-paths ["src/main/clj" "src/main/cljc"]
   :test-paths ["src/test/clj" "src/test/cljc"]
@@ -39,9 +44,9 @@
 
   :profiles {:uberjar {:aot :all}
              :dev {:plugins [[lein-cljsbuild "1.1.5"]
-                             [org.clojure/clojurescript "1.9.495"]]
-                   :dependencies [[com.cemerick/piggieback "0.2.1"]
-                                  [figwheel-sidecar "0.5.9"]
+                             [org.clojure/clojurescript "1.10.339"]]
+                   :dependencies [[com.cemerick/piggieback "0.2.2"]
+                                  [figwheel-sidecar "0.5.16"]
                                   [org.clojure/test.check "0.9.0"]]
                    :repl-options {:nrepl-middleware
                                   [cemerick.piggieback/wrap-cljs-repl]}}
