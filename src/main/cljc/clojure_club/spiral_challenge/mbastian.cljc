@@ -1,14 +1,49 @@
-(ns clojure-club.spiral-challenge.mbastian)
+(ns clojure-club.spiral-challenge.mbastian
+  (:require [clojure.string :as cs]))
 
-
-(def seed [[0]])
-
-(def dirs [[1 0] [0 1] [-1 0] [0 -1]])
+(def dirs [[0 -1] [1 0] [0 1] [-1 0]])
 
 (def dir-map (zipmap dirs (drop 1 (cycle dirs))))
 
-(defn step [{:keys [grid dir loc f]}]
-  (let [turn? (nil? (get-in grid (mapv + loc (dirs dir))))]
-    {:grid grid :dir dir :loc n f}))
+(defn punch-out [{:keys [dir] :as m}]
+  (case dir
+    [1 0] (update m :max-x inc)
+    [0 1] (update m :max-y inc)
+    [-1 0] (update m :min-x dec)
+    [0 -1] (update m :min-y dec)))
 
-(step {:grid [[0]] :dir [1 0] :loc [0 0] :f inc})
+(defn spiral-step [{:keys [min-x max-x min-y max-y dir loc] :as m}]
+  (let [[cx cy :as n] (mapv + (peek loc) dir)]
+    (cond-> (update m :loc conj n)
+            (or (< cx min-x) (< cy min-y) (> cx max-x) (> cy max-y))
+            (-> punch-out (update :dir dir-map)))))
+
+(def spiral-seq
+  (iterate spiral-step {:loc [[0 0]] :min-x 0 :max-x 0 :min-y 0 :max-y 0 :dir [1 0]}))
+
+(defn construct-grid [{:keys [min-x max-x min-y max-y]}]
+  (let [r (vec (repeat (inc (- max-x min-x)) nil))]
+    (vec (repeat (inc (- max-y min-y)) r))))
+
+(def fib-seq (map first (iterate (fn [[a b]] [b (+ a b)]) [1 1])))
+
+(defn char-sqrs
+  ([] (char-sqrs 2N))
+  ([n] (let [digits (reverse (map (comp #(Long/parseLong %) str) (seq (str n))))]
+         (lazy-seq (reduce (fn [s digit] (cons digit s)) (char-sqrs (* n n)) digits)))))
+
+(defn grid-sum [grid [x y :as coord]]
+  (let [xs ((juxt inc inc identity dec dec dec identity inc) x)
+        ys ((juxt identity inc inc inc identity dec dec dec) y)
+        neighbors (map vector xs ys)]
+    (max 1 (reduce + (map #(or (get-in grid (rseq %)) 0) neighbors)))))
+
+(defn generate-spiral [f n]
+  (let [{:keys [min-x min-y loc] :as s} (nth spiral-seq n)
+        locs (mapv #(mapv - % [min-x min-y]) loc)
+        grid (construct-grid s)]
+    (reduce (fn [g loc] (assoc-in g (rseq loc) (f g loc))) grid locs)))
+
+(defn print! [grid]
+  (doseq [row (rseq grid)]
+    (prn row)))
