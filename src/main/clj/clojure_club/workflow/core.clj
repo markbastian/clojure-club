@@ -40,8 +40,7 @@
 
 (defn romberg-extrapolate [[i s]]
   (let [k (Math/pow 4 i)
-        den (dec k)
-        f (fn [[a b]] (/ (- (* k b) a) den))]
+        f (fn [[a b]] (/ (- (* k b) a) (dec k)))]
     [(inc i) (->> s (partition 2 1) (map f))]))
 
 (defn romberg-integrator [f lo hi]
@@ -77,14 +76,14 @@
   ([f a b eps]
    (adaptive-simpsons-rule f a b eps (simpsons-rule f a b))))
 
-;(tufte/add-basic-println-handler! {})
-;(letfn [(f [x] (+ (Math/sin x) x))]
-;  (profile
-;    {:dynamic? true}
-;    (dotimes [_ 50]
-;      (p :romberg (romberg f 1 20 1E-6))
-;      (p :trapezoid (trapezoid f 1 20 1E-6))
-;      (p :adaptive-simpsons (adaptive-simpsons-rule f 1 20 1E-6)))))
+(tufte/add-basic-println-handler! {})
+(letfn [(f [x] (+ (Math/sin x) x))]
+  (profile
+    {:dynamic? true}
+    (dotimes [_ 50]
+      (p :romberg (romberg f 1 20 1E-6))
+      (p :trapezoid (trapezoid f 1 20 1E-6))
+      (p :adaptive-simpsons (adaptive-simpsons-rule f 1 20 1E-6)))))
 
 (def cli-options
   ;; An option with a required argument

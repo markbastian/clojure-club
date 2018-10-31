@@ -10,6 +10,28 @@ For everything (including the above), just show up and learn and have fun.
 
 ## Problems/Topics
 
+#### November 2<sup>nd</sup>: Programming Challenges!
+Solve one of these fun problems and submit a PR:
+  * Implement Travis’s spiral sequence problem. See [clojure-club.spiral_challenge.theppner](https://github.com/markbastian/clojure-club/blob/master/src/main/cljc/clojure_club/spiral_challenge/theppner.cljc) for details.
+  * Implement Run Length Encoding (https://en.wikipedia.org/wiki/Run-length_encoding)
+  * Find meadows. Given a textual description of a map in which # is a “hill” and spaces are meadows, 
+  determine the coordinates of all meadow cells. [0 0] is top left and ascends to the right and down. 
+  The result will be a sequence of sequences. Each inner sequence will contain the coordinates of the meadow cells. 
+  Examples can be found [here](https://github.com/markbastian/clojure-club/blob/master/src/main/cljc/clojure_club/meadow_finder/core.cljc).
+
+#### October 19<sup>th</sup>: DEVCON
+
+#### October 5<sup>th</sup>: Test Automation in Clojure
+Wes will give us a preview of his talk for DEVCON.
+
+#### September 21<sup>st</sup>: REPL Servers
+This week I’ll be demonstrating how to configure your project to run an embedded REPL server. 
+
+#### September 7<sup>th</sup>: Synthesis and Deconstruction
+This time I’ll talk about synthesis and deconstruction of code at the REPL:
+  * Synthesis: How do I build new capability in Clojure
+  * Deconstruction: How do I understand and debug existing Clojure code
+
 #### August 24<sup>th</sup>: Back to Basics
 Clojure workflow.
 

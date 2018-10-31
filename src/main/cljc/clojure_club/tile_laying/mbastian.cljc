@@ -64,4 +64,4 @@
   (let [[loc moves] (->> tiles rand-nth (all-possible-moves state) seq rand-nth)]
     (assoc state loc (rand-nth moves))))
 
-;(take 10 (iterate random-move initial-state))
+(take 10 (iterate random-move initial-state))
