@@ -1,9 +1,11 @@
-(ns clojure-club.rle.rle
+(ns clojure-club.rle.mtolman
   (:require [clojure.string :as str]))
 (use 'clojure.test)
 
 (defn rle-encode [input]
-  (if (= (count input) 0) ""
+  (if
+    (= (count input) 0)
+    ""
     (let [first-letter (first input)
           size-cur-seq (count (take-while #(= % first-letter) input))
           rest-encoded (rle-encode (subs input size-cur-seq))]
