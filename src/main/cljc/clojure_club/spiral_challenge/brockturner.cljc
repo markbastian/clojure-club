@@ -26,3 +26,27 @@
           s)))
 
 ;; (pretty-print-spiral (seq->spiral (range 20)))
+
+
+;; simple "compression" algorithm
+
+(defn compress [coll]
+  (reduce (fn [r i]
+            (let [[v c] (peek r)]
+              (if (= v i)
+                (conj (pop r) [v (inc c)])
+                (conj r [i 1]))))
+          [] coll))
+
+(defn str-compress [string]
+  (reduce (fn [r [v c]] (str r v (char c)))
+          "" (compress string)))
+
+
+;; "Find the meadow"
+
+(defn find-meadow [field]
+  (for [[y r] (map-indexed vector field)
+        [x c] (map-indexed vector r)
+        :when (= c \space)]
+    [x y]))
