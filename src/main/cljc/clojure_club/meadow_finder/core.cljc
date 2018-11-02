@@ -1,5 +1,8 @@
 (ns clojure-club.meadow-finder.core)
 
+(defn solution-normalizer [s]
+  (set (map set s)))
+
 (def meadow-2x2-grid
   [" #"
    "# "])
