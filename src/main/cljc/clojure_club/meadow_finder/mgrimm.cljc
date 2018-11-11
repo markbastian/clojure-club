@@ -1,8 +1,11 @@
 (ns clojure-club.meadow-finder.mgrimm
   (:require
+    [clojure.data.priority-map :refer [priority-map]]
+    [clojure.pprint :as pp]
     [clojure.set :as set]
-    [clojure.string :as string]
     [clojure-club.meadow-finder.core :as mc]))
+
+;; Meadow finding --------------------------------------------------------------
 
 (defn neighbors [[y x]]
   (let [ys ((juxt dec identity inc identity) y)
@@ -37,8 +40,76 @@
          ffirst
          (map sort))))
 
+;; Path finding ----------------------------------------------------------------
+
+(def infinity #?(:clj Double/POSITIVE_INFINITY, :cljs +Infinity))
+(def cost
+  {nil    infinity
+   \space infinity
+   \^     10
+   \#     1})
+
+(defn manhattan [[y1 x1] [y2 x2]]
+  (+ (Math/abs (- y1 y2)) (Math/abs (- x1 x2))))
+
+(defn a* [{:keys [cave open closed] :as state}]
+  (when-let [node (ffirst open)]
+    (reduce
+      (fn [{:keys [goal score] :as m} neighbor]
+        (let [new-score (+ (score node) (cost (get-in cave node)))]
+          (cond-> m
+            (< new-score (or (score neighbor) infinity))
+            (-> (update :open assoc neighbor (+ new-score (manhattan neighbor goal)))
+                (update :paths assoc neighbor node)
+                (update :score assoc neighbor new-score)))))
+      (-> state (update :open dissoc node) (update :closed conj node))
+      (filter (comp not closed) (neighbors node)))))
+
+(defn find-path [cave start goal]
+  (letfn [(path [node paths] (take-while identity (iterate paths node)))]
+    (->> {:cave cave
+          :goal goal
+          :open (priority-map start (manhattan start goal))
+          :closed #{}
+          :paths {}
+          :score {start 0}}
+         (iterate a*)
+         (drop-while (comp seq :open))
+         first
+         :paths
+         (path goal)
+         reverse)))
+
+(defn annotate-path [cave path]
+  (let [dot \u00b7]
+    (reduce
+      (fn [v [y x]]
+        (let [pre (subs (v y) 0 x), post (subs (v y) (inc x))]
+          (assoc v y (apply str pre dot post))))
+      cave path)))
+
 ;; -----------------------------------------------------------------------------
 
-(comment
-  (= [[[0 0]] [[1 1]]] (meadows mc/meadow-2x2-grid))
-  (meadows mc/meadow-32x32x4))
+;; meadow finding tests
+#_
+(doseq [x (meadows mc/meadow-32x32x4)]
+  (println x))
+
+;; path finding tests
+(def expensive-cave
+  ["#######"
+   "###^###"
+   "##^^^^#"
+   "^##^###"
+   "##^##^#"
+   "####^##"])
+
+#_
+(let [cave expensive-cave]
+  (doseq [x (annotate-path cave (find-path cave [0 0] [4 4]))]
+    (println x)))
+
+#_
+(let [cave mc/meadow-32x32x4]
+  (doseq [x (annotate-path cave (find-path cave [0 0] [31 31]))]
+    (println x)))

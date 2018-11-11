@@ -26,7 +26,8 @@
                  [org.clojure/core.async "0.4.474"]
                  [clojure-csv/clojure-csv "2.0.2"]
                  [clj-sockets "0.1.0"]
-                 [org.clojure/tools.cli "0.3.7"]]
+                 [org.clojure/tools.cli "0.3.7"]
+                 [org.clojure/data.priority-map "0.0.10"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.9"]
