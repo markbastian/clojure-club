@@ -1,5 +1,6 @@
 (ns clojure-club.meadow-finder.mgrimm
   (:require
+    [clojure.data.priority-map :refer [priority-map]]
     [clojure.pprint :as pp]
     [clojure.set :as set]
     [clojure-club.meadow-finder.core :as mc]))
@@ -41,52 +42,73 @@
 
 ;; Path finding ----------------------------------------------------------------
 
-(defn a* [state]
-  (when-let [node (apply min-key (:fscore state) (:open state))]
+(def infinity #?(:clj Double/POSITIVE_INFINITY, :cljs +Infinity))
+(def cost
+  {nil    infinity
+   \space infinity
+   \^     10
+   \#     1})
+
+(defn manhattan [[y1 x1] [y2 x2]]
+  (+ (Math/abs (- y1 y2)) (Math/abs (- x1 x2))))
+
+(defn a* [{:keys [cave open closed] :as state}]
+  (when-let [node (ffirst open)]
     (reduce
-      (fn [{:keys [open paths gscore fscore] :as m} neighbor]
-        (let [score (inc (gscore node))]
+      (fn [{:keys [goal score] :as m} neighbor]
+        (let [new-score (+ (score node) (cost (get-in cave node)))]
           (cond-> m
-            (< score (or (gscore neighbor) Double/POSITIVE_INFINITY))
-            (-> (update :open conj neighbor)
+            (< new-score (or (score neighbor) infinity))
+            (-> (update :open assoc neighbor (+ new-score (manhattan neighbor goal)))
                 (update :paths assoc neighbor node)
-                (update :gscore assoc neighbor score)
-                (update :fscore assoc neighbor (inc score))))))
-      (-> state (update :open disj node) (update :closed conj node))
-      (for [x (neighbors node)
-            :when (= \# (get-in (:cave state) x))
-            :when (not ((:closed state) x))]
-        x))))
+                (update :score assoc neighbor new-score)))))
+      (-> state (update :open dissoc node) (update :closed conj node))
+      (filter (comp not closed) (neighbors node)))))
 
 (defn find-path [cave start goal]
   (letfn [(path [node paths] (take-while identity (iterate paths node)))]
     (->> {:cave cave
-          :open #{start}
+          :goal goal
+          :open (priority-map start (manhattan start goal))
           :closed #{}
           :paths {}
-          :gscore {start 0}
-          :fscore {start Double/POSITIVE_INFINITY}}
-      (iterate a*)
-      (drop-while (comp seq :open))
-      first
-      :paths
-      (path goal)
-      reverse)))
+          :score {start 0}}
+         (iterate a*)
+         (drop-while (comp seq :open))
+         first
+         :paths
+         (path goal)
+         reverse)))
 
 (defn annotate-path [cave path]
-  (reduce (fn [v [y x]]
-            (let [pre (subs (v y) 0 x), post (subs (v y) (inc x))]
-              (assoc v y (apply str pre \o post))))
-          cave path))
+  (let [dot \u00b7]
+    (reduce
+      (fn [v [y x]]
+        (let [pre (subs (v y) 0 x), post (subs (v y) (inc x))]
+          (assoc v y (apply str pre dot post))))
+      cave path)))
 
 ;; -----------------------------------------------------------------------------
 
-;; meadow finding
+;; meadow finding tests
 #_
 (doseq [x (meadows mc/meadow-32x32x4)]
   (println x))
 
-;; path finding
+;; path finding tests
+(def expensive-cave
+  ["#######"
+   "###^###"
+   "##^^^^#"
+   "^##^###"
+   "##^##^#"
+   "####^##"])
+
+#_
+(let [cave expensive-cave]
+  (doseq [x (annotate-path cave (find-path cave [0 0] [4 4]))]
+    (println x)))
+
 #_
 (let [cave mc/meadow-32x32x4]
   (doseq [x (annotate-path cave (find-path cave [0 0] [31 31]))]
