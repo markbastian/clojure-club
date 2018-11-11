@@ -1,8 +1,10 @@
 (ns clojure-club.meadow-finder.mgrimm
   (:require
+    [clojure.pprint :as pp]
     [clojure.set :as set]
-    [clojure.string :as string]
     [clojure-club.meadow-finder.core :as mc]))
+
+;; Meadow finding --------------------------------------------------------------
 
 (defn neighbors [[y x]]
   (let [ys ((juxt dec identity inc identity) y)
@@ -37,8 +39,55 @@
          ffirst
          (map sort))))
 
+;; Path finding ----------------------------------------------------------------
+
+(defn a* [state]
+  (when-let [node (apply min-key (:fscore state) (:open state))]
+    (reduce
+      (fn [{:keys [open paths gscore fscore] :as m} neighbor]
+        (let [score (inc (gscore node))]
+          (cond-> m
+            (< score (or (gscore neighbor) Double/POSITIVE_INFINITY))
+            (-> (update :open conj neighbor)
+                (update :paths assoc neighbor node)
+                (update :gscore assoc neighbor score)
+                (update :fscore assoc neighbor (inc score))))))
+      (-> state (update :open disj node) (update :closed conj node))
+      (for [x (neighbors node)
+            :when (= \# (get-in (:cave state) x))
+            :when (not ((:closed state) x))]
+        x))))
+
+(defn find-path [cave start goal]
+  (letfn [(path [node paths] (take-while identity (iterate paths node)))]
+    (->> {:cave cave
+          :open #{start}
+          :closed #{}
+          :paths {}
+          :gscore {start 0}
+          :fscore {start Double/POSITIVE_INFINITY}}
+      (iterate a*)
+      (drop-while (comp seq :open))
+      first
+      :paths
+      (path goal)
+      reverse)))
+
+(defn annotate-path [cave path]
+  (reduce (fn [v [y x]]
+            (let [pre (subs (v y) 0 x), post (subs (v y) (inc x))]
+              (assoc v y (apply str pre \o post))))
+          cave path))
+
 ;; -----------------------------------------------------------------------------
 
-(comment
-  (= [[[0 0]] [[1 1]]] (meadows mc/meadow-2x2-grid))
-  (meadows mc/meadow-32x32x4))
+;; meadow finding
+#_
+(doseq [x (meadows mc/meadow-32x32x4)]
+  (println x))
+
+;; path finding
+#_
+(let [cave mc/meadow-32x32x4]
+  (doseq [x (annotate-path cave (find-path cave [0 0] [31 31]))]
+    (println x)))
