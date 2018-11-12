@@ -42,10 +42,10 @@
 
 ;; Path finding ----------------------------------------------------------------
 
-(def infinity #?(:clj Double/POSITIVE_INFINITY, :cljs +Infinity))
+(def inf #?(:clj Double/POSITIVE_INFINITY, :cljs +Infinity))
 (def cost
-  {nil    infinity
-   \space infinity
+  {nil    inf
+   \space inf
    \^     10
    \#     1})
 
@@ -58,15 +58,15 @@
       (fn [{:keys [goal score] :as m} neighbor]
         (let [new-score (+ (score node) (cost (get-in cave node)))]
           (cond-> m
-            (< new-score (or (score neighbor) infinity))
+            (< new-score (or (score neighbor) inf))
             (-> (update :open assoc neighbor (+ new-score (manhattan neighbor goal)))
                 (update :paths assoc neighbor node)
                 (update :score assoc neighbor new-score)))))
       (-> state (update :open dissoc node) (update :closed conj node))
-      (filter (comp not closed) (neighbors node)))))
+      (filter (complement closed) (neighbors node)))))
 
 (defn find-path [cave start goal]
-  (letfn [(path [node paths] (take-while identity (iterate paths node)))]
+  (letfn [(path [node paths] (reverse (take-while identity (iterate paths node))))]
     (->> {:cave cave
           :goal goal
           :open (priority-map start (manhattan start goal))
@@ -77,8 +77,7 @@
          (drop-while (comp seq :open))
          first
          :paths
-         (path goal)
-         reverse)))
+         (path goal))))
 
 (defn annotate-path [cave path]
   (let [dot \u00b7]
@@ -104,9 +103,14 @@
    "##^##^#"
    "####^##"])
 
+(def expensive-cave2
+  ["##############################"
+   "#^^^^^^^^^^^^^^^^^^#^^^^^^^^^#"
+   "##############################"])
+
 #_
 (let [cave expensive-cave]
-  (doseq [x (annotate-path cave (find-path cave [0 0] [4 4]))]
+  (doseq [x (annotate-path cave (find-path cave [0 15] [2 15]))]
     (println x)))
 
 #_
