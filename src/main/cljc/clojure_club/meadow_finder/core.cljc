@@ -40,3 +40,22 @@
    "###########    #################"
    "###########    #################"
    "############  ##################"])
+
+(def infinity #?(:clj Double/POSITIVE_INFINITY, :cljs +Infinity))
+
+(def cost
+  {nil    infinity
+   \space infinity
+   \^     10
+   \#     1})
+
+(def expensive-cave
+  ["#######"
+   "###^###"
+   "##^^^^#"
+   "^##^###"
+   "##^##^#"
+   "####^##"])
+
+(def meadow-32x32x4-with-mountains
+  (assoc meadow-32x32x4 15 "########^^^^^^^^^^^^^^^^^^######"))
