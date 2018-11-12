@@ -5,12 +5,12 @@
     [clojure.set :as set]
     [clojure-club.meadow-finder.core :as mc]))
 
-;; Meadow finding --------------------------------------------------------------
-
 (defn neighbors [[y x]]
   (let [ys ((juxt dec identity inc identity) y)
         xs ((juxt identity inc identity dec) x)]
     (set (map vector ys xs))))
+
+;; Meadow finding --------------------------------------------------------------
 
 (defn step-meadow [cave [meadow seen [coord & coords]]]
   (if coord
@@ -26,15 +26,14 @@
        ffirst))
 
 (defn step-cave [cave [meadows [coord & coords]]]
-  (let [cell (get-in cave coord)]
-    (cond
-      (some (partial set/subset? #{coord}) meadows) [meadows coords]
-      (= cell \space) (let [m (meadow-from cave coord)] [(conj meadows m) coords])
-      :else [meadows coords])))
+  (if (some (partial set/subset? #{coord}) meadows)
+    [meadows coords]
+    (let [m (meadow-from cave coord)]
+      [(conj meadows m) coords])))
 
 (defn meadows [cave]
   (let [h (count cave), w (count (first cave))]
-    (->> [[] (for [y (range h), x (range w)] [y x])]
+    (->> [[] (for [y (range h), x (range w) :when (= \space (get-in cave [y x]))] [y x])]
          (iterate (partial step-cave cave))
          (drop-while last)
          ffirst
