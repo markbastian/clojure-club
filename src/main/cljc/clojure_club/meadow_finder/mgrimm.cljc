@@ -5,6 +5,15 @@
     [clojure.set :as set]
     [clojure-club.meadow-finder.core :as mc]))
 
+(def inf #?(:clj Double/POSITIVE_INFINITY, :cljs +Infinity))
+
+(defn manhattan [[y1 x1] [y2 x2]]
+  (+ (Math/abs (- y1 y2)) (Math/abs (- x1 x2))))
+
+(defn euclid [[y1 x1] [y2 x2]]
+  (Math/sqrt (+ (Math/pow (Math/abs (- x1 x2)) 2)
+                (Math/pow (Math/abs (- y1 y2)) 2))))
+
 (defn neighbors [[y x]]
   (let [ys ((juxt dec identity inc identity) y)
         xs ((juxt identity inc identity dec) x)]
@@ -31,7 +40,7 @@
     (let [m (meadow-from cave coord)]
       [(conj meadows m) coords])))
 
-(defn meadows [cave]
+(defn find-meadows [cave]
   (let [h (count cave), w (count (first cave))]
     (->> [[] (for [y (range h), x (range w) :when (= \space (get-in cave [y x]))] [y x])]
          (iterate (partial step-cave cave))
@@ -41,57 +50,56 @@
 
 ;; Path finding ----------------------------------------------------------------
 
-(def inf #?(:clj Double/POSITIVE_INFINITY, :cljs +Infinity))
-(def cost
-  {nil    inf
-   \space inf
-   \^     10
-   \#     1})
-
-(defn manhattan [[y1 x1] [y2 x2]]
-  (+ (Math/abs (- y1 y2)) (Math/abs (- x1 x2))))
-
-(defn a* [{:keys [cave open closed] :as state}]
+(defn a* [cost-fn dist-fn {:keys [cave open closed] :as state}]
   (when-let [node (ffirst open)]
     (reduce
       (fn [{:keys [goal score] :as m} neighbor]
-        (let [new-score (+ (score node) (cost (get-in cave node)))]
+        (let [new-score (+ (score node) (or (cost-fn (get-in cave node)) inf))]
           (cond-> m
             (< new-score (or (score neighbor) inf))
-            (-> (update :open assoc neighbor (+ new-score (manhattan neighbor goal)))
+            (-> (update :open assoc neighbor (+ new-score (dist-fn neighbor goal)))
                 (update :paths assoc neighbor node)
                 (update :score assoc neighbor new-score)))))
       (-> state (update :open dissoc node) (update :closed conj node))
       (filter (complement closed) (neighbors node)))))
 
-(defn find-path [cave start goal]
-  (letfn [(path [node paths] (reverse (take-while identity (iterate paths node))))]
-    (->> {:cave cave
-          :goal goal
-          :open (priority-map start (manhattan start goal))
-          :closed #{}
-          :paths {}
-          :score {start 0}}
-         (iterate a*)
-         (drop-while (comp seq :open))
-         first
-         :paths
-         (path goal))))
+(defn find-path [cave start goal & [opts]]
+  (let [{:keys [cost-fn dist-fn] :or {cost-fn (constantly 1), dist-fn manhattan}} opts]
+    (letfn [(path [node paths] (reverse (take-while identity (iterate paths node))))]
+      (->> {:cave cave
+            :goal goal
+            :open (priority-map start (dist-fn start goal))
+            :closed #{}
+            :paths {}
+            :score {start 0}}
+        (iterate (partial a* cost-fn dist-fn))
+        (drop-while (comp seq :open))
+        first
+        :paths
+        (path goal)))))
 
-(defn annotate-path [cave path]
-  (let [dot \u00b7]
+(defn annotate-path [cave path & [opts]]
+  (let [{:keys [mark] :or {mark \u00b7}} opts]
     (reduce
       (fn [v [y x]]
         (let [pre (subs (v y) 0 x), post (subs (v y) (inc x))]
-          (assoc v y (apply str pre dot post))))
+          (assoc v y (apply str pre mark post))))
       cave path)))
+
+;; Meadow connecting -----------------------------------------------------------
+
+(defn find-routes [cave meadows]
+  (for [[m1 m2] (partition 2 1 meadows)
+        :let [c1 (rand-nth m1), c2 (rand-nth m2)]]
+    (find-path cave c1 c2 {:cost-fn {\space 1, \# 1}, :dist-fn euclid})))
 
 ;; -----------------------------------------------------------------------------
 
 ;; meadow finding tests
 #_
-(doseq [x (meadows mc/meadow-32x32x4)]
+(doseq [x (find-meadows mc/meadow-32x32x4)]
   (println x))
+
 
 ;; path finding tests
 (def expensive-cave
@@ -108,11 +116,19 @@
    "##############################"])
 
 #_
-(let [cave expensive-cave]
-  (doseq [x (annotate-path cave (find-path cave [0 15] [2 15]))]
+(let [cave expensive-cave2]
+  (doseq [x (annotate-path cave (find-path cave [0 15] [2 15] {:cost-fn {\# 1, \^ 10}}))]
     (println x)))
 
 #_
 (let [cave mc/meadow-32x32x4]
-  (doseq [x (annotate-path cave (find-path cave [0 0] [31 31]))]
+  (doseq [x (annotate-path cave (find-path cave [0 0] [31 31] {:cost-fn {\# 1, \^ 10}}))]
+    (println x)))
+
+
+;; meadow connecting tests
+#_
+(let [cave mc/meadow-32x32x4
+      routes (find-routes cave (find-meadows cave))]
+  (doseq [x (annotate-path cave (apply concat routes) {:mark \space})]
     (println x)))
