@@ -10,6 +10,29 @@ For everything (including the above), just show up and learn and have fun.
 
 ## Problems/Topics
 
+#### November 16th<sup>th</sup>: Programming Challenges - Again!
+We weren't able to get to the meadows problem, so we're gonna do it big time this time.
+
+The Challenge:
+You will be provided a vector of fixed-length strings representing a map. 
+See examples [here](https://github.com/markbastian/clojure-club/blob/master/src/main/cljc/clojure_club/meadow_finder/core.cljc).
+A # represents one type of space (e.g. a non-meadow or wall) and a space represents another (e.g. a meadow or a cave).
+
+Tasks (Do as many of these as you wish):
+  * Write a function that takes the map and returns all "meadows" as groups. The result will be a collection of 
+  collections, where there will 1 subcollection for each meadow and each subcollection will be the coordinates of the 
+  cells in the meadow.
+  * Implement a pathfinding algorithm that can be used to navigate from one cell in the map to another while avoiding meadows.
+  You could implement something like depth first search, breadth first search, Dijkstra's algorithm, or A*. Whatever you want.
+  * Assume you want to connect the meadows/caves. Implement a function to create paths between each such that all meadow
+  spaces are traversable from any starting location.
+
+When writing your pathfinding algorithm, consider how it could be made general for any implicit or explicit graph representation.
+For example, what if you had more complex terrain (with different costs for traversal), a moving "enemy" that you have to
+avoid as you traverse, or a non-grid representation.
+
+If you have other ideas to add, feel free to do so.
+
 #### November 2<sup>nd</sup>: Programming Challenges!
 Solve one of these fun problems and submit a PR:
   * Implement Travis’s spiral sequence problem. See [clojure-club.spiral_challenge.theppner](https://github.com/markbastian/clojure-club/blob/master/src/main/cljc/clojure_club/spiral_challenge/theppner.cljc) for details.

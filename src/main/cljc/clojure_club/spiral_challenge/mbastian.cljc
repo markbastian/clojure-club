@@ -18,10 +18,13 @@
             (or (< cx min-x) (< cy min-y) (> cx max-x) (> cy max-y))
             (-> punch-out (update :dir dir-map)))))
 
+;;The actual sequence of spirals, decomplected from spiral contents
 (def spiral-seq
   (iterate spiral-step {:loc [[0 0]] :min-x 0 :max-x 0 :min-y 0 :max-y 0 :dir [1 0]}))
 
-(defn construct-grid [{:keys [min-x max-x min-y max-y]}]
+(defn construct-grid
+  "Convert grid boundaries to an empty grid"
+  [{:keys [min-x max-x min-y max-y]}]
   (let [r (vec (repeat (inc (- max-x min-x)) nil))]
     (vec (repeat (inc (- max-y min-y)) r))))
 
@@ -43,6 +46,18 @@
         locs (mapv #(mapv - % [min-x min-y]) loc)
         grid (construct-grid s)]
     (reduce (fn [g loc] (assoc-in g (rseq loc) (f g loc))) grid locs)))
+
+(defn seq-spiral [sequ n]
+  (let [fibs (take n sequ)
+        {:keys [min-x min-y loc] :as grid-data} (nth spiral-seq n)]
+    (reduce
+      (fn [g [coord v]] (assoc-in g (mapv - coord [min-x min-y]) v))
+      (construct-grid grid-data) (map vector loc fibs))))
+
+(comment
+  (seq-spiral fib-seq 20)
+  (seq-spiral (char-sqrs) 20)
+  (generate-spiral grid-sum 100))
 
 (defn print! [grid]
   (doseq [row (rseq grid)]
