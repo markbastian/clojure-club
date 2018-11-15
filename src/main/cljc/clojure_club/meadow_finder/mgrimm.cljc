@@ -89,9 +89,10 @@
 ;; Meadow connecting -----------------------------------------------------------
 
 (defn find-routes [cave meadows]
-  (for [[m1 m2] (partition 2 1 meadows)
-        :let [c1 (rand-nth m1), c2 (rand-nth m2)]]
-    (find-path cave c1 c2 {:cost-fn {\space 1, \# 1}, :dist-fn euclid})))
+  (letfn [(rand-cost [c] (when (#{\space \#} c) (rand-int 1000)))]
+    (for [[m1 m2] (partition 2 1 (shuffle meadows))
+          :let [c1 (rand-nth m1), c2 (rand-nth m2)]]
+      (find-path cave c1 c2 {:cost-fn rand-cost, :dist-fn euclid}))))
 
 ;; -----------------------------------------------------------------------------
 
