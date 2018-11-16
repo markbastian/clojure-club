@@ -60,12 +60,12 @@
    (set (find-meadows mc/meadow-32x32x4)))
 
 ;Implement A* - Note that I mostly lifted relevant parts from https://github.com/markbastian/planning
-(def infinity #?(:clj Double/POSITIVE_INFINITY, :cljs Number/POSITIVE_INFINITY))
+(def infinity ##Inf)
 
 (defn compute-costs [current-state neighbors-fn current-costs cost-fn]
   (for [neighbor (neighbors-fn current-state)
         :let [new-cost (+ (current-costs current-state) (cost-fn current-state neighbor))]
-        :when (< new-cost (current-costs neighbor infinity))]
+        :when (< new-cost (current-costs neighbor ##Inf))]
     [neighbor new-cost]))
 
 (defn A*-step [neighbors cost-fn heuristic {:keys [goal frontier cost] :as m}]
@@ -145,8 +145,8 @@
 (solve-and-print
   {:start    [0 0]
    :goal     [31 31]
-   :cost-map {nil    infinity
-              \space infinity
+   :cost-map {nil    ##Inf
+              \space ##Inf
               \^     10
               \#     1}
    :grid     ["#########################^^#####"
