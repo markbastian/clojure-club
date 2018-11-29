@@ -10,7 +10,12 @@ For everything (including the above), just show up and learn and have fun.
 
 ## Problems/Topics
 
-#### November 16th<sup>th</sup>: Programming Challenges - Again!
+#### November 30th<sup>th</sup>, 2018: Property-based Testing
+This week Matt will talk about how to start writing fewer, more awesome tests in Clojure using property-based testing. Property-based testing is a technique for random testing of software, or as Clojure's test.check puts it:
+
+"The core idea of test.check is that instead of enumerating expected input and output for unit tests, you write properties about your function that should hold true for all inputs."
+
+#### November 16th<sup>th</sup>, 2018: Programming Challenges - Again!
 We weren't able to get to the meadows problem, so we're gonna do it big time this time.
 
 The Challenge:
@@ -33,7 +38,7 @@ avoid as you traverse, or a non-grid representation.
 
 If you have other ideas to add, feel free to do so.
 
-#### November 2<sup>nd</sup>: Programming Challenges!
+#### November 2<sup>nd</sup>, 2018: Programming Challenges!
 Solve one of these fun problems and submit a PR:
   * Implement Travis’s spiral sequence problem. See [clojure-club.spiral_challenge.theppner](https://github.com/markbastian/clojure-club/blob/master/src/main/cljc/clojure_club/spiral_challenge/theppner.cljc) for details.
   * Implement Run Length Encoding (https://en.wikipedia.org/wiki/Run-length_encoding)
@@ -42,28 +47,28 @@ Solve one of these fun problems and submit a PR:
   The result will be a sequence of sequences. Each inner sequence will contain the coordinates of the meadow cells. 
   Examples can be found [here](https://github.com/markbastian/clojure-club/blob/master/src/main/cljc/clojure_club/meadow_finder/core.cljc).
 
-#### October 19<sup>th</sup>: DEVCON
+#### October 19<sup>th</sup>, 2018: DEVCON
 
-#### October 5<sup>th</sup>: Test Automation in Clojure
+#### October 5<sup>th</sup>, 2018: Test Automation in Clojure
 Wes will give us a preview of his talk for DEVCON.
 
-#### September 21<sup>st</sup>: REPL Servers
+#### September 21<sup>st</sup>, 2018: REPL Servers
 This week I’ll be demonstrating how to configure your project to run an embedded REPL server. 
 
-#### September 7<sup>th</sup>: Synthesis and Deconstruction
+#### September 7<sup>th</sup>, 2018: Synthesis and Deconstruction
 This time I’ll talk about synthesis and deconstruction of code at the REPL:
   * Synthesis: How do I build new capability in Clojure
   * Deconstruction: How do I understand and debug existing Clojure code
 
-#### August 24<sup>th</sup>: Back to Basics
+#### August 24<sup>th</sup>, 2018: Back to Basics
 Clojure workflow.
 
-#### August 10<sup>th</sup>: Reagent Tips
+#### August 10<sup>th</sup>, 2018: Reagent Tips
 Jonathan Romrell discussed best practices with Reagent, a Clojurescript wrapper around React. Jonathan has spent 
 significant time working with Reagent and other front-end technologies and is our local expert on how to use these 
 libraries effectively and correctly.
 
-#### July 13<sup>th</sup>: Tile Laying
+#### July 13<sup>th</sup>, 2018: Tile Laying
 Many board games such as Carcassonne, Al Hambra, and Lanterns consist of an evolving grid of square tiles that must be 
 drawn and placed. Often, placement must be done in such a way that the image or pattern on the drawn tile and the images 
 on the grid must match.
@@ -95,19 +100,19 @@ As this is a generic functionality and we may have future meetings in which we r
 please put your solution in a cljc file. For reference, I've put my stubbed out solution ns at (ns clojure-club.tile-laying.mbastian).
 If you create a separate project for this, please add a link here and submit a PR.
 
-#### June 29<sup>th</sup>: Advanced Datascript/Datomic
+#### June 29<sup>th</sup>, 2018: Advanced Datascript/Datomic
 
 Mark Bastian will go over some very interesting datascript examples.
 
-#### June 15<sup>th</sup>: Systems
+#### June 15<sup>th</sup>, 2018: Systems
 
 Mark Bastian will be talking about building systems using [Component](https://github.com/stuartsierra/component) and [Integrant](https://github.com/weavejester/integrant), how to build system-ready code, and give a demo of a cool XMPP chat-bot using Integrant components.
 
-#### May 4<sup>th</sup>: [Spyscope](https://github.com/dgrnbrg/spyscope)
+#### May 4<sup>th</sup>, 2018: [Spyscope](https://github.com/dgrnbrg/spyscope)
 
 John Conti will be discussing Spyscope, a trace-oriented debug tool for Clojure "designed to make it easy to debug single- and multi-threaded applications."
 
-#### April 20<sup>th</sup>: Datascript and Datomic
+#### April 20<sup>th</sup>, 2018: Datascript and Datomic
 
 Mark Bastian will share information about [Datomic](https://www.datomic.com/on-prem.html) and [Datascript](https://github.com/tonsky/datascript). Things he’ll discuss:
  * When you might choose one of these vs. SQL or Mongo
@@ -118,12 +123,12 @@ Mark Bastian will share information about [Datomic](https://www.datomic.com/on-p
  
 Datascript examples can be found [here](https://github.com/markbastian/datascript-playground/blob/master/src/datascript_playground/schemas.clj).
 
-#### April 6<sup>th</sup>: Tooling, Benchmarking, Profiling
+#### April 6<sup>th</sup>, 2018: Tooling, Benchmarking, Profiling
 
 Matt Grimm will introduce some tooling and strategies for benchmarking and profiling Clojure code. We'll look at tufte, clj-async-profiler, and criterium, and when it's appropriate to use each library.
 
 
-#### March 23<sup>rd</sup>: Ring From the Ground Up
+#### March 23<sup>rd</sup>, 2018: Ring From the Ground Up
 
 Mark Bastian will be discuss building web applications using Ring (https://github.com/ring-clojure/ring), an HTTP server abstraction library. 
 He’ll start with an extremely simple “Hello World” server app and work his way up through a variety of different scenarios, demonstrating how to do each of these using Ring and libraries built on top of it. 
@@ -144,23 +149,23 @@ You can then pick and choose from them to make whatever application you want wit
 
 The repository for this project can be found [here](https://github.com/markbastian/ring-playground).
 
-#### February 23<sup>rd</sup>: Using Clojure for Testing in Java Apps
+#### February 23<sup>rd</sup>, 2018: Using Clojure for Testing in Java Apps
 
 Wesley Matson will be talking about some super cool testing work he’s been doing in which he connects a Clojure REPL to a Java project and gets Clojure tests to run against Java code on build. 
 This is all done without introducing Clojure as a non-test dependency. 
 Anecdotally, this has resulted in significantly less code while achieving feature parity.
 
-#### February 9<sup>th</sup>: Middlewares Demonstration
+#### February 9<sup>th</sup>, 2018: Middlewares Demonstration
 
 Jonathan will demonstrate an application of the middleware pattern he used to implement a domain specific language 
 to represent conditional override logic in a format that can be stored as json and later applied to manipulate data.
 
-#### January 26<sup>th</sup>: Example Middlewares
+#### January 26<sup>th</sup>, 2018: Example Middlewares
 
 We’ll be doing some hands-on examples of using middlewares. Mark Bastian has some examples that show how to use
 middlewares to perform implicit data coercion and John Conti has some middleware examples to show as well. 
 
-#### January 12<sup>th</sup>: Intro to the Middleware Pattern
+#### January 12<sup>th</sup>, 2018: Intro to the Middleware Pattern
 
 John Conti will be talking about Middleware, a functional programming idiom. His overview:
 
@@ -170,52 +175,52 @@ However middleware code can be confusing to read.  When this simple pattern is f
 
 This talk will simply seek to introduce the pattern and show its basic function. Follow on talks will walk through specific use cases to show how to make the pattern work for you to solve daily Clojure programming problems.”
 
-#### December 15<sup>th</sup>: Intro to the Middleware Pattern
+#### December 15<sup>th</sup>, 2017: Intro to the Middleware Pattern
 
 Matt Grimm will show us some really cool Quil stuff (I am told particle systems may be involved) and Wes Matson has a bag of coolness to draw from and demo (some combination of cljs, figwheel, matrix/octave stuff, and/or datascript).
 
-#### December 1<sup>st</sup>: [Datascript (Again)](https://github.com/tonsky/datascript)
+#### December 1<sup>st</sup>, 2017: [Datascript (Again)](https://github.com/tonsky/datascript)
 
 This is a follow up to John Conti's initial datascript/datalog talk.
 
 Pull [this repo](https://github.com/markbastian/datascript-playground) to see my demo.
 
-#### November 3<sup>rd</sup>: Emacs, Robots, etc.
+#### November 3<sup>rd</sup>, 2017: Emacs, Robots, etc.
 
 John Conti gave us some Emacs and Rx tips. Mark showed his balance bot, but was unable to get the network connection 
 going to show the REPL on the EV3 Brick.
 
-#### October 27<sup>th</sup>: [Datascript](https://github.com/tonsky/datascript)
+#### October 27<sup>th</sup>, 2017: [Datascript](https://github.com/tonsky/datascript)
 
 John Conti will be introducing Datascript, an in-memory (re)implementation of the Datalog engine in the Datomic database.  
 Datascript turns data manipulations into queries, which are declarative and usually closer to the domain model.  
 The result is better agility, fewer bugs and more fun at the expense of some performance. Given the IO bound nature of 
 server programs though, performance is often no concern.
 
-#### October 13<sup>th</sup>: [Datascript](https://github.com/tonsky/datascript)
+#### October 13<sup>th</sup>, 2017: [Datascript](https://github.com/tonsky/datascript)
 
 John Conti will talk to us about reactive programming and the beicon library. In his words:
 
 “Reactive Extensions (usually called Rx) is a streaming event library and specification for several languages. 
 Netflix is a primary user.  I'm going to introduce Rx using the Clojure beicon library.”
 
-#### October 6<sup>th</sup>: [Codingame](https://www.codingame.com/start)
+#### October 6<sup>th</sup>, 2017: [Codingame](https://www.codingame.com/start)
 
 This week for Clojure Club, Jonathan will discuss https://www.codingame.com/start.
 
-#### September 22<sup>nd</sup>: [Quil](http://quil.info/)
+#### September 22<sup>nd</sup>, 2017: [Quil](http://quil.info/)
 
 Matt Grimm and Mark Bastian will give live demonstrations of the amazing [Quil](http://quil.info/) library. If you want to see reloadable isomorphic code in all its glory along with some cool demos, come on by.
 
-#### September 1<sup>st</sup>: Records, Protocols, and more Component
+#### September 1<sup>st</sup>, 2017: Records, Protocols, and more Component
 
 John Conti will continue with his discussions on the above.
 
-#### August 25<sup>th</sup>: Stuart Sierra's Component Library
+#### August 25<sup>th</sup>, 2017: Stuart Sierra's Component Library
 
 John Conti will give a presentation on [component](https://github.com/stuartsierra/component).
 
-#### August 11<sup>th</sup>: Clojure Applications with State - Part 2
+#### August 11<sup>th</sup>, 2017: Clojure Applications with State - Part 2
 
 Pick a domain model, any domain model, that contains state. Implement a stateful application in your domain. This likely
 will have some sort of UI element. Pick any implementation you want (Swing, web, text, etc.).
@@ -228,11 +233,11 @@ Things to research if you haven't already:
 * atoms, agents, refs
 * watches
 
-#### August 4<sup>th</sup>: Understanding the REPL
+#### August 4<sup>th</sup>, 2017: Understanding the REPL
 
 John is going to show us all kinds of ways to use the REPL beyond simply using it as an interactive code editor.
 
-#### July 24<sup>th</sup>: Clojure Applications with State - Part 1
+#### July 24<sup>th</sup>, 2017: Clojure Applications with State - Part 1
 
 Select an application that requires state, especially with user interaction. Model the domain as data. You may write 
 basic functions that do things like set up an initial hand, but the focus should be on the data, not the actions.
@@ -251,7 +256,7 @@ Suggestions:
   * Graphics
   * Financial modeling
 
-#### July 14<sup>th</sup>: Zippers
+#### July 14<sup>th</sup>, 2017: Zippers
 
 Zippers are an intuitive way to navigate and modify an arbitrary data structure in any direction. We'll discuss what makes
 them distinct from other navigation functions (tree-seq, postwalk, etc.) and where they come in handy, and will explore some
@@ -267,7 +272,7 @@ tree reflecting all the changes, when in fact nothing at all is mutated - it’s
 Follow up:
   * Here's a link to Matt's examples: https://github.com/tkocmathla/zipper-snippets
 
-#### June 23<sup>rd</sup>: Interesting Macros
+#### June 23<sup>rd</sup>, 2017: Interesting Macros
 
 We'll be talking about macros. What are they? How do they work? When do you use them instead of functions?
 
@@ -287,7 +292,7 @@ Reading:
 Note: Some folks check in namespaces that contain src.main.cljc or similar in them. Please ensure that they are
 (ns clojure-club.macros.$username).
 
-#### June 16<sup>th</sup>: Destructuring
+#### June 16<sup>th</sup>, 2017: Destructuring
 
 A primary need in a data-oriented language is the ability to easily pull your data structures apart
 and get at all of its pieces. Clojure does this wonderfully with destructuring, but it can be 
@@ -299,13 +304,13 @@ Here are some useful links:
  * [Jay Fields' Guide](http://blog.jayfields.com/2010/07/clojure-destructuring.html)
  * [Yet another guide](http://blog.brunobonacci.com/2014/11/16/clojure-complete-guide-to-destructuring/)
 
-#### June 9<sup>th</sup>: [Core Async](https://github.com/clojure/core.async)
+#### June 9<sup>th</sup>, 2017: [Core Async](https://github.com/clojure/core.async)
                           
 "Facilities for async programming and communication in Clojure"
                          
  * [Code Walkthrough](https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj)
 
-#### June 2<sup>nd</sup>: [Transducers](https://clojure.org/reference/transducers)
+#### June 2<sup>nd</sup>, 2017: [Transducers](https://clojure.org/reference/transducers)
 
 Matt will be discussing transducers, a way to compose algorithmic transforms. A few links:
   * [clojure.org](https://clojure.org/reference/transducers)
@@ -314,7 +319,7 @@ Matt will be discussing transducers, a way to compose algorithmic transforms. A 
 Follow up:
   * Here's a link to Matt's examples: https://github.com/tkocmathla/transducer-adducers
 
-#### May 26<sup>th</sup>: Java Calls Clojure
+#### May 26<sup>th</sup>, 2017: Java Calls Clojure
 
 One of the biggest concerns of decision makers moving to a new JVM language is support for calling artifacts generated
 in that language in Java. Clojure has great support for being called from its host platform. We'll spend some time
@@ -336,7 +341,7 @@ your Java projects:
  * [clojure-makes-java](https://github.com/markbastian/clojure-makes-java)
  * [java-calls-clojure](https://github.com/markbastian/java-calls-clojure)
  
-#### May 19<sup>th</sup>: [Making Data Dance](http://www.4clojure.com/problem/113)
+#### May 19<sup>th</sup>, 2017: [Making Data Dance](http://www.4clojure.com/problem/113)
 
 From 4clojure.com: Write a function that takes a variable number of integer arguments. If the output is coerced into a 
 string, it should return a comma (and space) separated list of the inputs sorted smallest to largest. If the output is 
@@ -353,14 +358,14 @@ In addition to the solving this problem, I'd like to discuss several handy metho
  * doto
  * bean
 
-#### May 12<sup>th</sup>: [Mount](https://github.com/tolitius/mount)
+#### May 12<sup>th</sup>, 2017: [Mount](https://github.com/tolitius/mount)
 
 Mark will be talking about mount, a simple library for managing state in Clojure. For context, any sizeable app will
 need some sort of basic configuration (a database being the classic example) to function. For testing you need the
 ability to setup and teardown different configs on fly. Mount is a great way to do this. It can be used to mock up any
 set of states you might want for dev, test, prod, or whatever.
 
-#### May 5<sup>th</sup>: Procedural Domain Generation and Modeling Using Spec
+#### May 5<sup>th</sup>, 2017: Procedural Domain Generation and Modeling Using Spec
 
 [Spec](https://clojure.org/about/spec) is all the hotness in Clojure nowadays. It allows you to 
 create specifications for your data and do all kinds of things once you've generated a spec. Here's
@@ -379,7 +384,7 @@ Assignment:
  * You can do whatever domain you want, but if you do the above we'll all be on the same page.
  * Put your solution in src/main/cljc/clojure_club/rpg_spec/{username}
 
-#### April 28<sup>th</sup>: GURPS Data Modeling
+#### April 28<sup>th</sup>, 2017: GURPS Data Modeling
 
 Thanks to Wes for providing this exercise. I think it has a variety of interesting aspects, including
 data modeling, XML parsing, tree-walking, etc.
@@ -400,7 +405,7 @@ The nature of each item can wildly differ, but the format stays relatively the s
 Under most of the main folders, you’ll find a “Basic Set.*” file, the format should be mostly similar to the .adq file, but the content will be vastly different.
 For bonus points, make a more general xml->edn utility that works for this style of xml modeling.
 
-#### April 21<sup>st</sup>: [Reducers](https://clojure.org/reference/reducers) or [Transducers](https://clojure.org/reference/transducers)
+#### April 21<sup>st</sup>, 2017: [Reducers](https://clojure.org/reference/reducers) or [Transducers](https://clojure.org/reference/transducers)
 
 Nobody groks any of this stuff. Time to grok. 
 
@@ -413,7 +418,7 @@ Be sure to make your own version so everyone isn't clobbering each other.
 
 Mike is leading the discussion.
  
- #### April 14<sup>th</sup>: [Universal Computation Engine](https://www.4clojure.com/problem/121)
+ #### April 14<sup>th</sup>, 2017: [Universal Computation Engine](https://www.4clojure.com/problem/121)
  
  From [4clojure.com](https://www.4clojure.com/problem/121): "Given a mathematical formula 
  in prefix notation, return a function that calculates the value of the formula. The 
@@ -429,7 +434,7 @@ Mike is leading the discussion.
   * Take a look at symbolic differentiation (This may be extra extra out of scope, just
   throwing it out there.)
   
-#### April 7<sup>th</sup>:
+#### April 7<sup>th</sup>, 2017:
 
 We'll be working on two problems - pick the one you want.
 * Develop a quine in Clojure (https://www.4clojure.com/problem/125) and/or
@@ -439,7 +444,7 @@ We'll be working on two problems - pick the one you want.
   * Note that there are several ways you could solve this including a search or using a 
   [logic programming library](https://github.com/clojure/core.logic)
 
-#### March 24<sup>th</sup>: [Analyze Reversi](https://www.4clojure.com/problem/124)
+#### March 24<sup>th</sup>, 2017: [Analyze Reversi](https://www.4clojure.com/problem/124)
 
 * Implement your solution as a cljc file (src/main/cljc/x124_analyze_reversi/$USERNAME.cljc rather than a .clj.
 * If time allows, we’ll discuss reader conditionals, isomorphic Clojure, and the differences between clj, cljc, and cljs files.
@@ -447,7 +452,7 @@ We'll be working on two problems - pick the one you want.
 
 Please submit your answer via git pull request to https://github.com/markbastian/clojure-club. However, if you email it to me I will continue to facilitate your bad behavior and add it myself.
 
-#### March 17<sup>th</sup>: [Number Maze](http://www.4clojure.com/problem/106)
+#### March 17<sup>th</sup>, 2017: [Number Maze](http://www.4clojure.com/problem/106)
  * Compute the minimum number of steps required to go from integer S<sub>i</sub> 
  to S<sub>f</sub>.
  * Allowed operations are:
