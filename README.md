@@ -10,6 +10,84 @@ For everything (including the above), just show up and learn and have fun.
 
 ## Problems/Topics
 
+#### clj-http
+From Mark: At this meeting we’re going to talk about using the clj-http client library (and perhaps others like cljs-ajax) as a general purpose tool for getting data from any web site or service. Topics include:
+
+•	The basics
+•	Gotchas
+•	Middleware and the client library
+•	Building up your own libraries of useful functions – I’ll show some of mine and hopefully you can all show some of yours as well
+
+#### September 10<sup>th</sup>, 2019: Round Table
+Wes presented on using the REPL as a general-purpose tool.
+
+#### August 29<sup>th</sup>, 2019: Round Table
+This week’s Clojure Club will be a little less formal. We’d like to do a round table and discuss the following topics:
+
+•	How do you use Clojure (e.g. as a general-purpose tool, in a production environment, for tooling, etc.)?
+•	How could we better increase Clojure adoption in the workplace?
+
+#### August 14<sup>th</sup>, 2019: [Simplicity Matters](https://www.youtube.com/watch?v=rI8tNMsozo0&feature=youtu.be)
+This we we watched and discussed the excellent talk ["Simplicity Matters," by Rich Hickey](https://www.youtube.com/watch?v=rI8tNMsozo0&feature=youtu.be) given at Rails Conf 2012.
+
+#### July 30<sup>th</sup>, 2019: [Deploying to the Cloud](https://github.com/markbastian/clj-cloud-playground)
+From Mark:
+This week at Clojure Club I will present multiple ways (with a complete example project) to deploy your applications, including:
+•	Creating a simple uberjar
+•	Setting up your app to run in a Docker container
+•	Deploying your app to AWS EC2
+•	Deploying your app as a .war or .jar using AWS Elastic Beanstalk
+
+I’ll also show how to instrument your app from the get-go so that you have REPL support. This will give you the power to develop locally as you normally would or to develop your application live and interactively in its hosted environment. This demo also has applicability to anyone interested in learning some AWS basics (Containerization, EC2, EBS, etc.).
+
+Example project found [here](https://github.com/markbastian/clj-cloud-playground).
+
+#### July 16<sup>th</sup>, 2019: Servicing Web Requests with Ring, Compojure and Reitit
+From John Conti: Writing web services in Clojure is very different than Java.  Though Clojure allows powerful and concise code, I struggled with how to organize, think about and evolve Clojure web services with clarity and precision.  I will introduce some of the things I've learned in this area and the key abstractions to know.
+
+#### June 25<sup>th</sup>, 2019: System Contruction, Part 1
+John gave his first talk in a short series on system construction with Clojure. He introduced ways to initialize web services and evolve them with ease. Topics discussed included system libraries such as component and integrant as well as how to set up your lein project with a dev-mode profile.
+
+#### April 30<sup>th</sup>, 2019: [shadow-cljs](http://shadow-cljs.org/)
+Doug talked about shadow-cljs (http://shadow-cljs.org/). From the website, “shadow-cljs provides everything you need to compile your ClojureScript code with a focus on simplicity and ease of use.” I’ve had a chance to try it out recently and it’s pretty awesome. If you’ve written any ClojureScript or want to, this may be your new go-to compilation tool.
+
+#### April 16<sup>th</sup>, 2019: Advent of Code 2018 Problem 13
+We showed off several solutions to [Advent of Code 2018 Problem 13](https://adventofcode.com/2018/day/13).
+
+Here are links to different solutions:
+ * [Mark's repo](https://github.com/markbastian/adventofcode/blob/master/src/adventofcode/year2018/day13.clj)
+ * [Jonathan's repo](https://github.com/jmromrell/advent-of-code/blob/master/day13.clj)
+ * [Doug's repo](https://github.com/DougHamil/threeagent-examples/tree/master/karts) and [demo](https://doughamil.github.io/threeagent-examples/karts/)
+ * [Travis's repo]()
+
+#### April 2<sup>nd</sup>, 2019: Cognitect AWS API + REPL Awesomeness
+Mark and Matt presented on the Cognitect AWS API and how it is so well architected. We also demonstrated and discussed similar ideas to use internally.
+
+#### March 19<sup>th</sup>, 2019: Provider Pact tests
+Lora showed us how to write provider-side pact tests in Clojure.
+
+#### March 5<sup>th</sup>, 2019: Pact tests
+Lora showed us how to write both sides of pact tests in Clojure.
+
+#### February 19<sup>th</sup>, 2019: Building composable systems with partsbin
+Mark presented on the partsbin library along with various general principles for how to build loosely coupled systems.
+
+#### February 5<sup>th</sup>, 2019: Threeagent
+Doug Hamilton presented a cool project he is working on called “Threeagent”:
+ 
+Threeagent is a work-in-progress ClojureScript library for building Three.js applications in a reagent-like style.
+ 
+In this training, Doug demonstrated how you can use threeagent to build a simple clone of the VR game “Beat Saber”.
+
+#### January 22<sup>nd</sup>, 2019: Jenkins Pipelines and Leiningen
+Lora discussed the greatly simplified Jenkinsfiles she's worked on for making lein builds even easier.
+
+#### January 8<sup>th</sup>, 2019: Etaoin
+Travis talked about [Etaoin](https://github.com/igrishaev/etaoin), a webdriver library written in Clojure.
+
+#### December 11<sup>th</sup>, 2018: Clojure i8080 Emulator
+Matt talked about emulating the Intel i8080 CPU and Space Invaders hardware in Clojure, starting from a ROM and ending with a functional game (pun intended). He also talked about how integrant and datascript made the experience epic.
+
 #### November 30th<sup>th</sup>, 2018: Property-based Testing
 This week Matt will talk about how to start writing fewer, more awesome tests in Clojure using property-based testing. Property-based testing is a technique for random testing of software, or as Clojure's test.check puts it:
 
