@@ -3,34 +3,35 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.10.339"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
+                 [org.clojure/clojurescript "1.10.520"]
                  [com.taoensso/timbre "4.10.0"]
                  [reagent "0.8.1"]
                  [hickory "0.7.1"]
-                 [com.taoensso/tufte "2.0.1"]
+                 [com.taoensso/tufte "2.1.0"]
                  [org.clojure/core.logic "0.8.11"]
                  [org.clojure/data.xml "0.0.8"]
-                 [com.rpl/specter "1.1.1"]
-                 [mount "0.1.13"]
+                 [com.rpl/specter "1.1.2"]
+                 [mount "0.1.16"]
                  [clojure-lanterna "0.9.7"]
                  ;[uncomplicate/neanderthal "0.9.0"]
                  ;[uncomplicate/clojurecl "0.7.1"]
-                 [com.novemberain/monger "3.1.0"]
+                 [com.novemberain/monger "3.5.0"]
                  [com.github.fakemongo/fongo "2.1.1"]
                  [environ "1.1.0"]
-                 [cheshire "5.8.0"]
+                 [cheshire "5.9.0"]
                  ;; https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-                 [org.slf4j/slf4j-api "1.7.25"]
-                 [org.clojure/tools.trace "0.7.9"]
-                 [org.clojure/core.async "0.4.474"]
+                 [org.slf4j/slf4j-api "1.7.28"]
+                 [org.clojure/tools.trace "0.7.10"]
+                 [org.clojure/core.async "0.4.500"]
                  [clojure-csv/clojure-csv "2.0.2"]
                  [clj-sockets "0.1.0"]
-                 [org.clojure/tools.cli "0.3.7"]
+                 [org.clojure/tools.cli "0.4.2"]
                  ;clj
                  [org.clojure/data.priority-map "0.0.10"]
                  ;cljs
-                 [tailrecursion/cljs-priority-map "1.2.1"]]
+                 [tailrecursion/cljs-priority-map "1.2.1"]
+                 [clj-http "3.10.0"]]
 
   :plugins [[lein-cljsbuild "1.1.5" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.9"]
@@ -48,12 +49,11 @@
 
   :profiles {:uberjar {:aot :all}
              :dev {:plugins [[lein-cljsbuild "1.1.5"]
-                             [org.clojure/clojurescript "1.10.339"]]
-                   :dependencies [[com.cemerick/piggieback "0.2.2"]
-                                  [figwheel-sidecar "0.5.16"]
-                                  [org.clojure/test.check "0.9.0"]]
-                   :repl-options {:nrepl-middleware
-                                  [cemerick.piggieback/wrap-cljs-repl]}}
+                             [org.clojure/clojurescript "1.10.520"]]
+                   :dependencies [[cider/piggieback "0.4.1"]
+                                  [figwheel-sidecar "0.5.19"]
+                                  [org.clojure/test.check "0.10.0"]]
+                   :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}}
              :cljs {:plugins [[lein-cljsbuild "1.1.5"]] }}
 
   :cljsbuild {:builds [{:id "dev"
