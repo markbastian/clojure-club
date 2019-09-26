@@ -13,10 +13,10 @@ For everything (including the above), just show up and learn and have fun.
 #### September 26<sup>th</sup>, 2019: [clj-http](https://github.com/dakrone/clj-http)
 From Mark: At this meeting we’re going to talk about using the [clj-http client library](https://github.com/dakrone/clj-http) (and perhaps others like cljs-ajax) as a general purpose tool for getting data from any web site or service. Topics include:
 
-*	The basics
-*	Gotchas
-*	Middleware and the client library
-*	Building up your own libraries of useful functions – I’ll show some of mine and hopefully you can all show some of yours as well
+* The basics
+* Gotchas
+* Middleware and the client library
+* Building up your own libraries of useful functions – I’ll show some of mine and hopefully you can all show some of yours as well
 
 #### September 10<sup>th</sup>, 2019: Round Table
 Wes presented on using the REPL as a general-purpose tool.
@@ -24,8 +24,8 @@ Wes presented on using the REPL as a general-purpose tool.
 #### August 29<sup>th</sup>, 2019: Round Table
 This week’s Clojure Club will be a little less formal. We’d like to do a round table and discuss the following topics:
 
-*	How do you use Clojure (e.g. as a general-purpose tool, in a production environment, for tooling, etc.)?
-*	How could we better increase Clojure adoption in the workplace?
+* How do you use Clojure (e.g. as a general-purpose tool, in a production environment, for tooling, etc.)?
+* How could we better increase Clojure adoption in the workplace?
 
 #### August 14<sup>th</sup>, 2019: [Simplicity Matters](https://www.youtube.com/watch?v=rI8tNMsozo0&feature=youtu.be)
 This we we watched and discussed the excellent talk ["Simplicity Matters," by Rich Hickey](https://www.youtube.com/watch?v=rI8tNMsozo0&feature=youtu.be) given at Rails Conf 2012.
@@ -33,10 +33,10 @@ This we we watched and discussed the excellent talk ["Simplicity Matters," by Ri
 #### July 30<sup>th</sup>, 2019: [Deploying to the Cloud](https://github.com/markbastian/clj-cloud-playground)
 From Mark:
 This week at Clojure Club I will present multiple ways (with a complete example project) to deploy your applications, including:
-*	Creating a simple uberjar
-*	Setting up your app to run in a Docker container
-*	Deploying your app to AWS EC2
-*	Deploying your app as a .war or .jar using AWS Elastic Beanstalk
+* Creating a simple uberjar
+* Setting up your app to run in a Docker container
+* Deploying your app to AWS EC2
+* Deploying your app as a .war or .jar using AWS Elastic Beanstalk
 
 I’ll also show how to instrument your app from the get-go so that you have REPL support. This will give you the power to develop locally as you normally would or to develop your application live and interactively in its hosted environment. This demo also has applicability to anyone interested in learning some AWS basics (Containerization, EC2, EBS, etc.).
 
