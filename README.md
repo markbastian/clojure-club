@@ -10,8 +10,8 @@ For everything (including the above), just show up and learn and have fun.
 
 ## Problems/Topics
 
-#### clj-http
-From Mark: At this meeting we’re going to talk about using the clj-http client library (and perhaps others like cljs-ajax) as a general purpose tool for getting data from any web site or service. Topics include:
+#### September 26<sup>th</sup>, 2019: [clj-http](https://github.com/dakrone/clj-http)
+From Mark: At this meeting we’re going to talk about using the [clj-http client library](https://github.com/dakrone/clj-http) (and perhaps others like cljs-ajax) as a general purpose tool for getting data from any web site or service. Topics include:
 
 *	The basics
 *	Gotchas
