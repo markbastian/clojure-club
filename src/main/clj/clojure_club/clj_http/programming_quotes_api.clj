@@ -1,4 +1,5 @@
 (ns clojure-club.clj-http.programming-quotes-api
+  "Examples built around https://github.com/skolakoda/programming-quotes-api"
   (:require [clj-http.client :as client]))
 
 (defn all-quotes []
